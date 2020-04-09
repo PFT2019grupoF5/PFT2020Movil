@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <Button
+            android:id="@+id/btnAlmacenamientos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="menuAlmacenamientos"
+            android:text="ALMACENAMIENTOS"
+            android:background="#BA55D3"
+            android:textColor="#ffffff"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            />
+
+        <Button
+            android:id="@+id/btnCiudades"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#F44336"
+            android:onClick="menuCiudades"
+            android:text="CIUDADES"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/btnLocalesEnt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="menuLocalesEnt"
+            android:text="LOCALES"
+            android:background="#32CD32"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="5dp"
+            />
+
+        <Button
+            android:id="@+id/btnFamilias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="#3F51B5"
+            android:onClick="menuFamilias"
+            android:text="FAMILIAS"
+            android:textColor="#ffffff"
+            />
+
+        <Button
+            android:id="@+id/btnMovimientos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="#03A9F4"
+            android:onClick="menuMovimientos"
+            android:text="MOVIMIENTOS"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/btnPedidos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="#FF5722"
+            android:onClick="menuPedidos"
+            android:text="PEDIDOS"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/btnPerfiles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="#126915"
+            android:onClick="menuPerfiles"
+            android:text="PERFILES"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/btnProductos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="#673AB7"
+            android:onClick="menuProductos"
+            android:text="PRODUCTOS"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/btnUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="#009688"
+            android:onClick="menuUsuarios"
+            android:text=" USUARIOS"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

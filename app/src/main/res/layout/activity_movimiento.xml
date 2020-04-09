@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MovimientoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/txtMovimientoId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="ID"
+            android:textSize="10dp" />
+
+        <EditText
+            android:id="@+id/edtMovimientoId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtMovimientoFecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha"
+            android:textSize="10dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <EditText
+            android:id="@+id/edtMovimientoFecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtMovimientoCantidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Cantidad"
+            android:textSize="10dp" />
+
+        <EditText
+            android:id="@+id/edtMovimientoCantidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtMovimientoDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripcion"
+            android:textSize="10dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <EditText
+            android:id="@+id/edtMovimientoDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtMovimientoCosto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Costo"
+            android:textSize="10dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <EditText
+            android:id="@+id/edtMovimientoCosto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtMovimientoProductoId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Producto Id"
+            android:textSize="10dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <EditText
+            android:id="@+id/edtMovimientoProductoId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtMovimientoAlmacenamientoId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Almacenamiento Id"
+            android:textSize="10dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <EditText
+            android:id="@+id/edtMovimientoAlmacenamientoId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="10dp"
+            />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:background="#32CD32"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="5dp"
+            />
+
+        <Button
+            android:id="@+id/btnDel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:background="#FF0000"
+            android:textColor="#ffffff"
+            />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

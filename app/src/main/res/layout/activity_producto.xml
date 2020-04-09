@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    tools:context=".ProductoActivity"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/txtProductoId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="ID"
+            android:textSize="10dp" />
+
+        <EditText
+            android:id="@+id/edtProductoId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtProductoNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:textSize="10dp"
+            android:layout_marginTop="2dp"
+            />
+
+        <EditText
+            android:id="@+id/edtProductoNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtProductoLote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lote"
+            android:textSize="10dp"
+            android:layout_marginTop="2dp"
+            />
+
+        <EditText
+            android:id="@+id/edtProductoLote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtProductoPrecio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Precio"
+            android:textSize="10dp"
+            android:layout_marginTop="2dp"
+            />
+
+        <EditText
+            android:id="@+id/edtProductoPrecio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtProductoFelab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Felab"
+            android:textSize="10dp"
+            android:layout_marginTop="2dp"
+            />
+
+        <EditText
+            android:id="@+id/edtProductoFelab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtProductoFven"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fven"
+            android:textSize="10dp"
+            android:layout_marginTop="2dp"
+            />
+
+        <EditText
+            android:id="@+id/edtProductoFven"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtProductoPeso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Peso"
+            android:textSize="10dp" />
+
+        <EditText
+            android:id="@+id/edtProductoPeso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtProductoVolumen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Volumen"
+            android:textSize="10dp" />
+
+        <EditText
+            android:id="@+id/edtProductoVolumen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtProductoEstiba"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Estiba"
+            android:textSize="10dp" />
+
+        <EditText
+            android:id="@+id/edtProductoEstiba"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtProductoStkMin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="StkMin"
+            android:textSize="10dp" />
+
+        <EditText
+            android:id="@+id/edtProductoStkMin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtProductoStkTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="StkTotal"
+            android:textSize="10dp" />
+
+        <EditText
+            android:id="@+id/edtProductoStkTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtProductoSegmentac"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Segmentac"
+            android:textSize="10dp" />
+
+        <EditText
+            android:id="@+id/edtProductoSegmentac"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtProductoUsuarioId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Usuario Id"
+            android:textSize="10dp"
+            android:layout_marginTop="2dp"
+            />
+
+        <EditText
+            android:id="@+id/edtProductoUsuarioId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtProductoFamiliaId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Familia Id"
+            android:textSize="10dp"
+            android:layout_marginTop="2dp"
+            />
+
+        <EditText
+            android:id="@+id/edtProductoFamiliaId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="10dp"
+            />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:background="#32CD32"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="2dp"
+            />
+
+        <Button
+            android:id="@+id/btnDel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:background="#FF0000"
+            android:textColor="#ffffff"
+            />
+
+        </LinearLayout>
+</ScrollView>
+

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UsuarioActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/txtUsuarioId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ID"
+            android:textSize="10dp"
+            android:layout_marginTop="2dp"
+            />
+
+        <EditText
+            android:id="@+id/edtUsuarioId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            />
+
+        <TextView
+            android:id="@+id/txtUsuarioNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:textSize="10dp"
+            android:layout_marginTop="2dp"
+            />
+
+        <EditText
+            android:id="@+id/edtUsuarioNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/txtUsuarioApellido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Apellido"
+            android:textSize="10dp"
+            android:layout_marginTop="2dp"
+            />
+
+        <EditText
+            android:id="@+id/edtUsuarioApellido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/txtUsuarioNomAcceso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NomAcceso"
+            android:textSize="10dp"
+            android:layout_marginTop="2dp"
+            />
+
+        <EditText
+            android:id="@+id/edtUsuarioNomAcceso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/txtUsuarioContrasena"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contrasena"
+            android:textSize="10dp"
+            android:layout_marginTop="2dp"
+            />
+
+        <EditText
+            android:id="@+id/edtUsuarioContrasena"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/txtUsuarioCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Correo"
+            android:textSize="10dp"
+            android:layout_marginTop="2dp"
+            />
+
+        <EditText
+            android:id="@+id/edtUsuarioCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/txtUsuarioPerfilId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Perfil Id"
+            android:textSize="10dp"
+            android:layout_marginTop="2dp"
+            />
+
+        <EditText
+            android:id="@+id/edtUsuarioPerfilId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            />
+
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:background="#32CD32"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="2dp"
+            />
+
+        <Button
+            android:id="@+id/btnDel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:background="#FF0000"
+            android:textColor="#ffffff"
+            />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/txtUsuarioId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtUsuarioNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtUsuarioApellido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtUsuarioNomAcceso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtUsuarioContrasena"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtUsuarioCorreo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtUsuarioPerfilId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+</LinearLayout>

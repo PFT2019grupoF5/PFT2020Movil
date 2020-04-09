@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/txtProductoId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtProductoNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtProductoLote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtProductoPrecio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtProductoFelab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtProductoFven"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtProductoPeso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtProductoVolumen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtProductoEstiba"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtProductoStkMin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtProductoStkTotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtProductoSegmentac"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtProductoUsuarioId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtProductoFamiliaId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+</LinearLayout>

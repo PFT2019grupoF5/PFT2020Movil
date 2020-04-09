@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/txtMovimientoId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtMovimientoFecha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtMovimientoCantidad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtMovimientoDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtMovimientoCosto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtMovimientoProductoId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtMovimientoAlmacenamientoId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+</LinearLayout>
