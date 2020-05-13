@@ -28,8 +28,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-//import java.sql.Date;
-import java.util.Date;
+// import java.sql.Date;
+// import java.util.Date;
 
 import java.util.Locale;
 
@@ -200,23 +200,41 @@ public class ProductoActivity extends AppCompatActivity {
                 u.setPrecio(Double.parseDouble(edtProductoPrecio.getText().toString()));
 
                 try {
-//                    String dateAsString = dateFelab;
+                    u.setFelab(dateFelab);
+                    Log.i("dateFelab :", dateFelab);
+/*
                     String dateAsString = "2020-01-01";
+                    String dateAsString = dateFelab;
                     DateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd");
                     Date date = sourceFormat.parse(dateAsString);
-                    u.setFelab(date);
-                    Log.i("felab date:", date.toString());
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    Date convertedCurrentDate = sdf.parse(dateAsString);
+                    String date=sdf.format(convertedCurrentDate);
+                    u.setFelab(convertedCurrentDate);
+                    Log.i("convertedCurrentDate", convertedCurrentDate.toString());
+                    Log.i("felab date:", date);
+ */
                 }catch (Exception e){
                     e.printStackTrace();
                 }
 
                 try {
-//                    String dateAsString2 = dateFven;
+                    u.setFven(dateFven);
+                    Log.i("dateFven :", dateFven);
+/*
+                    String dateAsString2 = dateFven;
                     String dateAsString2 = "2020-10-01";
                     DateFormat sourceFormat2 = new SimpleDateFormat("yyyy-MM-dd");
                     Date date2 = sourceFormat2.parse(dateAsString2);
-                    u.setFven(date2);
                     Log.i("fven date2:", date2.toString());
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    Date convertedCurrentDate2 = sdf.parse(dateAsString2);
+                    String date2=sdf.format(convertedCurrentDate2);
+                    u.setFven(convertedCurrentDate2);
+                    Log.i("convertedCurrentDate2:", convertedCurrentDate2.toString());
+                    Log.i("fven date2:", date2);
+*/
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -249,6 +267,8 @@ public class ProductoActivity extends AppCompatActivity {
                     updateProducto(Long.parseLong(productoId), u);
                 } else {
                     //add producto
+                    Log.i("u.getFelab():", u.getFelab());
+                    Log.i("u.getFven():", u.getFven());
                     addProducto(u);
                 }
             }
@@ -267,6 +287,8 @@ public class ProductoActivity extends AppCompatActivity {
     }
 
     public void addProducto(Producto u){
+        Log.i("addProducto u.getFelab():", u.getFelab());
+        Log.i("addProducto u.getFven():", u.getFven());
         Call<Producto> call = productoService.addProducto(u);
         call.enqueue(new Callback<Producto>() {
             @Override

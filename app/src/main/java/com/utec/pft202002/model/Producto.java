@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import com.utec.pft202002.Enum.Segmentacion;
 
 //import java.sql.Date;
-import java.util.Date;
+// import java.util.Date;
 
-//import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
 //import java.util.Locale;
 //import java.util.TimeZone;
 
@@ -32,12 +32,16 @@ public class Producto {
     @SerializedName("felab")
     @Expose
 //    @JsonFormat(pattern = "MMM dd, yyyy HH:mm:ss", timezone = "GMT-03:00")
-    private Date felab;
+//     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT-03:00")
+//    private Date felab;
+    private String felab;
 
     @SerializedName("fven")
     @Expose
 //    @JsonFormat(pattern = "MMM dd, yyyy HH:mm:ss", timezone = "GMT-03:00")
-    private Date fven;
+//    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT-03:00")
+//    private Date fven;
+    private String fven;
 
     @SerializedName("peso")
     @Expose
@@ -75,7 +79,8 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(Long id, String nombre, String lote, double precio, Date felab, Date fven, double peso, double volumen, int estiba, double stkMin, double stkTotal, Segmentacion segmentac, Usuario usuario, Familia familia) {
+//    public Producto(Long id, String nombre, String lote, double precio, Date felab, Date fven, double peso, double volumen, int estiba, double stkMin, double stkTotal, Segmentacion segmentac, Usuario usuario, Familia familia) {
+    public Producto(Long id, String nombre, String lote, double precio, String felab, String fven, double peso, double volumen, int estiba, double stkMin, double stkTotal, Segmentacion segmentac, Usuario usuario, Familia familia) {
         this.id = id;
         this.nombre = nombre;
         this.lote = lote;
@@ -124,19 +129,23 @@ public class Producto {
         this.precio = precio;
     }
 
-    public Date getFelab() {
+//    public Date getFelab() {
+      public String getFelab() {
         return felab;
     }
 
-    public void setFelab(Date felab) {
+//    public void setFelab(Date felab) {
+    public void setFelab(String felab) {
         this.felab = felab;
     }
 
-    public Date getFven() {
+//    public Date getFven() {
+    public String getFven() {
         return fven;
     }
 
-    public void setFven(Date fven) {
+//    public void setFven(Date fven) {
+    public void setFven(String fven) {
         this.fven = fven;
     }
 

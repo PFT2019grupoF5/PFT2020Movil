@@ -31,5 +31,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.google.code.gson:gson:2.6.1'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
-    //implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.3.3'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.3.3'
 }
