@@ -24,14 +24,7 @@ import com.utec.pft202002.remote.UsuarioService;
 import com.utec.pft202002.remote.ProductoService;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-// import java.sql.Date;
-// import java.util.Date;
-
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -165,7 +158,6 @@ public class ProductoActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
-//                dateFelab = dayOfMonth + "/" + month + "/" + year;
                 dateFelab = year + "-" + month + "-" + dayOfMonth;
                 edtProductoFelab.setText(dateFelab);
             }
@@ -174,7 +166,6 @@ public class ProductoActivity extends AppCompatActivity {
         mDateSetListenerFven=new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) { month = month + 1;
-//                dateFven = dayOfMonth + "/" + month + "/" + year;
                 dateFven = year + "-" + month + "-" + dayOfMonth;
                 edtProductoFven.setText(dateFven);
             }
@@ -202,19 +193,6 @@ public class ProductoActivity extends AppCompatActivity {
                 try {
                     u.setFelab(dateFelab);
                     Log.i("dateFelab :", dateFelab);
-/*
-                    String dateAsString = "2020-01-01";
-                    String dateAsString = dateFelab;
-                    DateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    Date date = sourceFormat.parse(dateAsString);
-
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    Date convertedCurrentDate = sdf.parse(dateAsString);
-                    String date=sdf.format(convertedCurrentDate);
-                    u.setFelab(convertedCurrentDate);
-                    Log.i("convertedCurrentDate", convertedCurrentDate.toString());
-                    Log.i("felab date:", date);
- */
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -222,19 +200,6 @@ public class ProductoActivity extends AppCompatActivity {
                 try {
                     u.setFven(dateFven);
                     Log.i("dateFven :", dateFven);
-/*
-                    String dateAsString2 = dateFven;
-                    String dateAsString2 = "2020-10-01";
-                    DateFormat sourceFormat2 = new SimpleDateFormat("yyyy-MM-dd");
-                    Date date2 = sourceFormat2.parse(dateAsString2);
-                    Log.i("fven date2:", date2.toString());
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    Date convertedCurrentDate2 = sdf.parse(dateAsString2);
-                    String date2=sdf.format(convertedCurrentDate2);
-                    u.setFven(convertedCurrentDate2);
-                    Log.i("convertedCurrentDate2:", convertedCurrentDate2.toString());
-                    Log.i("fven date2:", date2);
-*/
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -267,8 +232,6 @@ public class ProductoActivity extends AppCompatActivity {
                     updateProducto(Long.parseLong(productoId), u);
                 } else {
                     //add producto
-                    Log.i("u.getFelab():", u.getFelab());
-                    Log.i("u.getFven():", u.getFven());
                     addProducto(u);
                 }
             }
@@ -287,8 +250,6 @@ public class ProductoActivity extends AppCompatActivity {
     }
 
     public void addProducto(Producto u){
-        Log.i("addProducto u.getFelab():", u.getFelab());
-        Log.i("addProducto u.getFven():", u.getFven());
         Call<Producto> call = productoService.addProducto(u);
         call.enqueue(new Callback<Producto>() {
             @Override
@@ -339,7 +300,6 @@ public class ProductoActivity extends AppCompatActivity {
         });
     }
 
-    //20200131 agregado Adrian
     public void getByIdProducto(Long id){
         Call<Producto> call = productoService.getByIdProducto(id);
         call.enqueue(new Callback<Producto>() {

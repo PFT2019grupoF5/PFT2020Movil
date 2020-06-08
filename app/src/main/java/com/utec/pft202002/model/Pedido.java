@@ -3,9 +3,6 @@ package com.utec.pft202002.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.utec.pft202002.Enum.estadoPedido;
-import com.utec.pft202002.Enum.tipoMovimiento;
-
-import java.util.Date;
 
 public class Pedido {
     @SerializedName("id")
@@ -14,11 +11,11 @@ public class Pedido {
 
     @SerializedName("pedfecestim")
     @Expose
-    private Date pedfecestim;
+    private String pedfecestim;
 
     @SerializedName("fecha")
     @Expose
-    private Date fecha;
+    private String fecha;
 
     @SerializedName("pedreccodigo")
     @Expose
@@ -26,7 +23,7 @@ public class Pedido {
 
     @SerializedName("pedrecfecha")
     @Expose
-    private Date pedrecfecha;
+    private String pedrecfecha;
 
     @SerializedName("pedreccomentario")
     @Expose
@@ -44,7 +41,7 @@ public class Pedido {
     public Pedido() {
     }
 
-public Pedido(Long id, Date pedfecestim, Date fecha, int pedreccodigo, Date pedrecfecha, String pedreccomentario, estadoPedido pedestado, Usuario usuario) {
+public Pedido(Long id, String pedfecestim, String fecha, int pedreccodigo, String pedrecfecha, String pedreccomentario, estadoPedido pedestado, Usuario usuario) {
         this.id = id;
         this.pedfecestim = pedfecestim;
         this.fecha = fecha;
@@ -63,19 +60,19 @@ public Pedido(Long id, Date pedfecestim, Date fecha, int pedreccodigo, Date pedr
         this.id = id;
     }
 
-    public Date getPedfecestim() {
+    public String getPedfecestim() {
         return pedfecestim;
     }
 
-    public void setPedfecestim(Date pedfecestim) {
+    public void setPedfecestim(String pedfecestim) {
         this.pedfecestim = pedfecestim;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -87,11 +84,11 @@ public Pedido(Long id, Date pedfecestim, Date fecha, int pedreccodigo, Date pedr
         this.pedreccodigo = pedreccodigo;
     }
 
-    public Date getPedrecfecha() {
+    public String getPedrecfecha() {
         return pedrecfecha;
     }
 
-    public void setPedrecfecha(Date pedrecfecha) {
+    public void setPedrecfecha(String pedrecfecha) {
         this.pedrecfecha = pedrecfecha;
     }
 

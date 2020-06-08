@@ -1,11 +1,15 @@
 package com.utec.pft202002;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,17 +23,16 @@ import com.utec.pft202002.remote.AlmacenamientoService;
 import com.utec.pft202002.remote.ProductoService;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
-//import java.sql.Date;
-import java.util.Date;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MovimientoActivity extends AppCompatActivity {
+
+    private DatePickerDialog.OnDateSetListener mDateSetListenerFecha;
+    String fecha="";
 
     MovimientoService movimientoService;
     ProductoService productoService;
@@ -84,6 +87,34 @@ public class MovimientoActivity extends AppCompatActivity {
         edtMovimientoProductoId.setText(movimientoProductoId);
         edtMovimientoAlmacenamientoId.setText(movimientoAlmacenamientoId);
 
+        edtMovimientoFecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        MovimientoActivity.this,
+                        android.R.style.Theme_Light,
+                        mDateSetListenerFecha,
+                        year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        mDateSetListenerFecha = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                fecha = year + "-" + month + "-" + dayOfMonth;
+                edtMovimientoFecha.setText(fecha);
+            }
+        };
+
+
         if(movimientoId != null && movimientoId.trim().length() > 0 ){
             edtMovimientoId.setFocusable(false);
         } else {
@@ -98,11 +129,8 @@ public class MovimientoActivity extends AppCompatActivity {
                 Movimiento u = new Movimiento();
 
                 try {
-                    String dateAsString = edtMovimientoFecha.getText().toString();
-                    DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    Date date = sourceFormat.parse(dateAsString);
-                    u.setFecha(date);
-                    System.out.println(date.toString());
+                    u.setFecha(fecha);
+                    Log.i("fecha :", fecha);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -200,7 +228,6 @@ public class MovimientoActivity extends AppCompatActivity {
         });
     }
 
-    //20200131 agregado Adrian
     public void getByIdMovimiento(Long id){
         Call<Movimiento> call = movimientoService.getByIdMovimiento(id);
         call.enqueue(new Callback<Movimiento>() {

@@ -4,9 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.utec.pft202002.Enum.tipoMovimiento;
 
-//import java.sql.Date;
-import java.util.Date;
-
 public class Movimiento {
     @SerializedName("id")
     @Expose
@@ -14,7 +11,7 @@ public class Movimiento {
 
     @SerializedName("fecha")
     @Expose
-    private Date fecha;
+    private String fecha;
 
     @SerializedName("cantidad")
     @Expose
@@ -44,7 +41,7 @@ public class Movimiento {
     public Movimiento() {
     }
 
-    public Movimiento(Long id, Date fecha, int cantidad, String descripcion, double costo, tipoMovimiento tipoMov, Producto producto, Almacenamiento almacenamiento) {
+    public Movimiento(Long id, String fecha, int cantidad, String descripcion, double costo, tipoMovimiento tipoMov, Producto producto, Almacenamiento almacenamiento) {
         this.id = id;
         this.fecha = fecha;
         this.cantidad = cantidad;
@@ -62,11 +59,11 @@ public class Movimiento {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

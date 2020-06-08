@@ -1,11 +1,15 @@
 package com.utec.pft202002;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,15 +24,18 @@ import com.utec.pft202002.remote.PedidoService;
 import com.utec.pft202002.remote.UsuarioService;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PedidoActivity extends AppCompatActivity {
+
+    private DatePickerDialog.OnDateSetListener mDateSetListenerFecEstim;
+    private DatePickerDialog.OnDateSetListener mDateSetListenerFecha;
+    private DatePickerDialog.OnDateSetListener mDateSetListenerRecFecha;
+    String dateFecEstim="", dateFecha="", dateRecFecha="";
 
     PedidoService pedidoService;
     UsuarioService usuarioService;
@@ -82,6 +89,88 @@ public class PedidoActivity extends AppCompatActivity {
         edtPedidoPedRecComentario.setText(pedidoPedRecComentario);
         edtPedidoUsuarioId.setText(pedidoUsuarioId);
 
+        edtPedidoPedFecEstim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        PedidoActivity.this,
+                        android.R.style.Theme_Light,
+                        mDateSetListenerFecEstim,
+                        year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        edtPedidoFecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        PedidoActivity.this,
+                        android.R.style.Theme_Light,
+                        mDateSetListenerFecha,
+                        year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        edtPedidoPedRecFecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        PedidoActivity.this,
+                        android.R.style.Theme_Light,
+                        mDateSetListenerRecFecha,
+                        year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        mDateSetListenerFecEstim = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                dateFecEstim = year + "-" + month + "-" + dayOfMonth;
+                edtPedidoPedFecEstim.setText(dateFecEstim);
+            }
+        };
+
+        mDateSetListenerFecha = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                dateFecha = year + "-" + month + "-" + dayOfMonth;
+                edtPedidoFecha.setText(dateFecha);
+            }
+        };
+
+        mDateSetListenerRecFecha = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                dateRecFecha = year + "-" + month + "-" + dayOfMonth;
+                edtPedidoPedRecFecha.setText(dateRecFecha);
+            }
+        };
+
+
         if(pedidoId != null && pedidoId.trim().length() > 0 ){
             edtPedidoId.setFocusable(false);
         } else {
@@ -99,34 +188,26 @@ public class PedidoActivity extends AppCompatActivity {
                 u.setPedreccomentario(edtPedidoPedRecComentario.getText().toString());
 
                 try {
-                    String dateAsString = edtPedidoPedFecEstim.getText().toString();
-                    DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    Date date = sourceFormat.parse(dateAsString);
-                    u.setPedfecestim(date);
-                    Log.i("pedfecestim:", date.toString());
+                    u.setPedfecestim(dateFecEstim);
+                    Log.i("pedfecestim:", dateFecEstim);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
 
                 try {
-                    String dateAsString2 = edtPedidoFecha.getText().toString();
-                    DateFormat sourceFormat2 = new SimpleDateFormat("dd/MM/yyyy");
-                    Date date2 = sourceFormat2.parse(dateAsString2);
-                    u.setFecha(date2);
-                    Log.i("fecha:", date2.toString());
+                    u.setFecha(dateFecha);
+                    Log.i("fecha:", dateFecha);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
 
                 try {
-                    String dateAsString3 = edtPedidoPedRecFecha.getText().toString();
-                    DateFormat sourceFormat3 = new SimpleDateFormat("dd/MM/yyyy");
-                    Date date3 = sourceFormat3.parse(dateAsString3);
-                    u.setPedfecestim(date3);
-                    Log.i("pedrecfecha:", date3.toString());
+                    u.setPedfecestim(dateRecFecha);
+                    Log.i("pedrecfecha:", dateRecFecha);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+
                 u.setPedreccodigo(Integer.parseInt(edtPedidoPedRecCodigo.getText().toString()));
 
                 Long usuarioId = Long.parseLong(edtPedidoUsuarioId.getText().toString());
@@ -210,7 +291,6 @@ public class PedidoActivity extends AppCompatActivity {
         });
     }
 
-    //20200131 agregado Adrian
     public void getByIdPedido(Long id){
         Call<Pedido> call = pedidoService.getByIdPedido(id);
         call.enqueue(new Callback<Pedido>() {

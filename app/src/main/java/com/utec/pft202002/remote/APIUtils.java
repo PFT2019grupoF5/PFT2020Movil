@@ -15,7 +15,7 @@ public class APIUtils {
     }
 
     // public static final String API_URL = "http://192.168.122.1:8180/PFT_JSFyREST/rest/";
-    public static final String API_URL = "http://192.168.0.132:8080/PFT_JSFyREST/rest/";
+    public static final String API_URL = "http://192.168.56.1:8080/PFT2020JSFyREST/rest/";
 
     public static AlmacenamientoService getAlmacenamientoService(){
         return RetrofitClient.getClient(API_URL).create(AlmacenamientoService.class);
