@@ -29,6 +29,22 @@
             />
 
         <TextView
+            android:id="@+id/txtPedidoPedEstado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PedEstado"
+            android:textSize="10dp"
+            android:layout_marginTop="2dp"
+            />
+
+        <EditText
+            android:id="@+id/edtPedidoPedEstado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            />
+
+        <TextView
             android:id="@+id/txtPedidoPedFecEstim"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

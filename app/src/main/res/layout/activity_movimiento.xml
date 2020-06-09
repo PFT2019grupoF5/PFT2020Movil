@@ -95,6 +95,22 @@
             />
 
         <TextView
+            android:id="@+id/txtMovimientoTipoMov"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tipo Mov"
+            android:textSize="10dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <EditText
+            android:id="@+id/edtMovimientoTipoMov"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            />
+
+        <TextView
             android:id="@+id/txtMovimientoProductoId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

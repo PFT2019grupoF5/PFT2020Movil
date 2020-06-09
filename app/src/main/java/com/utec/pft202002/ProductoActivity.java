@@ -157,6 +157,7 @@ public class ProductoActivity extends AppCompatActivity {
         mDateSetListenerFelab = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // +1 because January is zero
                 month = month + 1;
                 dateFelab = year + "-" + month + "-" + dayOfMonth;
                 edtProductoFelab.setText(dateFelab);
@@ -165,7 +166,9 @@ public class ProductoActivity extends AppCompatActivity {
 
         mDateSetListenerFven=new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) { month = month + 1;
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // +1 because January is zero
+                month = month + 1;
                 dateFven = year + "-" + month + "-" + dayOfMonth;
                 edtProductoFven.setText(dateFven);
             }

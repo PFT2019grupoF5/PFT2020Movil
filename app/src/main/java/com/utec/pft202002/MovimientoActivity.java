@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.utec.pft202002.Enum.tipoMovimiento;
 import com.utec.pft202002.model.Movimiento;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.MovimientoService;
@@ -43,6 +44,7 @@ public class MovimientoActivity extends AppCompatActivity {
     EditText edtMovimientoCantidad;
     EditText edtMovimientoDescripcion;
     EditText edtMovimientoCosto;
+    EditText edtMovimientoTipoMov;
     EditText edtMovimientoProductoId;
     EditText edtMovimientoAlmacenamientoId;
     Button btnSave;
@@ -63,6 +65,7 @@ public class MovimientoActivity extends AppCompatActivity {
         edtMovimientoCantidad = (EditText) findViewById(R.id.edtMovimientoCantidad);
         edtMovimientoDescripcion = (EditText) findViewById(R.id.edtMovimientoDescripcion);
         edtMovimientoCosto = (EditText) findViewById(R.id.edtMovimientoCosto);
+        edtMovimientoTipoMov = (EditText) findViewById(R.id.edtMovimientoTipoMov);
         edtMovimientoProductoId = (EditText) findViewById(R.id.edtMovimientoProductoId);
         edtMovimientoAlmacenamientoId = (EditText) findViewById(R.id.edtMovimientoAlmacenamientoId);
         btnSave = (Button) findViewById(R.id.btnSave);
@@ -76,6 +79,7 @@ public class MovimientoActivity extends AppCompatActivity {
         String movimientoCantidad = extras.getString("movimiento_cantidad");
         String movimientoDescripcion = extras.getString("movimiento_descripcion");
         String movimientoCosto = extras.getString("movimiento_costo");
+        String movimientoTipoMov = extras.getString("movimiento_tipomov");
         String movimientoProductoId = extras.getString("movimiento_productoid");
         String movimientoAlmacenamientoId = extras.getString("movimiento_almacenamientoid");
 
@@ -84,6 +88,7 @@ public class MovimientoActivity extends AppCompatActivity {
         edtMovimientoCantidad.setText(movimientoCantidad);
         edtMovimientoDescripcion.setText(movimientoDescripcion);
         edtMovimientoCosto.setText(movimientoCosto);
+        edtMovimientoTipoMov.setText(movimientoTipoMov);
         edtMovimientoProductoId.setText(movimientoProductoId);
         edtMovimientoAlmacenamientoId.setText(movimientoAlmacenamientoId);
 
@@ -108,6 +113,7 @@ public class MovimientoActivity extends AppCompatActivity {
         mDateSetListenerFecha = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // +1 because January is zero
                 month = month + 1;
                 fecha = year + "-" + month + "-" + dayOfMonth;
                 edtMovimientoFecha.setText(fecha);
@@ -138,6 +144,7 @@ public class MovimientoActivity extends AppCompatActivity {
                 u.setCantidad(Integer.parseInt(edtMovimientoCantidad.getText().toString()));
                 u.setDescripcion(edtMovimientoDescripcion.getText().toString());
                 u.setCosto(Double.parseDouble(edtMovimientoCosto.getText().toString()));
+                u.setTipoMov(tipoMovimiento.valueOf(edtMovimientoTipoMov.getText().toString()));
 
                 Long productoId = Long.parseLong(edtMovimientoProductoId.getText().toString());
                 productoService = APIUtils.getProductoService();

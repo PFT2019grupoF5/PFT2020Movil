@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.utec.pft202002.Enum.estadoPedido;
 import com.utec.pft202002.model.Pedido;
 import com.utec.pft202002.remote.APIUtils;
-import com.utec.pft202002.remote.FamiliaService;
 import com.utec.pft202002.remote.PedidoService;
 import com.utec.pft202002.remote.UsuarioService;
 
@@ -41,6 +40,7 @@ public class PedidoActivity extends AppCompatActivity {
     UsuarioService usuarioService;
 
     EditText edtPedidoId;
+    EditText edtPedidoPedEstado;
     EditText edtPedidoPedFecEstim;
     EditText edtPedidoFecha;
     EditText edtPedidoPedRecCodigo;
@@ -61,6 +61,7 @@ public class PedidoActivity extends AppCompatActivity {
 
         txtPedidoId = (TextView) findViewById(R.id.txtPedidoId);
         edtPedidoId = (EditText) findViewById(R.id.edtPedidoId);
+        edtPedidoPedEstado = (EditText) findViewById(R.id.edtPedidoPedEstado);
         edtPedidoPedFecEstim = (EditText) findViewById(R.id.edtPedidoPedFecEstim);
         edtPedidoFecha = (EditText) findViewById(R.id.edtPedidoFecha);
         edtPedidoPedRecCodigo = (EditText) findViewById(R.id.edtPedidoPedRecCodigo);
@@ -74,6 +75,7 @@ public class PedidoActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         final String pedidoId = extras.getString("pedido_id");
+        String pedidoPedEstado = extras.getString("pedido_pedestado");
         String pedidoPedFecEstim = extras.getString("pedido_pedfecestim");
         String pedidoFecha = extras.getString("pedido_fecha");
         String pedidoPedRecCodigo = extras.getString("pedido_pedreccodigo");
@@ -82,6 +84,7 @@ public class PedidoActivity extends AppCompatActivity {
         String pedidoUsuarioId = extras.getString("pedido_usuarioid");
 
         edtPedidoId.setText(pedidoId);
+        edtPedidoPedEstado.setText(pedidoPedEstado);
         edtPedidoPedFecEstim.setText(pedidoPedFecEstim);
         edtPedidoFecha.setText(pedidoFecha);
         edtPedidoPedRecCodigo.setText(pedidoPedRecCodigo);
@@ -146,6 +149,7 @@ public class PedidoActivity extends AppCompatActivity {
         mDateSetListenerFecEstim = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // +1 because January is zero
                 month = month + 1;
                 dateFecEstim = year + "-" + month + "-" + dayOfMonth;
                 edtPedidoPedFecEstim.setText(dateFecEstim);
@@ -155,6 +159,7 @@ public class PedidoActivity extends AppCompatActivity {
         mDateSetListenerFecha = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // +1 because January is zero
                 month = month + 1;
                 dateFecha = year + "-" + month + "-" + dayOfMonth;
                 edtPedidoFecha.setText(dateFecha);
@@ -164,6 +169,7 @@ public class PedidoActivity extends AppCompatActivity {
         mDateSetListenerRecFecha = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // +1 because January is zero
                 month = month + 1;
                 dateRecFecha = year + "-" + month + "-" + dayOfMonth;
                 edtPedidoPedRecFecha.setText(dateRecFecha);
@@ -185,6 +191,7 @@ public class PedidoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Pedido u = new Pedido();
 
+                u.setPedestado(estadoPedido.valueOf(edtPedidoPedEstado.getText().toString()));
                 u.setPedreccomentario(edtPedidoPedRecComentario.getText().toString());
 
                 try {
@@ -202,7 +209,7 @@ public class PedidoActivity extends AppCompatActivity {
                 }
 
                 try {
-                    u.setPedfecestim(dateRecFecha);
+                    u.setPedrecfecha(dateRecFecha);
                     Log.i("pedrecfecha:", dateRecFecha);
                 }catch (Exception e){
                     e.printStackTrace();

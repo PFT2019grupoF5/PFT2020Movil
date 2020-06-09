@@ -47,6 +47,7 @@ public class Movimiento {
         this.cantidad = cantidad;
         this.descripcion = descripcion;
         this.costo = costo;
+        this.tipoMov = tipoMov;
         this.producto = producto;
         this.almacenamiento = almacenamiento;
     }
