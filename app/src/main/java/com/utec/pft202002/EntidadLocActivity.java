@@ -174,6 +174,24 @@ public class EntidadLocActivity extends AppCompatActivity {
         });
     }
 
+    public void getByIdEntidadLoc(Long id){
+        Call<EntidadLoc> call = entidadLocService.getByIdEntidadLoc(id);
+        call.enqueue(new Callback<EntidadLoc>() {
+            @Override
+            public void onResponse(Call<EntidadLoc> call, Response<EntidadLoc> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(EntidadLocActivity.this, "EntidadLoc encontrada ok!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EntidadLoc> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -138,7 +138,6 @@ public class CiudadActivity extends AppCompatActivity {
         });
     }
 
-    //20200131 agregado Adrian
     public void getByIdCiudad(Long id){
         Call<Ciudad> call = ciudadService.getByIdCiudad(id);
         call.enqueue(new Callback<Ciudad>() {

@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.utec.pft202002.Enum.tipoLoc;
 import com.utec.pft202002.model.Usuario;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.PerfilService;
@@ -177,6 +176,24 @@ public class UsuarioActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void getByIdUsuario(Long id){
+        Call<Usuario> call = usuarioService.getByIdUsuario(id);
+        call.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(UsuarioActivity.this, "Usuario encontrado ok!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

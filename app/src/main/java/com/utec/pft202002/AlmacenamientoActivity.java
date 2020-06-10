@@ -176,7 +176,6 @@ public class AlmacenamientoActivity extends AppCompatActivity {
         });
     }
 
-    //20200131 agregado Adrian
     public void getByIdAlmacenamiento(Long id){
         Call<Almacenamiento> call = almacenamientoService.getByIdAlmacenamiento(id);
         call.enqueue(new Callback<Almacenamiento>() {

@@ -142,6 +142,23 @@ public class PerfilActivity extends AppCompatActivity {
         });
     }
 
+    public void getByIdPerfil(Long id){
+        Call<Perfil> call = perfilService.getByIdPerfil(id);
+        call.enqueue(new Callback<Perfil>() {
+            @Override
+            public void onResponse(Call<Perfil> call, Response<Perfil> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(PerfilActivity.this, "Perfil encontrado ok!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Perfil> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -148,7 +148,6 @@ public class FamiliaActivity extends AppCompatActivity {
         });
     }
 
-    //20200131 agregado Adrian
     public void getByIdFamilia(Long id){
         Call<Familia> call = familiaService.getByIdFamilia(id);
         call.enqueue(new Callback<Familia>() {
