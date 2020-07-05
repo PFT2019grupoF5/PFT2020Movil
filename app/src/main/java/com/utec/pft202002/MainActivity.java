@@ -6,18 +6,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    TextView txtNomAcceso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         setTitle("PFT Grupo F5");
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
+        txtNomAcceso = (TextView) findViewById(R.id.txtNomAcceso);
+        Bundle extras = getIntent().getExtras();
+        String nomacceso;
+
+        if(extras != null){
+            nomacceso = extras.getString("nomacceso");
+            txtNomAcceso.setText("Bienvenida/o " + nomacceso);
+        }
+
         }
 
         public void menuAlmacenamientos (View view){
