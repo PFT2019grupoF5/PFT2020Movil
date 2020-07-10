@@ -4,12 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.utec.pft202002.model.ResObj;
+import com.utec.pft202002.model.Usuario;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.UsuarioService;
 
@@ -60,16 +61,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void doLogin(final String nomacceso,final String contrasena){
-        Call call = usuarioService.login(nomacceso,contrasena);
-        call.enqueue(new Callback() {
+        Call<Usuario> call = usuarioService.login(nomacceso,contrasena);
+        call.enqueue(new Callback<Usuario>() {
             @Override
-            public void onResponse(Call call, Response response) {
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if(response.isSuccessful()){
-                    ResObj resObj = (ResObj) response.body();
-                    if(resObj.getMessage().equals("true")){
+                    if(response.body().getContrasena().equals("+Login-Ok!")){
+                        Toast.makeText(LoginActivity.this, "Login Correcto", Toast.LENGTH_LONG).show();
                         //login start main activity
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.putExtra("nomacceso", nomacceso);
                         startActivity(intent);
 
                     } else {
@@ -86,4 +86,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 }
