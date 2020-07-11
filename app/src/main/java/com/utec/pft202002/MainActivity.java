@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView txtNomAcceso;
+    TextView txtBienvenido, txtNomAccesoPerfilID;
+    Button btnAlmacenamientos, btnCiudades, btnLocalesEnt, btnFamilias, btnMovimientos, btnPedidos, btnPerfiles, btnProductos, btnUsuarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,16 +22,62 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        txtNomAcceso = (TextView) findViewById(R.id.txtNomAcceso);
+        txtBienvenido = (TextView) findViewById(R.id.txtBienvenido);
+        txtNomAccesoPerfilID = (TextView) findViewById(R.id.txtNomAccesoPerfilID);
+        btnAlmacenamientos = (Button) findViewById(R.id.btnAlmacenamientos);
+        btnCiudades = (Button) findViewById(R.id.btnCiudades);
+        btnLocalesEnt = (Button) findViewById(R.id.btnLocalesEnt);
+        btnFamilias = (Button) findViewById(R.id.btnFamilias);
+        btnMovimientos = (Button) findViewById(R.id.btnMovimientos);
+        btnPedidos = (Button) findViewById(R.id.btnPedidos);
+        btnPerfiles = (Button) findViewById(R.id.btnPerfiles);
+        btnProductos = (Button) findViewById(R.id.btnProductos);
+        btnUsuarios = (Button) findViewById(R.id.btnUsuarios);
+
         Bundle extras = getIntent().getExtras();
-        String nomacceso;
+        String usuarioNombre = "Adrian";
+        String usuarioApellido = "Sigot";
+        String usuarioNomAcceso = "adrian";
+        String usuarioPerfilId = "3";  // OJO PERFIL ACA ES STRING !!!!!
 
-        if(extras != null){
-            nomacceso = extras.getString("nomacceso");
-            txtNomAcceso.setText("Bienvenida/o " + nomacceso);
+        if (extras != null) {
+            usuarioNombre = extras.getString("usuario_nombre");
+            usuarioApellido = extras.getString("usuario_apellido");
+            usuarioNomAcceso = extras.getString("usuario_nomacceso");
+            usuarioPerfilId = extras.getString("usuario_perfilid");
+        }
+        txtBienvenido.setText("Bienvenida/o " + usuarioNombre + " " + usuarioApellido );
+        txtNomAccesoPerfilID.setText("nomacceso: " + usuarioNomAcceso + " perfil: " + usuarioPerfilId );
+
+        switch (usuarioPerfilId)
+        {
+            case "2": // Perfil Operario
+                btnAlmacenamientos.setVisibility(View.INVISIBLE);
+                btnCiudades.setVisibility(View.INVISIBLE);
+                btnLocalesEnt.setVisibility(View.INVISIBLE);
+                btnFamilias.setVisibility(View.INVISIBLE);
+                btnMovimientos.setVisibility(View.VISIBLE);
+                btnPedidos.setVisibility(View.VISIBLE);
+                btnPerfiles.setVisibility(View.INVISIBLE);
+                btnProductos.setVisibility(View.VISIBLE);
+                btnUsuarios.setVisibility(View.INVISIBLE);
+                break;
+            case "3": // Perfil Supervisor
+                btnAlmacenamientos.setVisibility(View.VISIBLE);
+                btnCiudades.setVisibility(View.VISIBLE);
+                btnLocalesEnt.setVisibility(View.VISIBLE);
+                btnFamilias.setVisibility(View.VISIBLE);
+                btnMovimientos.setVisibility(View.VISIBLE);
+                btnPedidos.setVisibility(View.VISIBLE);
+                btnPerfiles.setVisibility(View.INVISIBLE);  // Solo admin ve
+                btnProductos.setVisibility(View.VISIBLE);
+                btnUsuarios.setVisibility(View.INVISIBLE);  // Solo admin ve
+                break;
+            default:  // Perfil Administrador muestro todos los botones
+                break;
         }
 
-        }
+    }
 
         public void menuAlmacenamientos (View view){
             Intent intent = new Intent(this, AlmacenamientoMainActivity.class);

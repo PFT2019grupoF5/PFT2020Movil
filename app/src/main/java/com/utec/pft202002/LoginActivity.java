@@ -70,6 +70,10 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Login Correcto", Toast.LENGTH_LONG).show();
                         //login start main activity
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("usuario_nombre", response.body().getNombre());
+                        intent.putExtra("usuario_apellido", response.body().getApellido());
+                        intent.putExtra("usuario_nomacceso", response.body().getNomAcceso());
+                        intent.putExtra("usuario_perfilid", String.valueOf(response.body().getPerfil().getId()));
                         startActivity(intent);
 
                     } else {

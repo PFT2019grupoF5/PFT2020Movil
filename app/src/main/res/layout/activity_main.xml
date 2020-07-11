@@ -12,7 +12,7 @@
         android:orientation="vertical"
         >
         <TextView
-            android:id="@+id/txtNomAcceso"
+            android:id="@+id/txtBienvenido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -20,6 +20,15 @@
             android:textColor="#ffffff"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            />
+
+        <TextView
+            android:id="@+id/txtNomAccesoPerfilID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:background="#9C27B0"
+            android:textColor="#ffffff"
             />
 
         <Button
@@ -30,8 +39,6 @@
             android:text="ALMACENAMIENTOS"
             android:background="#3F51B5"
             android:textColor="#ffffff"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             />
 
         <Button
