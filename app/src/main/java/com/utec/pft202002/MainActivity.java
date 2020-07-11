@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     TextView txtBienvenido, txtNomAccesoPerfilID;
-    Button btnAlmacenamientos, btnCiudades, btnLocalesEnt, btnFamilias, btnMovimientos, btnPedidos, btnPerfiles, btnProductos, btnUsuarios;
+    Button btnAlmacenamientos, btnCiudades, btnLocalesEnt, btnFamilias, btnMovimientos, btnPedidos, btnPerfiles, btnProductos, btnUsuarios, btnReporte;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         btnPerfiles = (Button) findViewById(R.id.btnPerfiles);
         btnProductos = (Button) findViewById(R.id.btnProductos);
         btnUsuarios = (Button) findViewById(R.id.btnUsuarios);
+        btnReporte = (Button) findViewById(R.id.btnReporte);
 
         Bundle extras = getIntent().getExtras();
         String usuarioNombre; // = "Adrian";
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 btnPerfiles.setVisibility(View.INVISIBLE);
                 btnProductos.setVisibility(View.INVISIBLE);
                 btnUsuarios.setVisibility(View.INVISIBLE);
+                btnReporte.setVisibility(View.VISIBLE); // Si
                 break;
             case "2": // Perfil Supervisor
                 btnAlmacenamientos.setVisibility(View.VISIBLE);
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 btnPerfiles.setVisibility(View.INVISIBLE);  // Solo admin ve
                 btnProductos.setVisibility(View.VISIBLE);
                 btnUsuarios.setVisibility(View.INVISIBLE);  // Solo admin ve
+                btnReporte.setVisibility(View.VISIBLE); // Si
                 break;
             default:  // "1" Perfil Administrador -- muestro todos los botones
                 break;
@@ -113,6 +116,10 @@ public class MainActivity extends AppCompatActivity {
         }
         public void menuUsuarios (View view){
             Intent intent = new Intent(this, UsuarioMainActivity.class);
+            startActivity(intent);
+        }
+        public void menuReporte (View view){
+            Intent intent = new Intent(this, ReporteMainActivity.class);
             startActivity(intent);
         }
 

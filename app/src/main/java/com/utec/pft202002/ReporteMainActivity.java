@@ -54,6 +54,8 @@ public class ReporteMainActivity extends AppCompatActivity {
 
         setTitle("Reporte Pedidos entre Fechas");
 
+        edtReporteFechaDesde = (EditText) findViewById(R.id.edtReporteFechaDesde);
+        edtReporteFechaHasta = (EditText) findViewById(R.id.edtReporteFechaHasta);
         btnGetReporteList = (Button) findViewById(R.id.btnGetReporteList);
         listViewReporte = (ListView) findViewById(R.id.listViewReporte);
         PedidoService = APIUtils.getPedidoService();
@@ -149,7 +151,7 @@ public class ReporteMainActivity extends AppCompatActivity {
     }
 
     public void getReporteList(){
-        Call<List<Pedido>> call = PedidoService.getReporte(fechaDesde, fechaHasta);
+        Call<List<Pedido>> call = PedidoService.getPedidosEntreFechas(fechaDesde, fechaHasta);
         call.enqueue(new Callback<List<Pedido>>() {
             @Override
             public void onResponse(Call<List<Pedido>> call, Response<List<Pedido>> response) {

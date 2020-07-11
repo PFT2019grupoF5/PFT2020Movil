@@ -124,6 +124,16 @@
             android:text=" USUARIOS"
             android:textColor="#ffffff" />
 
+        <Button
+            android:id="@+id/btnReporte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="#E91E63"
+            android:onClick="menuReporte"
+            android:text=" Reporte Pedidos"
+            android:textColor="#ffffff" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
