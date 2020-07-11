@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (usuarioPerfilId)
         {
-            case "2": // Perfil Operario
+            case "3": // Perfil Operario
                 btnAlmacenamientos.setVisibility(View.INVISIBLE);
                 btnCiudades.setVisibility(View.INVISIBLE);
                 btnLocalesEnt.setVisibility(View.INVISIBLE);
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 btnProductos.setVisibility(View.VISIBLE);
                 btnUsuarios.setVisibility(View.INVISIBLE);
                 break;
-            case "3": // Perfil Supervisor
+            case "2": // Perfil Supervisor
                 btnAlmacenamientos.setVisibility(View.VISIBLE);
                 btnCiudades.setVisibility(View.VISIBLE);
                 btnLocalesEnt.setVisibility(View.VISIBLE);
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 btnProductos.setVisibility(View.VISIBLE);
                 btnUsuarios.setVisibility(View.INVISIBLE);  // Solo admin ve
                 break;
-            default:  // Perfil Administrador muestro todos los botones
+            default:  // "1" Perfil Administrador -- muestro todos los botones
                 break;
         }
 
