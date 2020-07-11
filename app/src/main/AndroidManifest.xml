@@ -30,8 +30,8 @@
         <activity android:name=".ProductoMainActivity" />
         <activity android:name=".UsuarioActivity" />
         <activity android:name=".UsuarioMainActivity" />
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -35,17 +35,17 @@ public class MainActivity extends AppCompatActivity {
         btnUsuarios = (Button) findViewById(R.id.btnUsuarios);
 
         Bundle extras = getIntent().getExtras();
-        String usuarioNombre = "Adrian";
-        String usuarioApellido = "Sigot";
-        String usuarioNomAcceso = "adrian";
-        String usuarioPerfilId = "3";  // OJO PERFIL ACA ES STRING !!!!!
+        String usuarioNombre; // = "Adrian";
+        String usuarioApellido; // = "Sigot";
+        String usuarioNomAcceso; // = "adrian";
+        String usuarioPerfilId; // = "3";  // OJO PERFIL ACA ES STRING !!!!!
 
-        if (extras != null) {
+        // if (extras != null) {
             usuarioNombre = extras.getString("usuario_nombre");
             usuarioApellido = extras.getString("usuario_apellido");
             usuarioNomAcceso = extras.getString("usuario_nomacceso");
             usuarioPerfilId = extras.getString("usuario_perfilid");
-        }
+        // }
         txtBienvenido.setText("Bienvenida/o " + usuarioNombre + " " + usuarioApellido );
         txtNomAccesoPerfilID.setText("nomacceso: " + usuarioNomAcceso + " perfil: " + usuarioPerfilId );
 
@@ -56,10 +56,10 @@ public class MainActivity extends AppCompatActivity {
                 btnCiudades.setVisibility(View.INVISIBLE);
                 btnLocalesEnt.setVisibility(View.INVISIBLE);
                 btnFamilias.setVisibility(View.INVISIBLE);
-                btnMovimientos.setVisibility(View.VISIBLE);
-                btnPedidos.setVisibility(View.VISIBLE);
+                btnMovimientos.setVisibility(View.VISIBLE); // Si
+                btnPedidos.setVisibility(View.VISIBLE); // Si
                 btnPerfiles.setVisibility(View.INVISIBLE);
-                btnProductos.setVisibility(View.VISIBLE);
+                btnProductos.setVisibility(View.INVISIBLE);
                 btnUsuarios.setVisibility(View.INVISIBLE);
                 break;
             case "2": // Perfil Supervisor

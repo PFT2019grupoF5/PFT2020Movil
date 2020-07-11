@@ -29,7 +29,7 @@ public interface UsuarioService {
     @DELETE("usuarios/delete/{id}")
     Call<Usuario> deleteUsuario(@Path("id") Long id);
 
-    @GET("usuarios/login/{nomacceso}/{contrasena}")
+    @GET("usuarios/getLogin/{nomacceso}/{contrasena}")
     Call<Usuario> login(@Path("nomacceso") String nomacceso, @Path("contrasena") String contrasena);
 
 }
