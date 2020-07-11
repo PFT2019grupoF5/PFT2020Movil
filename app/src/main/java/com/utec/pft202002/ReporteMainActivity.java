@@ -19,9 +19,9 @@ import java.text.SimpleDateFormat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.utec.pft202002.model.Movimiento;
+import com.utec.pft202002.model.Pedido;
 import com.utec.pft202002.remote.APIUtils;
-import com.utec.pft202002.remote.MovimientoService;
+import com.utec.pft202002.remote.PedidoService;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,19 +44,19 @@ public class ReporteMainActivity extends AppCompatActivity {
     Button btnGetReporteList;
     ListView listViewReporte;
 
-    MovimientoService movimientoService;
-    List<Movimiento> list = new ArrayList<Movimiento>();
+    PedidoService PedidoService;
+    List<Pedido> list = new ArrayList<Pedido>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reporte_main);
 
-        setTitle("Reporte Movimientos entre Fechas");
+        setTitle("Reporte Pedidos entre Fechas");
 
         btnGetReporteList = (Button) findViewById(R.id.btnGetReporteList);
         listViewReporte = (ListView) findViewById(R.id.listViewReporte);
-        movimientoService = APIUtils.getMovimientoService();
+        PedidoService = APIUtils.getPedidoService();
 
         edtReporteFechaDesde.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,10 +149,10 @@ public class ReporteMainActivity extends AppCompatActivity {
     }
 
     public void getReporteList(){
-        Call<List<Movimiento>> call = movimientoService.getReporte(fechaDesde, fechaHasta);
-        call.enqueue(new Callback<List<Movimiento>>() {
+        Call<List<Pedido>> call = PedidoService.getReporte(fechaDesde, fechaHasta);
+        call.enqueue(new Callback<List<Pedido>>() {
             @Override
-            public void onResponse(Call<List<Movimiento>> call, Response<List<Movimiento>> response) {
+            public void onResponse(Call<List<Pedido>> call, Response<List<Pedido>> response) {
                 if(response.isSuccessful()){
                     list = response.body();
                     listViewReporte.setAdapter(new ReporteAdapter(ReporteMainActivity.this, R.layout.list_reporte, list));
@@ -160,7 +160,7 @@ public class ReporteMainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Movimiento>> call, Throwable t) {
+            public void onFailure(Call<List<Pedido>> call, Throwable t) {
                 Log.e("ERROR: ", t.getMessage());
             }
         });

@@ -11,20 +11,20 @@ import android.widget.TextView;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 
-import com.utec.pft202002.model.Movimiento;
+import com.utec.pft202002.model.Pedido;
 
 import java.util.List;
 
 
-public class ReporteAdapter extends ArrayAdapter<Movimiento> {
+public class ReporteAdapter extends ArrayAdapter<Pedido> {
 
     private Context context;
-    private List<Movimiento> movimientos;
+    private List<Pedido> pedidos;
 
-    public ReporteAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Movimiento> objects) {
+    public ReporteAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Pedido> objects) {
         super(context, resource, objects);
         this.context = context;
-        this.movimientos = objects;
+        this.pedidos = objects;
     }
 
     @Override
@@ -32,34 +32,34 @@ public class ReporteAdapter extends ArrayAdapter<Movimiento> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.list_reporte, parent, false);
 
-        TextView txtReporteMovimientoId = (TextView) rowView.findViewById(R.id.txtReporteMovimientoId);
-        TextView txtReporteMovimientoFecha = (TextView) rowView.findViewById(R.id.txtReporteMovimientoFecha);
-        TextView txtReporteMovimientoCantidad = (TextView) rowView.findViewById(R.id.txtReporteMovimientoCantidad);
-        TextView txtReporteMovimientoDescripcion = (TextView) rowView.findViewById(R.id.txtReporteMovimientoDescripcion);
-        TextView txtReporteMovimientoCosto = (TextView) rowView.findViewById(R.id.txtReporteMovimientoCosto);
-        TextView txtReporteMovimientoProductoId = (TextView) rowView.findViewById(R.id.txtReporteMovimientoProductoId);
-        TextView txtReporteMovimientoAlmacenamientoId = (TextView) rowView.findViewById(R.id.txtReporteMovimientoAlmacenamientoId);
+        TextView txtPedidoId = (TextView) rowView.findViewById(R.id.txtPedidoId);
+        TextView txtPedidoPedFecEstim = (TextView) rowView.findViewById(R.id.txtPedidoPedFecEstim);
+        TextView txtPedidoFecha = (TextView) rowView.findViewById(R.id.txtPedidoFecha);
+        TextView txtPedidoPedRecCodigo = (TextView) rowView.findViewById(R.id.txtPedidoPedRecCodigo);
+        TextView txtPedidoPedRecFecha = (TextView) rowView.findViewById(R.id.txtPedidoPedRecFecha);
+        TextView txtPedidoComentario = (TextView) rowView.findViewById(R.id.txtPedidoRecComentario);
+        TextView txtPedidoUsuarioId = (TextView) rowView.findViewById(R.id.txtPedidoUsuarioId);
 
-        txtReporteMovimientoId.setText(String.format("#ID: %d", movimientos.get(pos).getId()));
-        txtReporteMovimientoFecha.setText(String.format("Fecha: %s", movimientos.get(pos).getFecha().toString()));
-        txtReporteMovimientoCantidad.setText(String.format("Cantidad: %d", movimientos.get(pos).getCantidad()));
-        txtReporteMovimientoDescripcion.setText(String.format("Descripcion: %s", movimientos.get(pos).getDescripcion()));
-        txtReporteMovimientoCosto.setText(String.format("Costo: %f", movimientos.get(pos).getCosto()));
-        txtReporteMovimientoProductoId.setText(String.format("Producto Id: %d", movimientos.get(pos).getProducto().getId()));
-        txtReporteMovimientoAlmacenamientoId.setText(String.format("Almacen Id: %d", movimientos.get(pos).getAlmacenamiento().getId()));
+        txtPedidoId.setText(String.format("#ID: %d", pedidos.get(pos).getId()));
+        txtPedidoPedFecEstim.setText(String.format("PedFecEstim: %s", pedidos.get(pos).getPedfecestim().toString()));
+        txtPedidoFecha.setText(String.format("Fecha: %s", pedidos.get(pos).getFecha().toString()));
+        txtPedidoPedRecCodigo.setText(String.format("PedRecCodigo: %d", pedidos.get(pos).getPedreccodigo()));
+        txtPedidoPedRecFecha.setText(String.format("PedRecFecha: %s", pedidos.get(pos).getPedrecfecha().toString()));
+        txtPedidoComentario.setText(String.format("Comentario: %s", pedidos.get(pos).getPedreccomentario()));
+        txtPedidoUsuarioId.setText(String.format("Usuario Id: %d", pedidos.get(pos).getUsuario().getId()));
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //start Activity Movimiento Form
-                Intent intent = new Intent(context, MovimientoActivity.class);
-                intent.putExtra("movimiento_id", String.valueOf(movimientos.get(pos).getId()));
-                intent.putExtra("movimiento_fecha", String.valueOf(movimientos.get(pos).getFecha()));
-                intent.putExtra("movimiento_cantidad", String.valueOf(movimientos.get(pos).getCantidad()));
-                intent.putExtra("movimiento_descripcion", movimientos.get(pos).getDescripcion());
-                intent.putExtra("movimiento_costo", String.valueOf(movimientos.get(pos).getCosto()));
-                intent.putExtra("movimiento_productoid", String.valueOf(movimientos.get(pos).getProducto().getId()));
-                intent.putExtra("movimiento_almacenamientoid", String.valueOf(movimientos.get(pos).getAlmacenamiento().getId()));
+                //start Activity Pedido Form
+                Intent intent = new Intent(context, PedidoActivity.class);
+                intent.putExtra("pedido_id", String.valueOf(pedidos.get(pos).getId()));
+                intent.putExtra("pedido_pedfecestim", String.valueOf(pedidos.get(pos).getPedfecestim()));
+                intent.putExtra("pedido_fecha", String.valueOf(pedidos.get(pos).getFecha()));
+                intent.putExtra("pedido_pedreccodigo", String.valueOf(pedidos.get(pos).getPedreccodigo()));
+                intent.putExtra("pedido_pedrecfecha", String.valueOf(pedidos.get(pos).getPedrecfecha()));
+                intent.putExtra("pedido_comentario", pedidos.get(pos).getPedreccomentario());
+                intent.putExtra("pedido_usuarioid", String.valueOf(pedidos.get(pos).getUsuario().getId()));
                 context.startActivity(intent);
             }
         });

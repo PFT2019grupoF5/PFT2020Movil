@@ -6,49 +6,49 @@
     >
 
     <TextView
-        android:id="@+id/txtReporteMovimientoId"
+        android:id="@+id/txtPedidoId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="3dp"
         />
 
     <TextView
-        android:id="@+id/txtReporteMovimientoFecha"
+        android:id="@+id/txtPedidoPedFecEstim"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="3dp"
         />
 
     <TextView
-        android:id="@+id/txtReporteMovimientoCantidad"
+        android:id="@+id/txtPedidoFecha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="3dp"
         />
 
     <TextView
-        android:id="@+id/txtReporteMovimientoDescripcion"
+        android:id="@+id/txtPedidoPedRecCodigo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="3dp"
         />
 
     <TextView
-        android:id="@+id/txtReporteMovimientoCosto"
+        android:id="@+id/txtPedidoPedRecFecha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="3dp"
         />
 
     <TextView
-        android:id="@+id/txtReporteMovimientoProductoId"
+        android:id="@+id/txtPedidoRecComentario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="3dp"
         />
 
     <TextView
-        android:id="@+id/txtReporteMovimientoAlmacenamientoId"
+        android:id="@+id/txtPedidoUsuarioId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="3dp"

@@ -1,5 +1,6 @@
 package com.utec.pft202002.remote;
 
+import com.utec.pft202002.model.Movimiento;
 import com.utec.pft202002.model.Pedido;
 
 import java.util.List;
@@ -16,6 +17,9 @@ public interface PedidoService {
 
     @GET("pedidos/getAll/")
     Call<List<Pedido>> getPedidos();
+
+    @GET("pedidos/getReporte/{fechaDesde}/{fechaHasta}")
+    Call<List<Pedido>> getReporte(@Path("fechaDesde") String fechaDesde, @Path("fechaHasta") String fechaHasta);
 
     @GET("pedidos/getById/{id}")
     Call<Pedido> getByIdPedido(@Path("id") Long id);

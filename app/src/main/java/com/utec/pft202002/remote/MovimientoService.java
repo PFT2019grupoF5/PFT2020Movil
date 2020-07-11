@@ -18,9 +18,6 @@ public interface MovimientoService {
     @GET("movimientos/getAll/")
     Call<List<Movimiento>> getMovimientos();
 
-    @GET("movimientos/getReporte/{fechaDesde}/{fechaHasta}")
-    Call<List<Movimiento>> getReporte(@Path("fechaDesde") String fechaDesde, @Path("fechaHasta") String fechaHasta);
-
     @GET("movimientos/getById/{id}")
     Call<Movimiento> getByIdMovimiento(@Path("id") Long id);
 
