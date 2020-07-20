@@ -24,7 +24,9 @@ import com.utec.pft202002.remote.AlmacenamientoService;
 import com.utec.pft202002.remote.ProductoService;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,8 +85,21 @@ public class MovimientoActivity extends AppCompatActivity {
         String movimientoProductoId = extras.getString("movimiento_productoid");
         String movimientoAlmacenamientoId = extras.getString("movimiento_almacenamientoid");
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
         edtMovimientoId.setText(movimientoId);
-        edtMovimientoFecha.setText(movimientoFecha);
+
+        Date hoy = new Date();
+        long NmovimientoFecha =  hoy.getTime();;
+        try {
+            NmovimientoFecha = Long.parseLong(movimientoFecha);
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+        }
+        final Date fecha2 = new Date(NmovimientoFecha);
+        String Sfecha2 = sdf.format(fecha2);
+        edtMovimientoFecha.setText(String.format("Fecha: %s", Sfecha2));
+
         edtMovimientoCantidad.setText(movimientoCantidad);
         edtMovimientoDescripcion.setText(movimientoDescripcion);
         edtMovimientoCosto.setText(movimientoCosto);
@@ -96,6 +111,7 @@ public class MovimientoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
+                cal.setTime(fecha2);
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);

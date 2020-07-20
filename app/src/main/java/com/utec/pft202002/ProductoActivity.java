@@ -24,7 +24,9 @@ import com.utec.pft202002.remote.UsuarioService;
 import com.utec.pft202002.remote.ProductoService;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -102,12 +104,34 @@ public class ProductoActivity extends AppCompatActivity {
         String productoUsuarioId = extras.getString("producto_usuarioid");
         String productoFamiliaId = extras.getString("producto_familiaid");
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
         edtProductoId.setText(productoId);
         edtProductoNombre.setText(productoNombre);
         edtProductoLote.setText(productoLote);
         edtProductoPrecio.setText(productoPrecio);
-        edtProductoFelab.setText(productoFelab);
-        edtProductoFven.setText(productoFven);
+
+        Date hoy = new Date();
+        long NproductoFelab = hoy.getTime();
+        try {
+            NproductoFelab = Long.parseLong(productoFelab);
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+        }
+        final Date felab = new Date(NproductoFelab);
+        String Sfelab = sdf.format(felab);
+        edtProductoFelab.setText(String.format("Felab: %s", Sfelab));
+
+        long NproductoFven = hoy.getTime();
+        try {
+            NproductoFven = Long.parseLong(productoFven);
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+        }
+        final Date fven = new Date(NproductoFven);
+        String Sfven = sdf.format(fven);
+        edtProductoFven.setText(String.format("Fven: %s", Sfven));
+
         edtProductoPeso.setText(productoPeso);
         edtProductoVolumen.setText(productoVolumen);
         edtProductoEstiba.setText(productoEstiba);
@@ -121,6 +145,7 @@ public class ProductoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
+                cal.setTime(felab);
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -140,6 +165,7 @@ public class ProductoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
+                cal.setTime(fven);
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);

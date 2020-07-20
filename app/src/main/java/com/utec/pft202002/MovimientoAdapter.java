@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 
 import com.utec.pft202002.model.Movimiento;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -37,14 +39,22 @@ public class MovimientoAdapter extends ArrayAdapter<Movimiento> {
         TextView txtMovimientoCantidad = (TextView) rowView.findViewById(R.id.txtMovimientoCantidad);
         TextView txtMovimientoDescripcion = (TextView) rowView.findViewById(R.id.txtMovimientoDescripcion);
         TextView txtMovimientoCosto = (TextView) rowView.findViewById(R.id.txtMovimientoCosto);
+        TextView txtMovimientoTipoMov = (TextView) rowView.findViewById(R.id.txtMovimientoTipoMov);
         TextView txtMovimientoProductoId = (TextView) rowView.findViewById(R.id.txtMovimientoProductoId);
         TextView txtMovimientoAlmacenamientoId = (TextView) rowView.findViewById(R.id.txtMovimientoAlmacenamientoId);
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
         txtMovimientoId.setText(String.format("#ID: %d", movimientos.get(pos).getId()));
-        txtMovimientoFecha.setText(String.format("Fecha: %s", movimientos.get(pos).getFecha().toString()));
+
+        Date fecha = new Date(Long.parseLong(movimientos.get(pos).getFecha()));
+        String Sfecha = sdf.format(fecha);
+        txtMovimientoFecha.setText(String.format("Fecha: %s", Sfecha));
+
         txtMovimientoCantidad.setText(String.format("Cantidad: %d", movimientos.get(pos).getCantidad()));
         txtMovimientoDescripcion.setText(String.format("Descripcion: %s", movimientos.get(pos).getDescripcion()));
         txtMovimientoCosto.setText(String.format("Costo: %f", movimientos.get(pos).getCosto()));
+        txtMovimientoTipoMov.setText(String.format("TipoMov: %s", movimientos.get(pos).getTipoMov()));
         txtMovimientoProductoId.setText(String.format("Producto Id: %d", movimientos.get(pos).getProducto().getId()));
         txtMovimientoAlmacenamientoId.setText(String.format("Almacen Id: %d", movimientos.get(pos).getAlmacenamiento().getId()));
 
@@ -56,8 +66,9 @@ public class MovimientoAdapter extends ArrayAdapter<Movimiento> {
                 intent.putExtra("movimiento_id", String.valueOf(movimientos.get(pos).getId()));
                 intent.putExtra("movimiento_fecha", String.valueOf(movimientos.get(pos).getFecha()));
                 intent.putExtra("movimiento_cantidad", String.valueOf(movimientos.get(pos).getCantidad()));
-                intent.putExtra("movimiento_descripcion", movimientos.get(pos).getDescripcion());
+                intent.putExtra("movimiento_descripcion", String.valueOf(movimientos.get(pos).getDescripcion()));
                 intent.putExtra("movimiento_costo", String.valueOf(movimientos.get(pos).getCosto()));
+                intent.putExtra("movimiento_tipomov", String.valueOf(movimientos.get(pos).getTipoMov()));
                 intent.putExtra("movimiento_productoid", String.valueOf(movimientos.get(pos).getProducto().getId()));
                 intent.putExtra("movimiento_almacenamientoid", String.valueOf(movimientos.get(pos).getAlmacenamiento().getId()));
                 context.startActivity(intent);

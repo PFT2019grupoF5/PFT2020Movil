@@ -23,7 +23,9 @@ import com.utec.pft202002.remote.PedidoService;
 import com.utec.pft202002.remote.UsuarioService;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -79,16 +81,48 @@ public class PedidoActivity extends AppCompatActivity {
         String pedidoPedFecEstim = extras.getString("pedido_pedfecestim");
         String pedidoFecha = extras.getString("pedido_fecha");
         String pedidoPedRecCodigo = extras.getString("pedido_pedreccodigo");
-        String pedidoPedRecFecha = extras.getString("pedido_predrecfecha");
+        String pedidoPedRecFecha = extras.getString("pedido_pedrecfecha");
         String pedidoPedRecComentario = extras.getString("pedido_pedreccomentario");
         String pedidoUsuarioId = extras.getString("pedido_usuarioid");
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
         edtPedidoId.setText(pedidoId);
         edtPedidoPedEstado.setText(pedidoPedEstado);
-        edtPedidoPedFecEstim.setText(pedidoPedFecEstim);
-        edtPedidoFecha.setText(pedidoFecha);
+
+        Date hoy = new Date();
+        long NpedidoPedFecEstim = hoy.getTime();
+        try {
+            NpedidoPedFecEstim = Long.parseLong(pedidoPedFecEstim);
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+        }
+        final Date pedFecEstim = new Date(NpedidoPedFecEstim);
+        String SpedFecEstim = sdf.format(pedFecEstim);
+        edtPedidoPedFecEstim.setText(String.format("PedFecEstim: %s", SpedFecEstim));
+
+        long NpedidoFecha = hoy.getTime();
+        try {
+            NpedidoFecha = Long.parseLong(pedidoFecha);
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+        }
+        final Date fecha = new Date(NpedidoFecha);
+        String Sfecha = sdf.format(fecha);
+        edtPedidoFecha.setText(String.format("Fecha: %s", Sfecha));
+
         edtPedidoPedRecCodigo.setText(pedidoPedRecCodigo);
-        edtPedidoPedRecFecha.setText(pedidoPedRecFecha);
+
+        long NpedidoPedRecFecha = hoy.getTime();;
+        try {
+            NpedidoPedRecFecha = Long.parseLong(pedidoPedRecFecha);
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+        }
+        final Date pedRecFecha = new Date(NpedidoPedRecFecha);
+        String SpedRecFecha = sdf.format(pedRecFecha);
+        edtPedidoPedRecFecha.setText(String.format("PedRecFecha: %s", SpedRecFecha));
+
         edtPedidoPedRecComentario.setText(pedidoPedRecComentario);
         edtPedidoUsuarioId.setText(pedidoUsuarioId);
 
@@ -96,6 +130,7 @@ public class PedidoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
+                cal.setTime(pedFecEstim);
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -114,6 +149,7 @@ public class PedidoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
+                cal.setTime(fecha);
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -132,6 +168,7 @@ public class PedidoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
+                cal.setTime(pedRecFecha);
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);

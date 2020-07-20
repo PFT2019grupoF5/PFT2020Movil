@@ -68,9 +68,7 @@ public Pedido(Long id, String pedfecestim, String fecha, int pedreccodigo, Strin
         this.pedfecestim = pedfecestim;
     }
 
-    public String getFecha() {
-        return fecha;
-    }
+    public String getFecha() { return fecha; }
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
@@ -96,9 +94,7 @@ public Pedido(Long id, String pedfecestim, String fecha, int pedreccodigo, Strin
         return pedreccomentario;
     }
 
-    public void setPedreccomentario(String pedreccomentario) {
-        this.pedreccomentario = pedreccomentario;
-    }
+    public void setPedreccomentario(String pedreccomentario) { this.pedreccomentario = pedreccomentario; }
 
     public estadoPedido getPedestado() {
         return pedestado;

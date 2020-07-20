@@ -23,6 +23,8 @@ import com.utec.pft202002.model.Pedido;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.PedidoService;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -52,7 +54,10 @@ public class ReporteMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reporte_main);
 
-        setTitle("Reporte Pedidos entre Fechas");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
+        setTitle("Reporte Pedidos : " + dtf.format(now) );
 
         edtReporteFechaDesde = (EditText) findViewById(R.id.edtReporteFechaDesde);
         edtReporteFechaHasta = (EditText) findViewById(R.id.edtReporteFechaHasta);

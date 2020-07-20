@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 
 import com.utec.pft202002.model.Producto;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -47,12 +49,18 @@ public class ProductoAdapter extends ArrayAdapter<Producto> {
         TextView txtProductoUsuarioId = (TextView) rowView.findViewById(R.id.txtProductoUsuarioId);
         TextView txtProductoFamiliaId = (TextView) rowView.findViewById(R.id.txtProductoFamiliaId);
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
         txtProductoId.setText(String.format("#ID: %d", productos.get(pos).getId()));
         txtProductoNombre.setText(String.format("Nombre: %s", productos.get(pos).getNombre()));
         txtProductoLote.setText(String.format("Lote: %s", productos.get(pos).getLote()));
         txtProductoPrecio.setText(String.format("Precio: %f", productos.get(pos).getPrecio()));
-        txtProductoFelab.setText(String.format("Felab: %s", productos.get(pos).getFelab().toString()));
-        txtProductoFven.setText(String.format("Fven: %s", productos.get(pos).getFven().toString()));
+        Date felab = new Date(Long.parseLong(productos.get(pos).getFelab()));
+        String Sfelab = sdf.format(felab);
+        txtProductoFelab.setText(String.format("Felab: %s", Sfelab));
+        Date fven = new Date(Long.parseLong(productos.get(pos).getFven()));
+        String Sfven = sdf.format(fven);
+        txtProductoFven.setText(String.format("Fven: %s", Sfven));
         txtProductoPeso.setText(String.format("Peso: %f", productos.get(pos).getPeso()));
         txtProductoVolumen.setText(String.format("Volumen: %f", productos.get(pos).getVolumen()));
         txtProductoEstiba.setText(String.format("Estiba: %d", productos.get(pos).getEstiba()));
@@ -68,8 +76,8 @@ public class ProductoAdapter extends ArrayAdapter<Producto> {
                 //start Activity Producto Form
                 Intent intent = new Intent(context, ProductoActivity.class);
                 intent.putExtra("producto_id", String.valueOf(productos.get(pos).getId()));
-                intent.putExtra("producto_nombre", productos.get(pos).getNombre());
-                intent.putExtra("producto_lote", productos.get(pos).getLote());
+                intent.putExtra("producto_nombre", String.valueOf(productos.get(pos).getNombre()));
+                intent.putExtra("producto_lote", String.valueOf(productos.get(pos).getLote()));
                 intent.putExtra("producto_precio", String.valueOf(productos.get(pos).getPrecio()));
                 intent.putExtra("producto_felab", String.valueOf(productos.get(pos).getFelab()));
                 intent.putExtra("producto_fven", String.valueOf(productos.get(pos).getFven()));
@@ -78,7 +86,7 @@ public class ProductoAdapter extends ArrayAdapter<Producto> {
                 intent.putExtra("producto_estiba", String.valueOf(productos.get(pos).getEstiba()));
                 intent.putExtra("producto_stkmin", String.valueOf(productos.get(pos).getStkMin()));
                 intent.putExtra("producto_stktotal", String.valueOf(productos.get(pos).getStkTotal()));
-                intent.putExtra("producto_segmentac", productos.get(pos).getSegmentac());
+                intent.putExtra("producto_segmentac", String.valueOf(productos.get(pos).getSegmentac()));
                 intent.putExtra("producto_usuarioid", String.valueOf(productos.get(pos).getUsuario().getId()));
                 intent.putExtra("producto_familiaid", String.valueOf(productos.get(pos).getFamilia().getId()));
                 context.startActivity(intent);

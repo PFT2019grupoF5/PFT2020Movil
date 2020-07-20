@@ -1,6 +1,5 @@
 package com.utec.pft202002.remote;
 
-import com.utec.pft202002.model.Movimiento;
 import com.utec.pft202002.model.Pedido;
 
 import java.util.List;

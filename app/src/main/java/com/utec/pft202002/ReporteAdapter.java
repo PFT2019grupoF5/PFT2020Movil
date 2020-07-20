@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 
 import com.utec.pft202002.model.Pedido;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -28,7 +30,7 @@ public class ReporteAdapter extends ArrayAdapter<Pedido> {
     }
 
     @Override
-    public View getView(final int pos, View convertView, ViewGroup parent){
+    public View getView(final int pos, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.list_reporte, parent, false);
 
@@ -40,11 +42,19 @@ public class ReporteAdapter extends ArrayAdapter<Pedido> {
         TextView txtPedidoComentario = (TextView) rowView.findViewById(R.id.txtPedidoRecComentario);
         TextView txtPedidoUsuarioId = (TextView) rowView.findViewById(R.id.txtPedidoUsuarioId);
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
         txtPedidoId.setText(String.format("#ID: %d", pedidos.get(pos).getId()));
-        txtPedidoPedFecEstim.setText(String.format("PedFecEstim: %s", pedidos.get(pos).getPedfecestim().toString()));
-        txtPedidoFecha.setText(String.format("Fecha: %s", pedidos.get(pos).getFecha().toString()));
+        Date pedfecestim = new Date(Long.parseLong(pedidos.get(pos).getPedfecestim()));
+        String Spedfecestim = sdf.format(pedfecestim);
+        txtPedidoPedFecEstim.setText(String.format("PedFecEstim: %s", Spedfecestim));
+        Date fecha= new Date(Long.parseLong(pedidos.get(pos).getFecha()));
+        String Sfecha = sdf.format(fecha);
+        txtPedidoFecha.setText(String.format("Fecha: %s", Sfecha));
         txtPedidoPedRecCodigo.setText(String.format("PedRecCodigo: %d", pedidos.get(pos).getPedreccodigo()));
-        txtPedidoPedRecFecha.setText(String.format("PedRecFecha: %s", pedidos.get(pos).getPedrecfecha().toString()));
+        Date pedrecfecha= new Date(Long.parseLong(pedidos.get(pos).getPedrecfecha()));
+        String Spedrecfecha = sdf.format(pedrecfecha);
+        txtPedidoPedRecFecha.setText(String.format("PedRecFecha: %s", Spedrecfecha));
         txtPedidoComentario.setText(String.format("Comentario: %s", pedidos.get(pos).getPedreccomentario()));
         txtPedidoUsuarioId.setText(String.format("Usuario Id: %d", pedidos.get(pos).getUsuario().getId()));
 
