@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     TextView txtBienvenido, txtNomAccesoPerfilID;
-    Button btnAlmacenamientos, btnCiudades, btnLocalesEnt, btnFamilias, btnMovimientos, btnPedidos, btnPerfiles, btnProductos, btnUsuarios, btnReporte;
+    Button btnAlmacenamientos, btnCiudades, btnLocalesEnt, btnFamilias, btnMovimientos, btnPedidos, btnPerfiles, btnProductos, btnUsuarios, btnReporte, btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         btnProductos = (Button) findViewById(R.id.btnProductos);
         btnUsuarios = (Button) findViewById(R.id.btnUsuarios);
         btnReporte = (Button) findViewById(R.id.btnReporte);
+        btnLogout = (Button) findViewById(R.id.btnLogout);
 
         Bundle extras = getIntent().getExtras();
         String usuarioNombre; // = "Adrian";
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 btnProductos.setVisibility(View.INVISIBLE);
                 btnUsuarios.setVisibility(View.INVISIBLE);
                 btnReporte.setVisibility(View.VISIBLE); // Si
+                btnLogout.setVisibility(View.VISIBLE); // Si
                 break;
             case "2": // Perfil Supervisor
                 btnAlmacenamientos.setVisibility(View.VISIBLE);
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 btnProductos.setVisibility(View.VISIBLE);
                 btnUsuarios.setVisibility(View.INVISIBLE);  // Solo admin ve
                 btnReporte.setVisibility(View.VISIBLE); // Si
+                btnLogout.setVisibility(View.VISIBLE); // Si
                 break;
             default:  // "1" Perfil Administrador -- muestro todos los botones
                 break;
@@ -120,6 +123,10 @@ public class MainActivity extends AppCompatActivity {
         }
         public void menuReporte (View view){
             Intent intent = new Intent(this, ReporteMainActivity.class);
+            startActivity(intent);
+        }
+        public void menuLogout (View view){
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
 
