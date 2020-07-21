@@ -86,5 +86,5 @@ public class PedidoAdapter extends ArrayAdapter<Pedido> {
 
         return rowView;
     }
-    
+
 }

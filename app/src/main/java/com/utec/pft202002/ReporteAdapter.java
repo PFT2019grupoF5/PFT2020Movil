@@ -35,6 +35,7 @@ public class ReporteAdapter extends ArrayAdapter<Pedido> {
         View rowView = inflater.inflate(R.layout.list_reporte, parent, false);
 
         TextView txtPedidoId = (TextView) rowView.findViewById(R.id.txtPedidoId);
+        TextView txtPedidoPedEstado = (TextView) rowView.findViewById(R.id.txtPedidoPedEstado);
         TextView txtPedidoPedFecEstim = (TextView) rowView.findViewById(R.id.txtPedidoPedFecEstim);
         TextView txtPedidoFecha = (TextView) rowView.findViewById(R.id.txtPedidoFecha);
         TextView txtPedidoPedRecCodigo = (TextView) rowView.findViewById(R.id.txtPedidoPedRecCodigo);
@@ -45,16 +46,23 @@ public class ReporteAdapter extends ArrayAdapter<Pedido> {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         txtPedidoId.setText(String.format("#ID: %d", pedidos.get(pos).getId()));
+
+        txtPedidoPedEstado.setText(String.format("PedEstado: %s", pedidos.get(pos).getPedestado()));
+
         Date pedfecestim = new Date(Long.parseLong(pedidos.get(pos).getPedfecestim()));
         String Spedfecestim = sdf.format(pedfecestim);
         txtPedidoPedFecEstim.setText(String.format("PedFecEstim: %s", Spedfecestim));
+
         Date fecha= new Date(Long.parseLong(pedidos.get(pos).getFecha()));
         String Sfecha = sdf.format(fecha);
         txtPedidoFecha.setText(String.format("Fecha: %s", Sfecha));
+
         txtPedidoPedRecCodigo.setText(String.format("PedRecCodigo: %d", pedidos.get(pos).getPedreccodigo()));
+
         Date pedrecfecha= new Date(Long.parseLong(pedidos.get(pos).getPedrecfecha()));
         String Spedrecfecha = sdf.format(pedrecfecha);
         txtPedidoPedRecFecha.setText(String.format("PedRecFecha: %s", Spedrecfecha));
+
         txtPedidoComentario.setText(String.format("Comentario: %s", pedidos.get(pos).getPedreccomentario()));
         txtPedidoUsuarioId.setText(String.format("Usuario Id: %d", pedidos.get(pos).getUsuario().getId()));
 
@@ -64,11 +72,12 @@ public class ReporteAdapter extends ArrayAdapter<Pedido> {
                 //start Activity Pedido Form
                 Intent intent = new Intent(context, PedidoActivity.class);
                 intent.putExtra("pedido_id", String.valueOf(pedidos.get(pos).getId()));
+                intent.putExtra("pedido_pedestado", String.valueOf(pedidos.get(pos).getPedestado()));
                 intent.putExtra("pedido_pedfecestim", String.valueOf(pedidos.get(pos).getPedfecestim()));
                 intent.putExtra("pedido_fecha", String.valueOf(pedidos.get(pos).getFecha()));
                 intent.putExtra("pedido_pedreccodigo", String.valueOf(pedidos.get(pos).getPedreccodigo()));
                 intent.putExtra("pedido_pedrecfecha", String.valueOf(pedidos.get(pos).getPedrecfecha()));
-                intent.putExtra("pedido_comentario", pedidos.get(pos).getPedreccomentario());
+                intent.putExtra("pedido_pedreccomentario", String.valueOf(pedidos.get(pos).getPedreccomentario()));
                 intent.putExtra("pedido_usuarioid", String.valueOf(pedidos.get(pos).getUsuario().getId()));
                 context.startActivity(intent);
             }
@@ -76,5 +85,5 @@ public class ReporteAdapter extends ArrayAdapter<Pedido> {
 
         return rowView;
     }
-    
+
 }

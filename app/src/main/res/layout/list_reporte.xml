@@ -13,6 +13,13 @@
         />
 
     <TextView
+        android:id="@+id/txtPedidoPedEstado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
         android:id="@+id/txtPedidoPedFecEstim"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
