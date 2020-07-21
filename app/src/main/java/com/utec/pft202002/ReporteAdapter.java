@@ -32,6 +32,7 @@ public class ReporteAdapter extends ArrayAdapter<Pedido> {
     @Override
     public View getView(final int pos, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        View rowView = inflater.inflate(R.layout.list_reporte, parent, false);
         View rowView = inflater.inflate(R.layout.list_reporte, parent, false);
 
         TextView txtPedidoId = (TextView) rowView.findViewById(R.id.txtPedidoId);
