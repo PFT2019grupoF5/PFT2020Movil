@@ -11,57 +11,60 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
+
         <TextView
             android:id="@+id/txtBienvenido"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:background="#9C27B0"
-            android:textColor="#ffffff"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            />
+            android:background="#9C27B0"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#ffffff" />
 
         <TextView
             android:id="@+id/txtNomAccesoPerfilID"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:background="#9C27B0"
-            android:textColor="#ffffff"
-            />
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/btnAlmacenamientos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#3F51B5"
             android:onClick="menuAlmacenamientos"
             android:text="ALMACENAMIENTOS"
-            android:background="#3F51B5"
-            android:textColor="#ffffff"
-            />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/btnCiudades"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:background="#F44336"
             android:onClick="menuCiudades"
             android:text="CIUDADES"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/btnLocalesEnt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="#32CD32"
             android:onClick="menuLocalesEnt"
             android:text="LOCALES"
-            android:background="#32CD32"
-            android:textColor="#ffffff"
-            android:layout_marginBottom="5dp"
-            />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/btnFamilias"
@@ -71,8 +74,8 @@
             android:background="#F44336"
             android:onClick="menuFamilias"
             android:text="FAMILIAS"
-            android:textColor="#ffffff"
-            />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/btnMovimientos"
@@ -82,6 +85,7 @@
             android:background="#03A9F4"
             android:onClick="menuMovimientos"
             android:text="MOVIMIENTOS"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#ffffff" />
 
         <Button
@@ -92,6 +96,7 @@
             android:background="#E91E63"
             android:onClick="menuPedidos"
             android:text="PEDIDOS"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#ffffff" />
 
         <Button
@@ -102,6 +107,7 @@
             android:background="#126915"
             android:onClick="menuPerfiles"
             android:text="PERFILES"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#ffffff" />
 
         <Button
@@ -112,6 +118,7 @@
             android:background="#673AB7"
             android:onClick="menuProductos"
             android:text="PRODUCTOS"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#ffffff" />
 
         <Button
@@ -122,6 +129,7 @@
             android:background="#009688"
             android:onClick="menuUsuarios"
             android:text=" USUARIOS"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#ffffff" />
 
         <Button
@@ -132,6 +140,7 @@
             android:background="#E91E63"
             android:onClick="menuReporte"
             android:text=" Reporte Pedidos"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="#ffffff" />
 
     </LinearLayout>

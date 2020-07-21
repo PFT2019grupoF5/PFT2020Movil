@@ -7,60 +7,64 @@
     tools:context=".LoginActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/txtUsuarioNomAcceso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="NomAcceso"
-            android:textSize="10dp"
             android:layout_marginTop="2dp"
-            />
+            android:text="NomAcceso"
+            android:textSize="10dp" />
 
         <EditText
             android:id="@+id/edtUsuarioNomAcceso"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/txtUsuarioContrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Contrasena"
-            android:textSize="10dp"
             android:layout_marginTop="2dp"
-            />
+            android:text="Contrasena"
+            android:textSize="10dp" />
 
         <EditText
             android:id="@+id/edtUsuarioContrasena"
-            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:background="#E91E63"
-            android:textColor="#ffffff"
             android:layout_marginBottom="2dp"
-            />
+            android:background="#E91E63"
+            android:text="Login"
+            android:textColor="#ffffff" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/f5v4" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
