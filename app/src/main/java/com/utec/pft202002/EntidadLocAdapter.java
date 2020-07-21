@@ -53,9 +53,9 @@ public class EntidadLocAdapter extends ArrayAdapter<EntidadLoc> {
                 Intent intent = new Intent(context, EntidadLocActivity.class);
                 intent.putExtra("entidadloc_id", String.valueOf(entidadesLoc.get(pos).getId()));
                 intent.putExtra("entidadloc_codigo", String.valueOf(entidadesLoc.get(pos).getCodigo()));
-                intent.putExtra("entidadloc_nombre", entidadesLoc.get(pos).getNombre());
-                intent.putExtra("entidadloc_direccion", entidadesLoc.get(pos).getDireccion());
-                intent.putExtra("entidadloc_tipoloc", entidadesLoc.get(pos).getTipoLoc());
+                intent.putExtra("entidadloc_nombre", String.valueOf(entidadesLoc.get(pos).getNombre()));
+                intent.putExtra("entidadloc_direccion", String.valueOf(entidadesLoc.get(pos).getDireccion()));
+                intent.putExtra("entidadloc_tipoloc", String.valueOf(entidadesLoc.get(pos).getTipoLoc()));
                 intent.putExtra("entidadloc_ciudadid", String.valueOf(entidadesLoc.get(pos).getCiudad().getId()));
                 context.startActivity(intent);
             }

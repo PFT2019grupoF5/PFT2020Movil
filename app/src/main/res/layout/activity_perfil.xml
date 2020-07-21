@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    tools:context=".PerfilActivity"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".PerfilActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,16 +16,16 @@
             android:id="@+id/txtPerfilId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ID"
-            android:textSize="10dp"
             android:layout_marginTop="2dp"
-            />
+            android:text="ID"
+            android:textSize="10dp" />
 
         <EditText
             android:id="@+id/edtPerfilId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
+            android:textSize="10dp"
             />
 
         <TextView
@@ -41,6 +41,7 @@
             android:id="@+id/edtPerfilTipoPerfil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="10dp"
             />
 
         <Button
@@ -64,4 +65,4 @@
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

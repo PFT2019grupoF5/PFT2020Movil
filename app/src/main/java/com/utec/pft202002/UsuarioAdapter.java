@@ -54,11 +54,11 @@ public class UsuarioAdapter extends ArrayAdapter<Usuario> {
                 //start Activity Usuario Form
                 Intent intent = new Intent(context, UsuarioActivity.class);
                 intent.putExtra("usuario_id", String.valueOf(usuarios.get(pos).getId()));
-                intent.putExtra("usuario_nombre", usuarios.get(pos).getNombre());
-                intent.putExtra("usuario_apellido", usuarios.get(pos).getApellido());
-                intent.putExtra("usuario_nomacceso", usuarios.get(pos).getNomAcceso());
-                intent.putExtra("usuario_contrasena", usuarios.get(pos).getContrasena());
-                intent.putExtra("usuario_correo", usuarios.get(pos).getCorreo());
+                intent.putExtra("usuario_nombre", String.valueOf(usuarios.get(pos).getNombre()));
+                intent.putExtra("usuario_apellido", String.valueOf(usuarios.get(pos).getApellido()));
+                intent.putExtra("usuario_nomacceso", String.valueOf(usuarios.get(pos).getNomAcceso()));
+                intent.putExtra("usuario_contrasena", String.valueOf(usuarios.get(pos).getContrasena()));
+                intent.putExtra("usuario_correo", String.valueOf(usuarios.get(pos).getCorreo()));
                 intent.putExtra("usuario_perfilid", String.valueOf(usuarios.get(pos).getPerfil().getId()));
                 context.startActivity(intent);
             }

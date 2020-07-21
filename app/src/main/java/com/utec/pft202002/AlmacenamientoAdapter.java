@@ -55,7 +55,7 @@ public class AlmacenamientoAdapter extends ArrayAdapter<Almacenamiento> {
                 Intent intent = new Intent(context, AlmacenamientoActivity.class);
                 intent.putExtra("almacenamiento_id", String.valueOf(almacenamientos.get(pos).getId()));
                 intent.putExtra("almacenamiento_volumen", String.valueOf(almacenamientos.get(pos).getVolumen()));
-                intent.putExtra("almacenamiento_nombre", almacenamientos.get(pos).getNombre());
+                intent.putExtra("almacenamiento_nombre", String.valueOf(almacenamientos.get(pos).getNombre()));
                 intent.putExtra("almacenamiento_costoop", String.valueOf(almacenamientos.get(pos).getCostoop()));
                 intent.putExtra("almacenamiento_capestiba", String.valueOf(almacenamientos.get(pos).getCapestiba()));
                 intent.putExtra("almacenamiento_cappeso", String.valueOf(almacenamientos.get(pos).getCappeso()));

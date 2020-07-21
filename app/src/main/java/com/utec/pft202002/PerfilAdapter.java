@@ -44,7 +44,7 @@ public class PerfilAdapter extends ArrayAdapter<Perfil> {
                 //start Activity Perfil Form
                 Intent intent = new Intent(context, PerfilActivity.class);
                 intent.putExtra("perfil_id", String.valueOf(perfiles.get(pos).getId()));
-                intent.putExtra("perfil_tipoperfil", perfiles.get(pos).getTipoPerfil());
+                intent.putExtra("perfil_tipoperfil", String.valueOf(perfiles.get(pos).getTipoPerfil()));
                 context.startActivity(intent);
             }
         });

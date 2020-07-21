@@ -48,9 +48,9 @@ public class FamiliaAdapter extends ArrayAdapter<Familia> {
                 //start Activity Familia Form
                 Intent intent = new Intent(context, FamiliaActivity.class);
                 intent.putExtra("familia_id", String.valueOf(familias.get(pos).getId()));
-                intent.putExtra("familia_nombre", familias.get(pos).getNombre());
-                intent.putExtra("familia_descrip", familias.get(pos).getDescrip());
-                intent.putExtra("familia_incompat", familias.get(pos).getIncompat());
+                intent.putExtra("familia_nombre", String.valueOf(familias.get(pos).getNombre()));
+                intent.putExtra("familia_descrip", String.valueOf(familias.get(pos).getDescrip()));
+                intent.putExtra("familia_incompat", String.valueOf(familias.get(pos).getIncompat()));
                 context.startActivity(intent);
             }
         });

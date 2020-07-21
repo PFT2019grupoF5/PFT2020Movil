@@ -44,7 +44,7 @@ public class CiudadAdapter extends ArrayAdapter<Ciudad> {
                 //start Activity Ciudad Form
                 Intent intent = new Intent(context, CiudadActivity.class);
                 intent.putExtra("ciudad_id", String.valueOf(ciudades.get(pos).getId()));
-                intent.putExtra("ciudad_nombre", ciudades.get(pos).getNombre());
+                intent.putExtra("ciudad_nombre", String.valueOf(ciudades.get(pos).getNombre()));
                 context.startActivity(intent);
             }
         });
