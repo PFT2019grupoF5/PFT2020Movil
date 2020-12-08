@@ -1,6 +1,8 @@
 package com.utec.pft202002;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -275,10 +277,28 @@ public class PedidoActivity extends AppCompatActivity {
         btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deletePedido(Long.parseLong(pedidoId));
 
-                Intent intent = new Intent(PedidoActivity.this, PedidoMainActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder builder=new AlertDialog.Builder(PedidoActivity.this);
+                builder.setMessage("¿Por favor confirme que quiere borrar este Pedido? Gracias").
+                        setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                deletePedido(Long.parseLong(pedidoId));
+                                Intent intent = new Intent(PedidoActivity.this, PedidoMainActivity.class);
+                                startActivity(intent);
+
+                            }
+                        }).
+                        setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog alertDialog=builder.create();
+                alertDialog.show();
+
             }
         });
 

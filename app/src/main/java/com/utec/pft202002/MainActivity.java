@@ -40,20 +40,20 @@ public class MainActivity extends AppCompatActivity {
         String usuarioNombre; // = "Adrian";
         String usuarioApellido; // = "Sigot";
         String usuarioNomAcceso; // = "adrian";
-        String usuarioPerfilId; // = "3";  // OJO PERFIL ACA ES STRING !!!!!
+        String usuarioTipoPerfil; // = "ADMINISRTADOR";  // OJO PERFIL ACA ES STRING !!!!!
 
         // if (extras != null) {
             usuarioNombre = extras.getString("usuario_nombre");
             usuarioApellido = extras.getString("usuario_apellido");
             usuarioNomAcceso = extras.getString("usuario_nomacceso");
-            usuarioPerfilId = extras.getString("usuario_perfilid");
+            usuarioTipoPerfil = extras.getString("usuario_tipoperfil");
         // }
         txtBienvenido.setText("Bienvenida/o " + usuarioNombre + " " + usuarioApellido );
-        txtNomAccesoPerfilID.setText("nomacceso: " + usuarioNomAcceso + " perfil: " + usuarioPerfilId );
+        txtNomAccesoPerfilID.setText("nomacceso: " + usuarioNomAcceso + " perfil: " + usuarioTipoPerfil );
 
-        switch (usuarioPerfilId)
+        switch (usuarioTipoPerfil)
         {
-            case "3": // Perfil Operario
+            case "OPERARIO": // Perfil Operario
                 btnAlmacenamientos.setVisibility(View.INVISIBLE);
                 btnCiudades.setVisibility(View.INVISIBLE);
                 btnLocalesEnt.setVisibility(View.INVISIBLE);
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 btnReporte.setVisibility(View.VISIBLE); // Si
                 btnLogout.setVisibility(View.VISIBLE); // Si
                 break;
-            case "2": // Perfil Supervisor
+            case "SUPERVISOR": // Perfil Supervisor
                 btnAlmacenamientos.setVisibility(View.VISIBLE);
                 btnCiudades.setVisibility(View.VISIBLE);
                 btnLocalesEnt.setVisibility(View.VISIBLE);

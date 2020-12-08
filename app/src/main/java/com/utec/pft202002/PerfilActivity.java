@@ -1,5 +1,7 @@
 package com.utec.pft202002;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -81,10 +83,29 @@ public class PerfilActivity extends AppCompatActivity {
         btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deletePerfil(Long.parseLong(perfilId));
 
-                Intent intent = new Intent(PerfilActivity.this, PerfilMainActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder builder=new AlertDialog.Builder(PerfilActivity.this);
+                builder.setMessage("¿Por favor confirme que quiere borrar este Perfil? Gracias").
+                        setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                deletePerfil(Long.parseLong(perfilId));
+                                Intent intent = new Intent(PerfilActivity.this, PerfilMainActivity.class);
+                                startActivity(intent);
+
+                            }
+                        }).
+                        setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog alertDialog=builder.create();
+                alertDialog.show();
+
+
             }
         });
 

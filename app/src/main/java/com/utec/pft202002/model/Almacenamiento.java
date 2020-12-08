@@ -8,10 +8,6 @@ public class Almacenamiento {
     @Expose
     private Long id;
 
-    @SerializedName("volumen")
-    @Expose
-    private int volumen;
-
     @SerializedName("nombre")
     @Expose
     private String nombre;
@@ -27,6 +23,10 @@ public class Almacenamiento {
     @SerializedName("cappeso")
     @Expose
     private double cappeso;
+
+    @SerializedName("volumen")
+    @Expose
+    private int volumen;
 
     @SerializedName("entidadLoc")
     @Expose

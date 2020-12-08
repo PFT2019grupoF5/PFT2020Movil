@@ -38,7 +38,7 @@ public class UsuarioAdapter extends ArrayAdapter<Usuario> {
         TextView txtUsuarioNomAcceso = (TextView) rowView.findViewById(R.id.txtUsuarioNomAcceso);
         TextView txtUsuarioContrasena = (TextView) rowView.findViewById(R.id.txtUsuarioContrasena);
         TextView txtUsuarioCorreo = (TextView) rowView.findViewById(R.id.txtUsuarioCorreo);
-        TextView txtUsuarioPerfilId = (TextView) rowView.findViewById(R.id.txtUsuarioPerfilId);
+        TextView txtUsuarioTipoPerfil = (TextView) rowView.findViewById(R.id.txtUsuarioTipoPerfil);
 
         txtUsuarioId.setText(String.format("#ID: %d", usuarios.get(pos).getId()));
         txtUsuarioNombre.setText(String.format("Nombre: %s", usuarios.get(pos).getNombre()));
@@ -46,7 +46,7 @@ public class UsuarioAdapter extends ArrayAdapter<Usuario> {
         txtUsuarioNomAcceso.setText(String.format("NomAcceso: %s", usuarios.get(pos).getNomAcceso()));
         txtUsuarioContrasena.setText(String.format("Contrasena: %s", usuarios.get(pos).getContrasena()));
         txtUsuarioCorreo.setText(String.format("Correo: %s", usuarios.get(pos).getCorreo()));
-        txtUsuarioPerfilId.setText(String.format("PerfilId: %d", usuarios.get(pos).getPerfil().getId()));
+        txtUsuarioTipoPerfil.setText(String.format("TipoPerfilId: %s", usuarios.get(pos).getTipoPerfil()));
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +59,7 @@ public class UsuarioAdapter extends ArrayAdapter<Usuario> {
                 intent.putExtra("usuario_nomacceso", String.valueOf(usuarios.get(pos).getNomAcceso()));
                 intent.putExtra("usuario_contrasena", String.valueOf(usuarios.get(pos).getContrasena()));
                 intent.putExtra("usuario_correo", String.valueOf(usuarios.get(pos).getCorreo()));
-                intent.putExtra("usuario_perfilid", String.valueOf(usuarios.get(pos).getPerfil().getId()));
+                intent.putExtra("usuario_tipoperfil", String.valueOf(usuarios.get(pos).getTipoPerfil()));
                 context.startActivity(intent);
             }
         });

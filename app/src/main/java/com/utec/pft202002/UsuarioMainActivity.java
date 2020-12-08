@@ -57,7 +57,7 @@ public class UsuarioMainActivity extends AppCompatActivity {
                 intent.putExtra("usuario_nomacceso", "");
                 intent.putExtra("usuario_contrasena", "");
                 intent.putExtra("usuario_correo", "");
-                intent.putExtra("usuario_perfilid", "");
+                intent.putExtra("usuario_tipoperfil", "");
                 startActivity(intent);
             }
         });

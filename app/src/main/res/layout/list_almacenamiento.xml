@@ -13,13 +13,6 @@
         />
 
     <TextView
-        android:id="@+id/txtAlmacenamientoVolumen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="3dp"
-        />
-
-    <TextView
         android:id="@+id/txtAlmacenamientoNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,6 +35,13 @@
 
     <TextView
         android:id="@+id/txtAlmacenamientoCapPeso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        />
+
+    <TextView
+        android:id="@+id/txtAlmacenamientoVolumen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="3dp"

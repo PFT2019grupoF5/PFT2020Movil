@@ -1,5 +1,7 @@
 package com.utec.pft202002;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -78,10 +80,28 @@ public class CiudadActivity extends AppCompatActivity {
         btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteCiudad(Long.parseLong(ciudadId));
 
-                Intent intent = new Intent(CiudadActivity.this, CiudadMainActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder builder=new AlertDialog.Builder(CiudadActivity.this);
+                builder.setMessage("¿Por favor confirme que quiere borrar esta Ciudad? Gracias").
+                        setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                deleteCiudad(Long.parseLong(ciudadId));
+                                Intent intent = new Intent(CiudadActivity.this, CiudadMainActivity.class);
+                                startActivity(intent);
+
+                            }
+                        }).
+                        setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog alertDialog=builder.create();
+                alertDialog.show();
+
             }
         });
 

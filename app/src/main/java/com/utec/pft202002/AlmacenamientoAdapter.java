@@ -33,19 +33,19 @@ public class AlmacenamientoAdapter extends ArrayAdapter<Almacenamiento> {
         View rowView = inflater.inflate(R.layout.list_almacenamiento, parent, false);
 
         TextView txtAlmacenamientoId = (TextView) rowView.findViewById(R.id.txtAlmacenamientoId);
-        TextView txtAlmacenamientoVolumen = (TextView) rowView.findViewById(R.id.txtAlmacenamientoVolumen);
         TextView txtAlmacenamientoNombre = (TextView) rowView.findViewById(R.id.txtAlmacenamientoNombre);
         TextView txtAlmacenamientoCostoOp = (TextView) rowView.findViewById(R.id.txtAlmacenamientoCostoOp);
         TextView txtAlmacenamientoCapEstiba = (TextView) rowView.findViewById(R.id.txtAlmacenamientoCapEstiba);
         TextView txtAlmacenamientoCapPeso = (TextView) rowView.findViewById(R.id.txtAlmacenamientoCapPeso);
+        TextView txtAlmacenamientoVolumen = (TextView) rowView.findViewById(R.id.txtAlmacenamientoVolumen);
         TextView txtAlmacenamientoEntidadLocId = (TextView) rowView.findViewById(R.id.txtAlmacenamientoEntidadLocId);
 
         txtAlmacenamientoId.setText(String.format("#ID: %d", almacenamientos.get(pos).getId()));
-        txtAlmacenamientoVolumen.setText(String.format("Volumen: %d", almacenamientos.get(pos).getVolumen()));
         txtAlmacenamientoNombre.setText(String.format("Nombre: %s", almacenamientos.get(pos).getNombre()));
         txtAlmacenamientoCostoOp.setText(String.format("Costo Op: %f", almacenamientos.get(pos).getCostoop()));
         txtAlmacenamientoCapEstiba.setText(String.format("Cap Estiba: %f", almacenamientos.get(pos).getCapestiba()));
         txtAlmacenamientoCapPeso.setText(String.format("Cap Peso: %f", almacenamientos.get(pos).getCappeso()));
+        txtAlmacenamientoVolumen.setText(String.format("Volumen: %d", almacenamientos.get(pos).getVolumen()));
         txtAlmacenamientoEntidadLocId.setText(String.format("Ent Loc: %d", almacenamientos.get(pos).getEntidadLoc().getId()));
 
         rowView.setOnClickListener(new View.OnClickListener() {
@@ -54,11 +54,11 @@ public class AlmacenamientoAdapter extends ArrayAdapter<Almacenamiento> {
                 //start Activity Almacenamiento Form
                 Intent intent = new Intent(context, AlmacenamientoActivity.class);
                 intent.putExtra("almacenamiento_id", String.valueOf(almacenamientos.get(pos).getId()));
-                intent.putExtra("almacenamiento_volumen", String.valueOf(almacenamientos.get(pos).getVolumen()));
                 intent.putExtra("almacenamiento_nombre", String.valueOf(almacenamientos.get(pos).getNombre()));
                 intent.putExtra("almacenamiento_costoop", String.valueOf(almacenamientos.get(pos).getCostoop()));
                 intent.putExtra("almacenamiento_capestiba", String.valueOf(almacenamientos.get(pos).getCapestiba()));
                 intent.putExtra("almacenamiento_cappeso", String.valueOf(almacenamientos.get(pos).getCappeso()));
+                intent.putExtra("almacenamiento_volumen", String.valueOf(almacenamientos.get(pos).getVolumen()));
                 intent.putExtra("almacenamiento_entidadlocid", String.valueOf(almacenamientos.get(pos).getEntidadLoc().getId()));
                 context.startActivity(intent);
             }

@@ -1,6 +1,8 @@
 package com.utec.pft202002;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -269,10 +271,28 @@ public class ProductoActivity extends AppCompatActivity {
         btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteProducto(Long.parseLong(productoId));
 
-                Intent intent = new Intent(ProductoActivity.this, ProductoMainActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder builder=new AlertDialog.Builder(ProductoActivity.this);
+                builder.setMessage("¿Por favor confirme que quiere borrar este Producto? Gracias").
+                        setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                deleteProducto(Long.parseLong(productoId));
+                                Intent intent = new Intent(ProductoActivity.this, ProductoMainActivity.class);
+                                startActivity(intent);
+
+                            }
+                        }).
+                        setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog alertDialog=builder.create();
+                alertDialog.show();
+
             }
         });
 
@@ -284,7 +304,7 @@ public class ProductoActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Producto> call, Response<Producto> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(ProductoActivity.this, "Producto creado ok!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductoActivity.this, "Producto creado ok!", Toast.LENGTH_LONG).show();
                 }
             }
 

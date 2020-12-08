@@ -1,5 +1,7 @@
 package com.utec.pft202002;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.utec.pft202002.Enum.tipoPerfil;
 import com.utec.pft202002.model.Usuario;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.PerfilService;
@@ -34,7 +37,7 @@ public class UsuarioActivity extends AppCompatActivity {
     EditText edtUsuarioNomAcceso;
     EditText edtUsuarioContrasena;
     EditText edtUsuarioCorreo;
-    EditText edtUsuarioPerfilId;
+    EditText edtUsuarioTipoPerfil;
     Button btnSave;
     Button btnDel;
     TextView txtUsuarioId;
@@ -54,7 +57,7 @@ public class UsuarioActivity extends AppCompatActivity {
         edtUsuarioNomAcceso = (EditText) findViewById(R.id.edtUsuarioNomAcceso);
         edtUsuarioContrasena = (EditText) findViewById(R.id.edtUsuarioContrasena);
         edtUsuarioCorreo = (EditText) findViewById(R.id.edtUsuarioCorreo);
-        edtUsuarioPerfilId = (EditText) findViewById(R.id.edtUsuarioPerfilId);
+        edtUsuarioTipoPerfil = (EditText) findViewById(R.id.edtUsuarioTipoPerfil);
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
 
@@ -67,7 +70,7 @@ public class UsuarioActivity extends AppCompatActivity {
         String usuarioNomAcceso = extras.getString("usuario_nomacceso");
         String usuarioConrtasena = extras.getString("usuario_contrasena");
         String usuarioCorreo = extras.getString("usuario_correo");
-        String usuarioPerfilId = extras.getString("usuario_perfilid");
+        String usuarioTipoPerfil = extras.getString("usuario_tipoperfil");
 
         edtUsuarioId.setText(usuarioId);
         edtUsuarioNombre.setText(usuarioNombre);
@@ -75,7 +78,7 @@ public class UsuarioActivity extends AppCompatActivity {
         edtUsuarioNomAcceso.setText(usuarioNomAcceso);
         edtUsuarioContrasena.setText(usuarioConrtasena);
         edtUsuarioCorreo.setText(usuarioCorreo);
-        edtUsuarioPerfilId.setText(usuarioPerfilId);
+        edtUsuarioTipoPerfil.setText(usuarioTipoPerfil);
 
         if(usuarioId != null && usuarioId.trim().length() > 0 ){
             edtUsuarioId.setFocusable(false);
@@ -94,14 +97,8 @@ public class UsuarioActivity extends AppCompatActivity {
                 u.setNomAcceso(edtUsuarioNomAcceso.getText().toString());
                 u.setContrasena(edtUsuarioContrasena.getText().toString());
                 u.setCorreo(edtUsuarioCorreo.getText().toString());
+                u.setTipoPerfil(tipoPerfil.valueOf(edtUsuarioTipoPerfil.getText().toString()));
 
-                Long perfilId = Long.parseLong(edtUsuarioPerfilId.getText().toString());
-                perfilService = APIUtils.getPerfilService();
-                try {
-                    u.setPerfil(perfilService.getByIdPerfil(perfilId).execute().body());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
                 if(usuarioId != null && usuarioId.trim().length() > 0){
                     //update usuario
@@ -116,10 +113,28 @@ public class UsuarioActivity extends AppCompatActivity {
         btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteUsuario(Long.parseLong(usuarioId));
 
-                Intent intent = new Intent(UsuarioActivity.this, UsuarioMainActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder builder=new AlertDialog.Builder(UsuarioActivity.this);
+                builder.setMessage("¿Por favor confirme que quiere borrar este Usuario? Gracias").
+                        setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                deleteUsuario(Long.parseLong(usuarioId));
+                                Intent intent = new Intent(UsuarioActivity.this, UsuarioMainActivity.class);
+                                startActivity(intent);
+
+                            }
+                        }).
+                        setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog alertDialog=builder.create();
+                alertDialog.show();
+
             }
         });
 

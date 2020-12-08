@@ -16,33 +16,16 @@
             android:id="@+id/txtAlmacenamientoId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:text="ID"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:layout_marginTop="5dp"
+            />
 
         <EditText
             android:id="@+id/edtAlmacenamientoId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:textSize="10dp"
-            />
-
-        <TextView
-            android:id="@+id/txtAlmacenamientoVolumen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Volumen"
-            android:textSize="10dp"
-            android:layout_marginTop="5dp"
-            />
-
-        <EditText
-            android:id="@+id/edtAlmacenamientoVolumen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:textSize="10dp"
             />
 
         <TextView
@@ -106,6 +89,23 @@
 
         <EditText
             android:id="@+id/edtAlmacenamientoCapPeso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="10dp"
+            />
+
+        <TextView
+            android:id="@+id/txtAlmacenamientoVolumen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Volumen"
+            android:textSize="10dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <EditText
+            android:id="@+id/edtAlmacenamientoVolumen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"

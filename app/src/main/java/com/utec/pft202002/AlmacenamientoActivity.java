@@ -1,5 +1,7 @@
 package com.utec.pft202002;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,11 +31,11 @@ public class AlmacenamientoActivity extends AppCompatActivity {
     EntidadLocService entidadLocService;
 
     EditText edtAlmacenamientoId;
-    EditText edtAlmacenamientoVolumen;
     EditText edtAlmacenamientoNombre;
     EditText edtAlmacenamientoCostoOp;
     EditText edtAlmacenamientoCapEstiba;
     EditText edtAlmacenamientoCapPeso;
+    EditText edtAlmacenamientoVolumen;
     EditText edtAlmacenamientoEntidadLocId;
     Button btnSave;
     Button btnDel;
@@ -49,11 +51,11 @@ public class AlmacenamientoActivity extends AppCompatActivity {
 
         txtAlmacenamientoId = (TextView) findViewById(R.id.txtAlmacenamientoId);
         edtAlmacenamientoId = (EditText) findViewById(R.id.edtAlmacenamientoId);
-        edtAlmacenamientoVolumen = (EditText) findViewById(R.id.edtAlmacenamientoVolumen);
         edtAlmacenamientoNombre = (EditText) findViewById(R.id.edtAlmacenamientoNombre);
         edtAlmacenamientoCostoOp = (EditText) findViewById(R.id.edtAlmacenamientoCostoOp);
         edtAlmacenamientoCapEstiba = (EditText) findViewById(R.id.edtAlmacenamientoCapEstiba);
         edtAlmacenamientoCapPeso = (EditText) findViewById(R.id.edtAlmacenamientoCapPeso);
+        edtAlmacenamientoVolumen = (EditText) findViewById(R.id.edtAlmacenamientoVolumen);
         edtAlmacenamientoEntidadLocId = (EditText) findViewById(R.id.edtAlmacenamientoEntidadLocId);
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
@@ -62,19 +64,19 @@ public class AlmacenamientoActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         final String almacenamientoId = extras.getString("almacenamiento_id");
-        String almacenamientoVolumen = extras.getString("almacenamiento_volumen");
         String almacenamientoNombre = extras.getString("almacenamiento_nombre");
         String almacenamientoCostoOp = extras.getString("almacenamiento_costoop");
         String almacenamientoCapEstiba = extras.getString("almacenamiento_capestiba");
         String almacenamientoCapPeso = extras.getString("almacenamiento_cappeso");
+        String almacenamientoVolumen = extras.getString("almacenamiento_volumen");
         String almacenamientoEntidadLocId = extras.getString("almacenamiento_entidadlocid");
 
         edtAlmacenamientoId.setText(almacenamientoId);
-        edtAlmacenamientoVolumen.setText(almacenamientoVolumen);
         edtAlmacenamientoNombre.setText(almacenamientoNombre);
         edtAlmacenamientoCostoOp.setText(almacenamientoCostoOp);
         edtAlmacenamientoCapEstiba.setText(almacenamientoCapEstiba);
         edtAlmacenamientoCapPeso.setText(almacenamientoCapPeso);
+        edtAlmacenamientoVolumen.setText(almacenamientoVolumen);
         edtAlmacenamientoEntidadLocId.setText(almacenamientoEntidadLocId);
 
         if(almacenamientoId != null && almacenamientoId.trim().length() > 0 ){
@@ -89,11 +91,11 @@ public class AlmacenamientoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Almacenamiento u = new Almacenamiento();
-                u.setVolumen(Integer.parseInt(edtAlmacenamientoVolumen.getText().toString()));
                 u.setNombre(edtAlmacenamientoNombre.getText().toString());
                 u.setCostoop(Double.parseDouble(edtAlmacenamientoCostoOp.getText().toString()));
                 u.setCapestiba(Double.parseDouble(edtAlmacenamientoCapEstiba.getText().toString()));
                 u.setCappeso(Double.parseDouble(edtAlmacenamientoCapPeso.getText().toString()));
+                u.setVolumen(Integer.parseInt(edtAlmacenamientoVolumen.getText().toString()));
 
                 Long entidadLocId = Long.parseLong(edtAlmacenamientoEntidadLocId.getText().toString());
                 entidadLocService = APIUtils.getEntidadLocService();
@@ -116,10 +118,27 @@ public class AlmacenamientoActivity extends AppCompatActivity {
         btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteAlmacenamiento(Long.parseLong(almacenamientoId));
 
-                Intent intent = new Intent(AlmacenamientoActivity.this, AlmacenamientoMainActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder builder=new AlertDialog.Builder(AlmacenamientoActivity.this);
+                builder.setMessage("¿Por favor confirme que quiere borrar este Almacenamiento? Gracias").
+                        setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                deleteAlmacenamiento(Long.parseLong(almacenamientoId));
+                                Intent intent = new Intent(AlmacenamientoActivity.this, AlmacenamientoMainActivity.class);
+                                startActivity(intent);
+
+                            }
+                        }).
+                        setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog alertDialog=builder.create();
+                alertDialog.show();
             }
         });
 

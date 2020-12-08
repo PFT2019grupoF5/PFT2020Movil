@@ -2,7 +2,7 @@ package com.utec.pft202002.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.utec.pft202002.Enum.tipoLoc;
+import com.utec.pft202002.Enum.tipoPerfil;
 
 public class Usuario {
 
@@ -30,22 +30,22 @@ public class Usuario {
     @Expose
     private String correo;
 
-    @SerializedName("perfil")
+    @SerializedName("tipoperfil")
     @Expose
-    private Perfil perfil;
+    private tipoPerfil tipoPerfil;
 
 
     public Usuario() {
     }
 
-    public Usuario(Long id, String nombre, String apellido, String nomAcceso, String contrasena, String correo, Perfil perfil) {
+    public Usuario(Long id, String nombre, String apellido, String nomAcceso, String contrasena, String correo, tipoPerfil tipoPerfil) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.nomAcceso = nomAcceso;
         this.contrasena = contrasena;
         this.correo = correo;
-        this.perfil = perfil;
+        this.tipoPerfil = tipoPerfil;
     }
 
     public Long getId() {
@@ -96,11 +96,11 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public Perfil getPerfil() {
-        return perfil;
+    public tipoPerfil getTipoPerfil() {
+        return tipoPerfil;
     }
 
-    public void setPerfil(Perfil perfil) {
-        this.perfil = perfil;
+    public void setTipoPerfil(tipoPerfil tipoPerfil) {
+        this.tipoPerfil = tipoPerfil;
     }
 }

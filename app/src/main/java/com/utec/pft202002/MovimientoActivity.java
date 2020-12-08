@@ -1,6 +1,8 @@
 package com.utec.pft202002;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -191,10 +193,28 @@ public class MovimientoActivity extends AppCompatActivity {
         btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteMovimiento(Long.parseLong(movimientoId));
 
-                Intent intent = new Intent(MovimientoActivity.this, MovimientoMainActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder builder=new AlertDialog.Builder(MovimientoActivity.this);
+                builder.setMessage("¿Por favor confirme que quiere borrar este Movimiento? Gracias").
+                        setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                deleteMovimiento(Long.parseLong(movimientoId));
+                                Intent intent = new Intent(MovimientoActivity.this, MovimientoMainActivity.class);
+                                startActivity(intent);
+
+                            }
+                        }).
+                        setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog alertDialog=builder.create();
+                alertDialog.show();
+
             }
         });
 

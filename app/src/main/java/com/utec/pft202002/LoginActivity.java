@@ -39,17 +39,17 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nomacceso = edtUsuarioNomAcceso.getText().toString();
+                String nomAcceso = edtUsuarioNomAcceso.getText().toString();
                 String contrasena = edtUsuarioContrasena.getText().toString();
-                if(validateLogin(nomacceso, contrasena)){
-                    doLogin(nomacceso, contrasena);
+                if(validateLogin(nomAcceso, contrasena)){
+                    doLogin(nomAcceso, contrasena);
                 }
             }
         });
     }
 
-    private boolean validateLogin(String nomacceso, String contrasena){
-        if(nomacceso == null || nomacceso.trim().length() == 0){
+    private boolean validateLogin(String nomAcceso, String contrasena){
+        if(nomAcceso == null || nomAcceso.trim().length() == 0){
             Toast.makeText(this, "Por favor ingrese el nombre de aceeso del usuario", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -60,11 +60,13 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    private void doLogin(final String nomacceso,final String contrasena){
-        Call<Usuario> call = usuarioService.login(nomacceso,contrasena);
+    private void doLogin(final String nomAcceso,final String contrasena){
+        System.out.println("getLogin-nomAcceso-contrasena " + nomAcceso + " : " + contrasena);
+        Call<Usuario> call = usuarioService.login(nomAcceso,contrasena);
         call.enqueue(new Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                System.out.println("response.isSuccessful() " + response.isSuccessful());
                 if(response.isSuccessful()){
                     if(response.body().getContrasena().equals("+Login-Ok!")){
                         Toast.makeText(LoginActivity.this, "Login Correcto", Toast.LENGTH_LONG).show();
@@ -73,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                         intent.putExtra("usuario_nombre", response.body().getNombre());
                         intent.putExtra("usuario_apellido", response.body().getApellido());
                         intent.putExtra("usuario_nomacceso", response.body().getNomAcceso());
-                        intent.putExtra("usuario_perfilid", String.valueOf(response.body().getPerfil().getId()));
+                        intent.putExtra("usuario_tipoperfil", String.valueOf(response.body().getTipoPerfil()));
                         startActivity(intent);
 
                     } else {

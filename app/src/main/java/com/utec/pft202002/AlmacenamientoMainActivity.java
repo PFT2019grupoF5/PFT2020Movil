@@ -52,11 +52,11 @@ public class AlmacenamientoMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AlmacenamientoMainActivity.this, AlmacenamientoActivity.class);
-                intent.putExtra("almacenamiento_volumen", "");
                 intent.putExtra("almacenamiento_nombre", "");
                 intent.putExtra("almacenamiento_costoop", "");
                 intent.putExtra("almacenamiento_capestiba", "");
                 intent.putExtra("almacenamiento_cappeso", "");
+                intent.putExtra("almacenamiento_volumen", "");
                 intent.putExtra("almacenamiento_entidadlocid", "");
                 startActivity(intent);
             }

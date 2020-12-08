@@ -1,5 +1,7 @@
 package com.utec.pft202002;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -91,7 +93,6 @@ public class EntidadLocActivity extends AppCompatActivity {
                 u.setDireccion(edtEntidadLocDireccion.getText().toString());
                 u.setTipoLoc(tipoLoc.valueOf(edtEntidadLocTipoLoc.getText().toString()));
 
-
                 Long ciudadId = Long.parseLong(edtEntidadLocCiudadId.getText().toString());
                 ciudadService = APIUtils.getCiudadService();
                 try {
@@ -113,10 +114,28 @@ public class EntidadLocActivity extends AppCompatActivity {
         btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteEntidadLoc(Long.parseLong(entidadLocId));
 
-                Intent intent = new Intent(EntidadLocActivity.this, EntidadLocMainActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder builder=new AlertDialog.Builder(EntidadLocActivity.this);
+                builder.setMessage("¿Por favor confirme que quiere borrar este Local? Gracias").
+                        setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                deleteEntidadLoc(Long.parseLong(entidadLocId));
+                                Intent intent = new Intent(EntidadLocActivity.this, EntidadLocMainActivity.class);
+                                startActivity(intent);
+
+                            }
+                        }).
+                        setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog alertDialog=builder.create();
+                alertDialog.show();
+
             }
         });
 
