@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,9 +59,11 @@ public class ProductoActivity extends AppCompatActivity {
     EditText edtProductoSegmentac;
     EditText edtProductoUsuarioId;
     EditText edtProductoFamiliaId;
-    Button btnSave;
-    Button btnDel;
     TextView txtProductoId;
+    Spinner  spinnerSegmentacion;
+    Button   btnSave;
+    Button   btnDel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +88,7 @@ public class ProductoActivity extends AppCompatActivity {
         edtProductoSegmentac = (EditText) findViewById(R.id.edtProductoSegmentac);
         edtProductoUsuarioId = (EditText) findViewById(R.id.edtProductoUsuarioId);
         edtProductoFamiliaId = (EditText) findViewById(R.id.edtProductoFamiliaId);
+        spinnerSegmentacion = (Spinner) findViewById(R.id.spinnerSegmentacion);
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
 
@@ -215,56 +219,65 @@ public class ProductoActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Producto u = new Producto();
 
-                u.setNombre(edtProductoNombre.getText().toString());
-                u.setLote(edtProductoLote.getText().toString());
-                u.setPrecio(Double.parseDouble(edtProductoPrecio.getText().toString()));
-
-                try {
-                    u.setFelab(dateFelab);
-                    Log.i("dateFelab :", dateFelab);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-                try {
-                    u.setFven(dateFven);
-                    Log.i("dateFven :", dateFven);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-                u.setPeso(Double.parseDouble(edtProductoPeso.getText().toString()));
-                u.setVolumen(Double.parseDouble(edtProductoVolumen.getText().toString()));
-                u.setEstiba(Integer.parseInt(edtProductoEstiba.getText().toString()));
-                u.setStkMin(Double.parseDouble(edtProductoStkMin.getText().toString()));
-                u.setStkTotal(Double.parseDouble(edtProductoStkTotal.getText().toString()));
-                u.setSegmentac(Segmentacion.valueOf(edtProductoSegmentac.getText().toString()));
-
-                Long usuarioId = Long.parseLong(edtProductoUsuarioId.getText().toString());
-                usuarioService = APIUtils.getUsuarioService();
-                try {
-                    u.setUsuario(usuarioService.getByIdUsuario(usuarioId).execute().body());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                Long familiaId = Long.parseLong(edtProductoFamiliaId.getText().toString());
-                familiaService = APIUtils.getFamiliaService();
-                try {
-                    u.setFamilia(familiaService.getByIdFamilia(familiaId).execute().body());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                if(productoId != null && productoId.trim().length() > 0){
-                    //update producto
-                    updateProducto(Long.parseLong(productoId), u);
+                if (spinnerSegmentacion.getSelectedItem().toString().equals("---Por favor seleccione Segmentacion---")){
+                    Toast.makeText(getBaseContext(),"Por favor seleccione la Segmentacion. Gracias",Toast.LENGTH_LONG).show();
                 } else {
-                    //add producto
-                    addProducto(u);
+
+                    edtProductoSegmentac.setText((spinnerSegmentacion.getSelectedItem().toString()));
+
+                    Producto u = new Producto();
+
+                    u.setNombre(edtProductoNombre.getText().toString());
+                    u.setLote(edtProductoLote.getText().toString());
+                    u.setPrecio(Double.parseDouble(edtProductoPrecio.getText().toString()));
+
+                    try {
+                        u.setFelab(dateFelab);
+                        Log.i("dateFelab :", dateFelab);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        u.setFven(dateFven);
+                        Log.i("dateFven :", dateFven);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    u.setPeso(Double.parseDouble(edtProductoPeso.getText().toString()));
+                    u.setVolumen(Double.parseDouble(edtProductoVolumen.getText().toString()));
+                    u.setEstiba(Integer.parseInt(edtProductoEstiba.getText().toString()));
+                    u.setStkMin(Double.parseDouble(edtProductoStkMin.getText().toString()));
+                    u.setStkTotal(Double.parseDouble(edtProductoStkTotal.getText().toString()));
+                    u.setSegmentac(Segmentacion.valueOf(edtProductoSegmentac.getText().toString()));
+
+                    Long usuarioId = Long.parseLong(edtProductoUsuarioId.getText().toString());
+                    usuarioService = APIUtils.getUsuarioService();
+                    try {
+                        u.setUsuario(usuarioService.getByIdUsuario(usuarioId).execute().body());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Long familiaId = Long.parseLong(edtProductoFamiliaId.getText().toString());
+                    familiaService = APIUtils.getFamiliaService();
+                    try {
+                        u.setFamilia(familiaService.getByIdFamilia(familiaId).execute().body());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (productoId != null && productoId.trim().length() > 0) {
+                        //update producto
+                        updateProducto(Long.parseLong(productoId), u);
+                    } else {
+                        //add producto
+                        addProducto(u);
+                    }
                 }
+
             }
         });
 

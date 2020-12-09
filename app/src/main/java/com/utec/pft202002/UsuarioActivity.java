@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -21,8 +19,6 @@ import com.utec.pft202002.Enum.tipoPerfil;
 import com.utec.pft202002.model.Usuario;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.UsuarioService;
-
-import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -98,14 +94,11 @@ public class UsuarioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (spinnerTipoPerfil.getSelectedItem().toString().equals("---Por favor seleccione TipoPerfil---")){
+                if (spinnerTipoPerfil.getSelectedItem().toString().equals("---Por favor seleccione Tipo de Perfil---")){
                     Toast.makeText(getBaseContext(),"Por favor seleccione un Tipo de Perfil. Gracias",Toast.LENGTH_LONG).show();
                 } else {
 
                     edtUsuarioTipoPerfil.setText((spinnerTipoPerfil.getSelectedItem().toString()));
-                    System.out.println("spinnerTipoPerfil.getSelectedItem().toString()>>>>>>>> " + spinnerTipoPerfil.getSelectedItem().toString() );
-                    System.out.println("edtUsuarioTipoPerfil.toString()>>>>>>>> " + edtUsuarioTipoPerfil.toString() );
-
 
                     Usuario u = new Usuario();
                     u.setNombre(edtUsuarioNombre.getText().toString());
@@ -114,7 +107,6 @@ public class UsuarioActivity extends AppCompatActivity {
                     u.setContrasena(edtUsuarioContrasena.getText().toString());
                     u.setCorreo(edtUsuarioCorreo.getText().toString());
                     u.setTipoPerfil(tipoPerfil.valueOf(edtUsuarioTipoPerfil.getText().toString()));
-                    //u.setTipoPerfil(tipoPerfil.valueOf(spinnerTipoPerfil.getSelectedItem().toString()));
 
                     if(usuarioId != null && usuarioId.trim().length() > 0){
                         //update usuario
@@ -213,7 +205,7 @@ public class UsuarioActivity extends AppCompatActivity {
         });
     }
 
-    /*
+
     public void getByIdUsuario(Long id){
         Call<Usuario> call = usuarioService.getByIdUsuario(id);
         call.enqueue(new Callback<Usuario>() {
@@ -230,7 +222,7 @@ public class UsuarioActivity extends AppCompatActivity {
             }
         });
     }
-*/
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

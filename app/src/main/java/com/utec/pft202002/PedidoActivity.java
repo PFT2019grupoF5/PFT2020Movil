@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,9 +52,10 @@ public class PedidoActivity extends AppCompatActivity {
     EditText edtPedidoPedRecFecha;
     EditText edtPedidoPedRecComentario;
     EditText edtPedidoUsuarioId;
-    Button btnSave;
-    Button btnDel;
     TextView txtPedidoId;
+    Spinner  spinnerEstadoPedido;
+    Button   btnSave;
+    Button   btnDel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,7 @@ public class PedidoActivity extends AppCompatActivity {
         edtPedidoPedRecFecha = (EditText) findViewById(R.id.edtPedidoPedRecFecha);
         edtPedidoPedRecComentario = (EditText) findViewById(R.id.edtPedidoRecComentario);
         edtPedidoUsuarioId = (EditText) findViewById(R.id.edtPedidoUsuarioId);
+        spinnerEstadoPedido = (Spinner) findViewById(R.id.spinnerEstadoPedido);
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
 
@@ -228,48 +231,56 @@ public class PedidoActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Pedido u = new Pedido();
 
-                u.setPedestado(estadoPedido.valueOf(edtPedidoPedEstado.getText().toString()));
-                u.setPedreccomentario(edtPedidoPedRecComentario.getText().toString());
-
-                try {
-                    u.setPedfecestim(dateFecEstim);
-                    Log.i("pedfecestim:", dateFecEstim);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-                try {
-                    u.setFecha(dateFecha);
-                    Log.i("fecha:", dateFecha);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-                try {
-                    u.setPedrecfecha(dateRecFecha);
-                    Log.i("pedrecfecha:", dateRecFecha);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-                u.setPedreccodigo(Integer.parseInt(edtPedidoPedRecCodigo.getText().toString()));
-
-                Long usuarioId = Long.parseLong(edtPedidoUsuarioId.getText().toString());
-                usuarioService = APIUtils.getUsuarioService();
-                try {
-                    u.setUsuario(usuarioService.getByIdUsuario(usuarioId).execute().body());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                if(pedidoId != null && pedidoId.trim().length() > 0){
-                    //update pedido
-                    updatePedido(Long.parseLong(pedidoId), u);
+                if (spinnerEstadoPedido.getSelectedItem().toString().equals("---Por favor seleccione Estado del Pedido---")){
+                    Toast.makeText(getBaseContext(),"Por favor seleccione el Estado del Pedido. Gracias",Toast.LENGTH_LONG).show();
                 } else {
-                    //add pedido
-                    addPedido(u);
+
+                    edtPedidoPedEstado.setText((spinnerEstadoPedido.getSelectedItem().toString()));
+
+                    Pedido u = new Pedido();
+
+                    u.setPedestado(estadoPedido.valueOf(edtPedidoPedEstado.getText().toString()));
+                    u.setPedreccomentario(edtPedidoPedRecComentario.getText().toString());
+
+                    try {
+                        u.setPedfecestim(dateFecEstim);
+                        Log.i("pedfecestim:", dateFecEstim);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        u.setFecha(dateFecha);
+                        Log.i("fecha:", dateFecha);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        u.setPedrecfecha(dateRecFecha);
+                        Log.i("pedrecfecha:", dateRecFecha);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    u.setPedreccodigo(Integer.parseInt(edtPedidoPedRecCodigo.getText().toString()));
+
+                    Long usuarioId = Long.parseLong(edtPedidoUsuarioId.getText().toString());
+                    usuarioService = APIUtils.getUsuarioService();
+                    try {
+                        u.setUsuario(usuarioService.getByIdUsuario(usuarioId).execute().body());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (pedidoId != null && pedidoId.trim().length() > 0) {
+                        //update pedido
+                        updatePedido(Long.parseLong(pedidoId), u);
+                    } else {
+                        //add pedido
+                        addPedido(u);
+                    }
                 }
             }
         });

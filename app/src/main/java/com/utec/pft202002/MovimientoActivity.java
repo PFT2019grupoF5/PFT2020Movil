@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,9 +52,10 @@ public class MovimientoActivity extends AppCompatActivity {
     EditText edtMovimientoTipoMov;
     EditText edtMovimientoProductoId;
     EditText edtMovimientoAlmacenamientoId;
-    Button btnSave;
-    Button btnDel;
     TextView txtMovimientoId;
+    Spinner  spinnerTipoMovimiento;
+    Button   btnSave;
+    Button   btnDel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,7 @@ public class MovimientoActivity extends AppCompatActivity {
         edtMovimientoTipoMov = (EditText) findViewById(R.id.edtMovimientoTipoMov);
         edtMovimientoProductoId = (EditText) findViewById(R.id.edtMovimientoProductoId);
         edtMovimientoAlmacenamientoId = (EditText) findViewById(R.id.edtMovimientoAlmacenamientoId);
+        spinnerTipoMovimiento = (Spinner) findViewById(R.id.spinnerTipoMovimiento);
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
 
@@ -150,42 +153,50 @@ public class MovimientoActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Movimiento u = new Movimiento();
 
-                try {
-                    u.setFecha(fecha);
-                    Log.i("fecha :", fecha);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-                u.setCantidad(Integer.parseInt(edtMovimientoCantidad.getText().toString()));
-                u.setDescripcion(edtMovimientoDescripcion.getText().toString());
-                u.setCosto(Double.parseDouble(edtMovimientoCosto.getText().toString()));
-                u.setTipoMov(tipoMovimiento.valueOf(edtMovimientoTipoMov.getText().toString()));
-
-                Long productoId = Long.parseLong(edtMovimientoProductoId.getText().toString());
-                productoService = APIUtils.getProductoService();
-                try {
-                    u.setProducto(productoService.getByIdProducto(productoId).execute().body());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                Long almacenamientoId = Long.parseLong(edtMovimientoAlmacenamientoId.getText().toString());
-                almacenamientoService = APIUtils.getAlmacenamientoService();
-                try {
-                    u.setAlmacenamiento(almacenamientoService.getByIdAlmacenamiento(almacenamientoId).execute().body());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                if(movimientoId != null && movimientoId.trim().length() > 0){
-                    //update movimiento
-                    updateMovimiento(Long.parseLong(movimientoId), u);
+                if (spinnerTipoMovimiento.getSelectedItem().toString().equals("---Por favor seleccione Tipo de Movimiento---")){
+                    Toast.makeText(getBaseContext(),"Por favor seleccione el Tipo de Movimiento. Gracias",Toast.LENGTH_LONG).show();
                 } else {
-                    //add movimiento
-                    addMovimiento(u);
+
+                    edtMovimientoTipoMov.setText((spinnerTipoMovimiento.getSelectedItem().toString()));
+
+                    Movimiento u = new Movimiento();
+
+                    try {
+                        u.setFecha(fecha);
+                        Log.i("fecha :", fecha);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    u.setCantidad(Integer.parseInt(edtMovimientoCantidad.getText().toString()));
+                    u.setDescripcion(edtMovimientoDescripcion.getText().toString());
+                    u.setCosto(Double.parseDouble(edtMovimientoCosto.getText().toString()));
+                    u.setTipoMov(tipoMovimiento.valueOf(edtMovimientoTipoMov.getText().toString()));
+
+                    Long productoId = Long.parseLong(edtMovimientoProductoId.getText().toString());
+                    productoService = APIUtils.getProductoService();
+                    try {
+                        u.setProducto(productoService.getByIdProducto(productoId).execute().body());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Long almacenamientoId = Long.parseLong(edtMovimientoAlmacenamientoId.getText().toString());
+                    almacenamientoService = APIUtils.getAlmacenamientoService();
+                    try {
+                        u.setAlmacenamiento(almacenamientoService.getByIdAlmacenamiento(almacenamientoId).execute().body());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (movimientoId != null && movimientoId.trim().length() > 0) {
+                        //update movimiento
+                        updateMovimiento(Long.parseLong(movimientoId), u);
+                    } else {
+                        //add movimiento
+                        addMovimiento(u);
+                    }
                 }
             }
         });

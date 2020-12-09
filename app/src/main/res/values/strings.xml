@@ -1,9 +1,43 @@
 <resources>
     <string name="app_name">PFT202012</string>
 
+    <string name="estadopedido_prompt">EstadoPedido</string>
+    <string-array name="estadopedido_array">
+        <item>---Por favor seleccione Estado del Pedido---</item>
+        <item>C</item>
+        <item>E</item>
+        <item>G</item>
+        <item>L</item>
+        <item>P</item>
+    </string-array>
+
+    <string name="segmentacion_prompt">Segmentacion</string>
+    <string-array name="segmentacion_array">
+        <item>---Por favor seleccione Segmentacion---</item>
+        <item>S</item>
+        <item>N</item>
+    </string-array>
+
+    <string name="tipoloc_prompt">TipoLoc</string>
+    <string-array name="tipoloc_array">
+        <item>---Por favor seleccione Tipo de Local---</item>
+        <item>LOCAL</item>
+        <item>PUNTODEVENTA</item>
+        <item>REGIONAL</item>
+        <item>OTRO</item>
+    </string-array>
+
+    <string name="tipomovimiento_prompt">TipoMovimiento</string>
+    <string-array name="tipomovimiento_array">
+        <item>---Por favor seleccione Tipo de Movimiento---</item>
+        <item>M</item>
+        <item>P</item>
+        <item>C</item>
+    </string-array>
+
     <string name="tipoperfil_prompt">TipoPerfil</string>
     <string-array name="tipoperfil_array">
-        <item>---Por favor seleccione TipoPerfil---</item>
+        <item>---Por favor seleccione Tipo de Perfil---</item>
         <item>OPERARIO</item>
         <item>SUPERVISOR</item>
         <item>ADMINISTRADOR</item>

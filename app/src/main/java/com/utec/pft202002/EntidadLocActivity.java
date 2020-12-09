@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,9 +38,10 @@ public class EntidadLocActivity extends AppCompatActivity {
     EditText edtEntidadLocDireccion;
     EditText edtEntidadLocTipoLoc;
     EditText edtEntidadLocCiudadId;
-    Button btnSave;
-    Button btnDel;
     TextView txtEntidadLocId;
+    Spinner  spinnerTipoLoc;
+    Button   btnSave;
+    Button   btnDel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,8 @@ public class EntidadLocActivity extends AppCompatActivity {
         edtEntidadLocDireccion = (EditText) findViewById(R.id.edtEntidadLocDireccion);
         edtEntidadLocTipoLoc = (EditText) findViewById(R.id.edtEntidadLocTipoLoc);
         edtEntidadLocCiudadId = (EditText) findViewById(R.id.edtEntidadLocCiudadId);
+        spinnerTipoLoc = (Spinner) findViewById(R.id.spinnerTipoLoc);
+
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
 
@@ -87,26 +91,34 @@ public class EntidadLocActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EntidadLoc u = new EntidadLoc();
-                u.setCodigo(Integer.parseInt(edtEntidadLocCodigo.getText().toString()));
-                u.setNombre(edtEntidadLocNombre.getText().toString());
-                u.setDireccion(edtEntidadLocDireccion.getText().toString());
-                u.setTipoLoc(tipoLoc.valueOf(edtEntidadLocTipoLoc.getText().toString()));
 
-                Long ciudadId = Long.parseLong(edtEntidadLocCiudadId.getText().toString());
-                ciudadService = APIUtils.getCiudadService();
-                try {
-                    u.setCiudad(ciudadService.getByIdCiudad(ciudadId).execute().body());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                if(entidadLocId != null && entidadLocId.trim().length() > 0){
-                    //update entidadLoc
-                    updateEntidadLoc(Long.parseLong(entidadLocId), u);
+                if (spinnerTipoLoc.getSelectedItem().toString().equals("---Por favor seleccione Tipo de Local---")){
+                    Toast.makeText(getBaseContext(),"Por favor seleccione un Tipo de Local. Gracias",Toast.LENGTH_LONG).show();
                 } else {
-                    //add entidadLoc
-                    addEntidadLoc(u);
+
+                    edtEntidadLocTipoLoc.setText((spinnerTipoLoc.getSelectedItem().toString()));
+
+                    EntidadLoc u = new EntidadLoc();
+                    u.setCodigo(Integer.parseInt(edtEntidadLocCodigo.getText().toString()));
+                    u.setNombre(edtEntidadLocNombre.getText().toString());
+                    u.setDireccion(edtEntidadLocDireccion.getText().toString());
+                    u.setTipoLoc(tipoLoc.valueOf(edtEntidadLocTipoLoc.getText().toString()));
+
+                    Long ciudadId = Long.parseLong(edtEntidadLocCiudadId.getText().toString());
+                    ciudadService = APIUtils.getCiudadService();
+                    try {
+                        u.setCiudad(ciudadService.getByIdCiudad(ciudadId).execute().body());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (entidadLocId != null && entidadLocId.trim().length() > 0) {
+                        //update entidadLoc
+                        updateEntidadLoc(Long.parseLong(entidadLocId), u);
+                    } else {
+                        //add entidadLoc
+                        addEntidadLoc(u);
+                    }
                 }
             }
         });
