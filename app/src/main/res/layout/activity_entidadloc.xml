@@ -112,6 +112,12 @@
             android:inputType="number"
             />
 
+        <Spinner
+            android:id="@+id/spinnerCiudad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.utec.pft202002.model.Ciudad;
 import com.utec.pft202002.remote.CiudadService;
 import com.utec.pft202002.model.EntidadLoc;
 import com.utec.pft202002.remote.EntidadLocService;
@@ -22,6 +25,9 @@ import com.utec.pft202002.Enum.tipoLoc;
 import com.utec.pft202002.remote.APIUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,8 +46,12 @@ public class EntidadLocActivity extends AppCompatActivity {
     EditText edtEntidadLocCiudadId;
     TextView txtEntidadLocId;
     Spinner  spinnerTipoLoc;
+    Spinner  spinnerCiudad;
     Button   btnSave;
     Button   btnDel;
+    ArrayList<String> ciudadesLista;
+    HashMap<String,Long> ciudadesMap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +69,13 @@ public class EntidadLocActivity extends AppCompatActivity {
         edtEntidadLocTipoLoc = (EditText) findViewById(R.id.edtEntidadLocTipoLoc);
         edtEntidadLocCiudadId = (EditText) findViewById(R.id.edtEntidadLocCiudadId);
         spinnerTipoLoc = (Spinner) findViewById(R.id.spinnerTipoLoc);
+        spinnerCiudad = (Spinner) findViewById(R.id.spinnerCiudad);
 
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
 
         entidadLocService = APIUtils.getEntidadLocService();
+        ciudadService = APIUtils.getCiudadService();
 
         Bundle extras = getIntent().getExtras();
         final String entidadLocId = extras.getString("entidadloc_id");
@@ -80,6 +92,8 @@ public class EntidadLocActivity extends AppCompatActivity {
         edtEntidadLocTipoLoc.setText(entidadLocTipoLoc);
         edtEntidadLocCiudadId.setText(entidadLocCiudadId);
 
+        cargarSpinnerCiudades();
+
         if(entidadLocId != null && entidadLocId.trim().length() > 0 ){
             edtEntidadLocId.setFocusable(false);
         } else {
@@ -91,12 +105,17 @@ public class EntidadLocActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (spinnerTipoLoc.getSelectedItem().toString().equals("---Por favor seleccione Tipo de Local---")){
-                    Toast.makeText(getBaseContext(),"Por favor seleccione un Tipo de Local. Gracias",Toast.LENGTH_LONG).show();
+                if (spinnerTipoLoc.getSelectedItem().toString().equals("---Por favor seleccione Tipo de Local---")) {
+                    Toast.makeText(getBaseContext(), "Por favor seleccione un Tipo de Local. Gracias", Toast.LENGTH_LONG).show();
                 } else {
 
                     edtEntidadLocTipoLoc.setText((spinnerTipoLoc.getSelectedItem().toString()));
+
+
+                    System.out.println("spinnerCiudad.getSelectedItem().toString() " + spinnerCiudad.getSelectedItem().toString() );
+                    System.out.println("ciudadesMap.get(spinnerCiudad.getSelectedItem().toString() " + ciudadesMap.get(spinnerCiudad.getSelectedItem().toString()) );
+
+                    edtEntidadLocCiudadId.setText(Long.toString(ciudadesMap.get(spinnerCiudad.getSelectedItem().toString())));
 
                     EntidadLoc u = new EntidadLoc();
                     u.setCodigo(Integer.parseInt(edtEntidadLocCodigo.getText().toString()));
@@ -105,7 +124,7 @@ public class EntidadLocActivity extends AppCompatActivity {
                     u.setTipoLoc(tipoLoc.valueOf(edtEntidadLocTipoLoc.getText().toString()));
 
                     Long ciudadId = Long.parseLong(edtEntidadLocCiudadId.getText().toString());
-                    ciudadService = APIUtils.getCiudadService();
+
                     try {
                         u.setCiudad(ciudadService.getByIdCiudad(ciudadId).execute().body());
                     } catch (IOException e) {
@@ -153,6 +172,37 @@ public class EntidadLocActivity extends AppCompatActivity {
 
     }
 
+
+
+
+    public void cargarSpinnerCiudades(){
+
+        Call<List<Ciudad>> call = ciudadService.getCiudades();
+        call.enqueue(new Callback<List<Ciudad>>() {
+            @Override
+            public void onResponse(Call<List<Ciudad>> call, Response<List<Ciudad>> response) {
+                if(response.isSuccessful()){
+                    List<Ciudad> ciudadesList = response.body();
+
+                    ciudadesLista = new ArrayList<>();
+                    ciudadesMap = new HashMap<String,Long>();
+                    ciudadesLista.add("---Por favor seleccione Ciudad---");
+                    for (int i=0;i<ciudadesList.size();i++){
+                        ciudadesMap.put(ciudadesList.get(i).getNombre(),ciudadesList.get(i).getId());
+                        ciudadesLista.add(ciudadesList.get(i).getNombre());
+                    }
+                    ArrayAdapter<String> adapterSpinnerCiudades = new ArrayAdapter<String>(EntidadLocActivity.this, android.R.layout.simple_spinner_item, ciudadesLista);
+                    spinnerCiudad.setAdapter(adapterSpinnerCiudades);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Ciudad>> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
+    }
+
+
     public void addEntidadLoc(EntidadLoc u){
         Call<EntidadLoc> call = entidadLocService.addEntidadLoc(u);
         call.enqueue(new Callback<EntidadLoc>() {
@@ -169,7 +219,6 @@ public class EntidadLocActivity extends AppCompatActivity {
             }
         });
     }
-
 
     public void updateEntidadLoc(Long id, EntidadLoc u){
         Call<EntidadLoc> call = entidadLocService.updateEntidadLoc(id, u);
@@ -221,6 +270,9 @@ public class EntidadLocActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
 
     @Override
