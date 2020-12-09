@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.utec.pft202002.Enum.tipoPerfil;
 import com.utec.pft202002.model.Usuario;
 import com.utec.pft202002.remote.APIUtils;
-import com.utec.pft202002.remote.PerfilService;
 import com.utec.pft202002.remote.UsuarioService;
 
 import java.io.IOException;
@@ -28,7 +30,6 @@ import retrofit2.Response;
 
 public class UsuarioActivity extends AppCompatActivity {
 
-    PerfilService perfilService;
     UsuarioService usuarioService;
 
     EditText edtUsuarioId;
@@ -38,9 +39,11 @@ public class UsuarioActivity extends AppCompatActivity {
     EditText edtUsuarioContrasena;
     EditText edtUsuarioCorreo;
     EditText edtUsuarioTipoPerfil;
-    Button btnSave;
-    Button btnDel;
     TextView txtUsuarioId;
+    Spinner  spinnerTipoPerfil;
+    Button   btnSave;
+    Button   btnDel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,9 @@ public class UsuarioActivity extends AppCompatActivity {
         edtUsuarioContrasena = (EditText) findViewById(R.id.edtUsuarioContrasena);
         edtUsuarioCorreo = (EditText) findViewById(R.id.edtUsuarioCorreo);
         edtUsuarioTipoPerfil = (EditText) findViewById(R.id.edtUsuarioTipoPerfil);
+
+        spinnerTipoPerfil = (Spinner) findViewById(R.id.spinnerTipoPerfil);
+
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
 
@@ -91,22 +97,35 @@ public class UsuarioActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Usuario u = new Usuario();
-                u.setNombre(edtUsuarioNombre.getText().toString());
-                u.setApellido(edtUsuarioApellido.getText().toString());
-                u.setNomAcceso(edtUsuarioNomAcceso.getText().toString());
-                u.setContrasena(edtUsuarioContrasena.getText().toString());
-                u.setCorreo(edtUsuarioCorreo.getText().toString());
-                u.setTipoPerfil(tipoPerfil.valueOf(edtUsuarioTipoPerfil.getText().toString()));
 
-
-                if(usuarioId != null && usuarioId.trim().length() > 0){
-                    //update usuario
-                    updateUsuario(Long.parseLong(usuarioId), u);
+                if (spinnerTipoPerfil.getSelectedItem().toString().equals("---Por favor seleccione TipoPerfil---")){
+                    Toast.makeText(getBaseContext(),"Por favor seleccione un Tipo de Perfil. Gracias",Toast.LENGTH_LONG).show();
                 } else {
-                    //add usuario
-                    addUsuario(u);
+
+                    edtUsuarioTipoPerfil.setText((spinnerTipoPerfil.getSelectedItem().toString()));
+                    System.out.println("spinnerTipoPerfil.getSelectedItem().toString()>>>>>>>> " + spinnerTipoPerfil.getSelectedItem().toString() );
+                    System.out.println("edtUsuarioTipoPerfil.toString()>>>>>>>> " + edtUsuarioTipoPerfil.toString() );
+
+
+                    Usuario u = new Usuario();
+                    u.setNombre(edtUsuarioNombre.getText().toString());
+                    u.setApellido(edtUsuarioApellido.getText().toString());
+                    u.setNomAcceso(edtUsuarioNomAcceso.getText().toString());
+                    u.setContrasena(edtUsuarioContrasena.getText().toString());
+                    u.setCorreo(edtUsuarioCorreo.getText().toString());
+                    u.setTipoPerfil(tipoPerfil.valueOf(edtUsuarioTipoPerfil.getText().toString()));
+                    //u.setTipoPerfil(tipoPerfil.valueOf(spinnerTipoPerfil.getSelectedItem().toString()));
+
+                    if(usuarioId != null && usuarioId.trim().length() > 0){
+                        //update usuario
+                        updateUsuario(Long.parseLong(usuarioId), u);
+                    } else {
+                        //add usuario
+                        addUsuario(u);
+                    }
+
                 }
+
             }
         });
 
@@ -139,6 +158,8 @@ public class UsuarioActivity extends AppCompatActivity {
         });
 
     }
+
+
 
     public void addUsuario(Usuario u){
         Call<Usuario> call = usuarioService.addUsuario(u);
@@ -192,6 +213,7 @@ public class UsuarioActivity extends AppCompatActivity {
         });
     }
 
+    /*
     public void getByIdUsuario(Long id){
         Call<Usuario> call = usuarioService.getByIdUsuario(id);
         call.enqueue(new Callback<Usuario>() {
@@ -208,7 +230,7 @@ public class UsuarioActivity extends AppCompatActivity {
             }
         });
     }
-
+*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

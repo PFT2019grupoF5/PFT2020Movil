@@ -30,7 +30,7 @@ public class Usuario {
     @Expose
     private String correo;
 
-    @SerializedName("tipoperfil")
+    @SerializedName("tipoPerfil")
     @Expose
     private tipoPerfil tipoPerfil;
 
