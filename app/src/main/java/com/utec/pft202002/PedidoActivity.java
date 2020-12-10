@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -20,15 +21,20 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.utec.pft202002.Enum.estadoPedido;
+import com.utec.pft202002.model.Ciudad;
 import com.utec.pft202002.model.Pedido;
+import com.utec.pft202002.model.Usuario;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.PedidoService;
 import com.utec.pft202002.remote.UsuarioService;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,8 +60,11 @@ public class PedidoActivity extends AppCompatActivity {
     EditText edtPedidoUsuarioId;
     TextView txtPedidoId;
     Spinner  spinnerEstadoPedido;
+    Spinner  spinnerUsuario;
     Button   btnSave;
     Button   btnDel;
+    ArrayList<String> listaUsuarios;
+    HashMap<String,Long> hashUsuarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +84,13 @@ public class PedidoActivity extends AppCompatActivity {
         edtPedidoPedRecComentario = (EditText) findViewById(R.id.edtPedidoRecComentario);
         edtPedidoUsuarioId = (EditText) findViewById(R.id.edtPedidoUsuarioId);
         spinnerEstadoPedido = (Spinner) findViewById(R.id.spinnerEstadoPedido);
+        spinnerUsuario = (Spinner) findViewById(R.id.spinnerUsuario);
+
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
 
         pedidoService = APIUtils.getPedidoService();
+        usuarioService = APIUtils.getUsuarioService();
 
         Bundle extras = getIntent().getExtras();
         final String pedidoId = extras.getString("pedido_id");
@@ -218,6 +230,7 @@ public class PedidoActivity extends AppCompatActivity {
             }
         };
 
+        obtenerListasParaSpinnerUsuarios();
 
         if(pedidoId != null && pedidoId.trim().length() > 0 ){
             edtPedidoId.setFocusable(false);
@@ -237,6 +250,7 @@ public class PedidoActivity extends AppCompatActivity {
                 } else {
 
                     edtPedidoPedEstado.setText((spinnerEstadoPedido.getSelectedItem().toString()));
+                    edtPedidoUsuarioId.setText(Long.toString(hashUsuarios.get(spinnerUsuario.getSelectedItem().toString())));
 
                     Pedido u = new Pedido();
 
@@ -267,7 +281,6 @@ public class PedidoActivity extends AppCompatActivity {
                     u.setPedreccodigo(Integer.parseInt(edtPedidoPedRecCodigo.getText().toString()));
 
                     Long usuarioId = Long.parseLong(edtPedidoUsuarioId.getText().toString());
-                    usuarioService = APIUtils.getUsuarioService();
                     try {
                         u.setUsuario(usuarioService.getByIdUsuario(usuarioId).execute().body());
                     } catch (IOException e) {
@@ -314,6 +327,34 @@ public class PedidoActivity extends AppCompatActivity {
         });
 
     }
+
+    public void obtenerListasParaSpinnerUsuarios(){
+
+        Call<List<Usuario>> call = usuarioService.getUsuarios();
+        call.enqueue(new Callback<List<Usuario>>() {
+            @Override
+            public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
+                if(response.isSuccessful()){
+                    List<Usuario> usuarioList = response.body();
+
+                    listaUsuarios = new ArrayList<>();
+                    hashUsuarios = new HashMap<String,Long>();
+                    listaUsuarios.add("---Por favor seleccione Usuario---");
+                    for (int i=0;i<usuarioList.size();i++){
+                        hashUsuarios.put(usuarioList.get(i).getNombre(),usuarioList.get(i).getId());
+                        listaUsuarios.add(usuarioList.get(i).getNombre());
+                    }
+                    ArrayAdapter<String> adapterSpinnerUsuarios = new ArrayAdapter<String>(PedidoActivity.this, android.R.layout.simple_spinner_item, listaUsuarios);
+                    spinnerUsuario.setAdapter(adapterSpinnerUsuarios);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Usuario>> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
+    }
+
 
     public void addPedido(Pedido u){
         Call<Pedido> call = pedidoService.addPedido(u);

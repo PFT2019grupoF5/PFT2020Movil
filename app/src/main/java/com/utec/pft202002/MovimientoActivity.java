@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -20,7 +21,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.utec.pft202002.Enum.tipoMovimiento;
+import com.utec.pft202002.model.Almacenamiento;
 import com.utec.pft202002.model.Movimiento;
+import com.utec.pft202002.model.Producto;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.MovimientoService;
 import com.utec.pft202002.remote.AlmacenamientoService;
@@ -28,8 +31,11 @@ import com.utec.pft202002.remote.ProductoService;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,8 +60,15 @@ public class MovimientoActivity extends AppCompatActivity {
     EditText edtMovimientoAlmacenamientoId;
     TextView txtMovimientoId;
     Spinner  spinnerTipoMovimiento;
+    Spinner  spinnerProducto;
+    Spinner  spinnerAlmacenamiento;
     Button   btnSave;
     Button   btnDel;
+    ArrayList<String> listaProductos;
+    HashMap<String,Long> hashProductos;
+    ArrayList<String> listaAlmacenamientos;
+    HashMap<String,Long> hashAlmacenamientos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +88,15 @@ public class MovimientoActivity extends AppCompatActivity {
         edtMovimientoProductoId = (EditText) findViewById(R.id.edtMovimientoProductoId);
         edtMovimientoAlmacenamientoId = (EditText) findViewById(R.id.edtMovimientoAlmacenamientoId);
         spinnerTipoMovimiento = (Spinner) findViewById(R.id.spinnerTipoMovimiento);
+        spinnerProducto = (Spinner) findViewById(R.id.spinnerProducto);
+        spinnerAlmacenamiento = (Spinner) findViewById(R.id.spinnerAlmacenamiento);
+
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
 
         movimientoService = APIUtils.getMovimientoService();
+        productoService = APIUtils.getProductoService();
+        almacenamientoService = APIUtils.getAlmacenamientoService();
 
         Bundle extras = getIntent().getExtras();
         final String movimientoId = extras.getString("movimiento_id");
@@ -141,6 +159,8 @@ public class MovimientoActivity extends AppCompatActivity {
             }
         };
 
+        obtenerListasParaSpinnerProductos();
+        obtenerListasParaSpinnerAlmacenamientos();
 
         if(movimientoId != null && movimientoId.trim().length() > 0 ){
             edtMovimientoId.setFocusable(false);
@@ -159,6 +179,8 @@ public class MovimientoActivity extends AppCompatActivity {
                 } else {
 
                     edtMovimientoTipoMov.setText((spinnerTipoMovimiento.getSelectedItem().toString()));
+                    edtMovimientoProductoId.setText(Long.toString(hashProductos.get(spinnerProducto.getSelectedItem().toString())));
+                    edtMovimientoAlmacenamientoId.setText(Long.toString(hashAlmacenamientos.get(spinnerAlmacenamiento.getSelectedItem().toString())));
 
                     Movimiento u = new Movimiento();
 
@@ -175,7 +197,6 @@ public class MovimientoActivity extends AppCompatActivity {
                     u.setTipoMov(tipoMovimiento.valueOf(edtMovimientoTipoMov.getText().toString()));
 
                     Long productoId = Long.parseLong(edtMovimientoProductoId.getText().toString());
-                    productoService = APIUtils.getProductoService();
                     try {
                         u.setProducto(productoService.getByIdProducto(productoId).execute().body());
                     } catch (IOException e) {
@@ -183,7 +204,6 @@ public class MovimientoActivity extends AppCompatActivity {
                     }
 
                     Long almacenamientoId = Long.parseLong(edtMovimientoAlmacenamientoId.getText().toString());
-                    almacenamientoService = APIUtils.getAlmacenamientoService();
                     try {
                         u.setAlmacenamiento(almacenamientoService.getByIdAlmacenamiento(almacenamientoId).execute().body());
                     } catch (IOException e) {
@@ -230,6 +250,62 @@ public class MovimientoActivity extends AppCompatActivity {
         });
 
     }
+
+    public void obtenerListasParaSpinnerProductos(){
+
+        Call<List<Producto>> call = productoService.getProductos();
+        call.enqueue(new Callback<List<Producto>>() {
+            @Override
+            public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response) {
+                if(response.isSuccessful()){
+                    List<Producto> productoList = response.body();
+
+                    listaProductos = new ArrayList<>();
+                    hashProductos = new HashMap<String,Long>();
+                    listaProductos.add("---Por favor seleccione Producto---");
+                    for (int i=0;i<productoList.size();i++){
+                        hashProductos.put(productoList.get(i).getNombre(),productoList.get(i).getId());
+                        listaProductos.add(productoList.get(i).getNombre());
+                    }
+                    ArrayAdapter<String> adapterSpinnerProductos = new ArrayAdapter<String>(MovimientoActivity.this, android.R.layout.simple_spinner_item, listaProductos);
+                    spinnerProducto.setAdapter(adapterSpinnerProductos);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Producto>> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
+    }
+
+    public void obtenerListasParaSpinnerAlmacenamientos(){
+
+        Call<List<Almacenamiento>> call = almacenamientoService.getAlmacenamientos();
+        call.enqueue(new Callback<List<Almacenamiento>>() {
+            @Override
+            public void onResponse(Call<List<Almacenamiento>> call, Response<List<Almacenamiento>> response) {
+                if(response.isSuccessful()){
+                    List<Almacenamiento> almacenamientoList = response.body();
+
+                    listaAlmacenamientos = new ArrayList<>();
+                    hashAlmacenamientos = new HashMap<String,Long>();
+                    listaAlmacenamientos.add("---Por favor seleccione Almacenamiento---");
+                    for (int i=0;i<almacenamientoList.size();i++){
+                        hashAlmacenamientos.put(almacenamientoList.get(i).getNombre(),almacenamientoList.get(i).getId());
+                        listaAlmacenamientos.add(almacenamientoList.get(i).getNombre());
+                    }
+                    ArrayAdapter<String> adapterSpinnerAlmacenamientos = new ArrayAdapter<String>(MovimientoActivity.this, android.R.layout.simple_spinner_item, listaAlmacenamientos);
+                    spinnerAlmacenamiento.setAdapter(adapterSpinnerAlmacenamientos);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Almacenamiento>> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
+    }
+
+
 
     public void addMovimiento(Movimiento u){
         Call<Movimiento> call = movimientoService.addMovimiento(u);

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,8 +48,8 @@ public class EntidadLocActivity extends AppCompatActivity {
     Spinner  spinnerCiudad;
     Button   btnSave;
     Button   btnDel;
-    ArrayList<String> ciudadesLista;
-    HashMap<String,Long> ciudadesMap;
+    ArrayList<String> listaCiudades;
+    HashMap<String,Long> hashCiudades;
 
 
     @Override
@@ -92,7 +91,7 @@ public class EntidadLocActivity extends AppCompatActivity {
         edtEntidadLocTipoLoc.setText(entidadLocTipoLoc);
         edtEntidadLocCiudadId.setText(entidadLocCiudadId);
 
-        cargarSpinnerCiudades();
+        obtenerListasParaSpinnerCiudades();
 
         if(entidadLocId != null && entidadLocId.trim().length() > 0 ){
             edtEntidadLocId.setFocusable(false);
@@ -110,12 +109,7 @@ public class EntidadLocActivity extends AppCompatActivity {
                 } else {
 
                     edtEntidadLocTipoLoc.setText((spinnerTipoLoc.getSelectedItem().toString()));
-
-
-                    System.out.println("spinnerCiudad.getSelectedItem().toString() " + spinnerCiudad.getSelectedItem().toString() );
-                    System.out.println("ciudadesMap.get(spinnerCiudad.getSelectedItem().toString() " + ciudadesMap.get(spinnerCiudad.getSelectedItem().toString()) );
-
-                    edtEntidadLocCiudadId.setText(Long.toString(ciudadesMap.get(spinnerCiudad.getSelectedItem().toString())));
+                    edtEntidadLocCiudadId.setText(Long.toString(hashCiudades.get(spinnerCiudad.getSelectedItem().toString())));
 
                     EntidadLoc u = new EntidadLoc();
                     u.setCodigo(Integer.parseInt(edtEntidadLocCodigo.getText().toString()));
@@ -124,7 +118,6 @@ public class EntidadLocActivity extends AppCompatActivity {
                     u.setTipoLoc(tipoLoc.valueOf(edtEntidadLocTipoLoc.getText().toString()));
 
                     Long ciudadId = Long.parseLong(edtEntidadLocCiudadId.getText().toString());
-
                     try {
                         u.setCiudad(ciudadService.getByIdCiudad(ciudadId).execute().body());
                     } catch (IOException e) {
@@ -173,9 +166,7 @@ public class EntidadLocActivity extends AppCompatActivity {
     }
 
 
-
-
-    public void cargarSpinnerCiudades(){
+    public void obtenerListasParaSpinnerCiudades(){
 
         Call<List<Ciudad>> call = ciudadService.getCiudades();
         call.enqueue(new Callback<List<Ciudad>>() {
@@ -184,14 +175,14 @@ public class EntidadLocActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     List<Ciudad> ciudadesList = response.body();
 
-                    ciudadesLista = new ArrayList<>();
-                    ciudadesMap = new HashMap<String,Long>();
-                    ciudadesLista.add("---Por favor seleccione Ciudad---");
+                    listaCiudades = new ArrayList<>();
+                    hashCiudades = new HashMap<String,Long>();
+                    listaCiudades.add("---Por favor seleccione Ciudad---");
                     for (int i=0;i<ciudadesList.size();i++){
-                        ciudadesMap.put(ciudadesList.get(i).getNombre(),ciudadesList.get(i).getId());
-                        ciudadesLista.add(ciudadesList.get(i).getNombre());
+                        hashCiudades.put(ciudadesList.get(i).getNombre(),ciudadesList.get(i).getId());
+                        listaCiudades.add(ciudadesList.get(i).getNombre());
                     }
-                    ArrayAdapter<String> adapterSpinnerCiudades = new ArrayAdapter<String>(EntidadLocActivity.this, android.R.layout.simple_spinner_item, ciudadesLista);
+                    ArrayAdapter<String> adapterSpinnerCiudades = new ArrayAdapter<String>(EntidadLocActivity.this, android.R.layout.simple_spinner_item, listaCiudades);
                     spinnerCiudad.setAdapter(adapterSpinnerCiudades);
                 }
             }
@@ -270,9 +261,6 @@ public class EntidadLocActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
 
 
     @Override

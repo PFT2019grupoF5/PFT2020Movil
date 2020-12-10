@@ -7,19 +7,25 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.utec.pft202002.model.Almacenamiento;
+import com.utec.pft202002.model.EntidadLoc;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.AlmacenamientoService;
 import com.utec.pft202002.remote.EntidadLocService;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,9 +43,12 @@ public class AlmacenamientoActivity extends AppCompatActivity {
     EditText edtAlmacenamientoCapPeso;
     EditText edtAlmacenamientoVolumen;
     EditText edtAlmacenamientoEntidadLocId;
-    Button btnSave;
-    Button btnDel;
     TextView txtAlmacenamientoId;
+    Spinner  spinnerEntidadLoc;
+    Button   btnSave;
+    Button   btnDel;
+    ArrayList<String> listaEntidadesLoc;
+    HashMap<String,Long> hashEntidadesLoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +66,13 @@ public class AlmacenamientoActivity extends AppCompatActivity {
         edtAlmacenamientoCapPeso = (EditText) findViewById(R.id.edtAlmacenamientoCapPeso);
         edtAlmacenamientoVolumen = (EditText) findViewById(R.id.edtAlmacenamientoVolumen);
         edtAlmacenamientoEntidadLocId = (EditText) findViewById(R.id.edtAlmacenamientoEntidadLocId);
+        spinnerEntidadLoc = (Spinner) findViewById(R.id.spinnerEntidadLoc);
+
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
 
         almacenamientoService = APIUtils.getAlmacenamientoService();
+        entidadLocService = APIUtils.getEntidadLocService();
 
         Bundle extras = getIntent().getExtras();
         final String almacenamientoId = extras.getString("almacenamiento_id");
@@ -79,6 +91,8 @@ public class AlmacenamientoActivity extends AppCompatActivity {
         edtAlmacenamientoVolumen.setText(almacenamientoVolumen);
         edtAlmacenamientoEntidadLocId.setText(almacenamientoEntidadLocId);
 
+        obtenerListasParaSpinnerEntidadesLoc();
+
         if(almacenamientoId != null && almacenamientoId.trim().length() > 0 ){
             edtAlmacenamientoId.setFocusable(false);
         } else {
@@ -90,6 +104,9 @@ public class AlmacenamientoActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                edtAlmacenamientoEntidadLocId.setText(Long.toString(hashEntidadesLoc.get(spinnerEntidadLoc.getSelectedItem().toString())));
+
                 Almacenamiento u = new Almacenamiento();
                 u.setNombre(edtAlmacenamientoNombre.getText().toString());
                 u.setCostoop(Double.parseDouble(edtAlmacenamientoCostoOp.getText().toString()));
@@ -98,7 +115,6 @@ public class AlmacenamientoActivity extends AppCompatActivity {
                 u.setVolumen(Integer.parseInt(edtAlmacenamientoVolumen.getText().toString()));
 
                 Long entidadLocId = Long.parseLong(edtAlmacenamientoEntidadLocId.getText().toString());
-                entidadLocService = APIUtils.getEntidadLocService();
                 try {
                     u.setEntidadLoc(entidadLocService.getByIdEntidadLoc(entidadLocId).execute().body());
                 } catch (IOException e) {
@@ -143,6 +159,34 @@ public class AlmacenamientoActivity extends AppCompatActivity {
         });
 
     }
+
+    public void obtenerListasParaSpinnerEntidadesLoc(){
+
+        Call<List<EntidadLoc>> call = entidadLocService.getEntidadesLoc();
+        call.enqueue(new Callback<List<EntidadLoc>>() {
+            @Override
+            public void onResponse(Call<List<EntidadLoc>> call, Response<List<EntidadLoc>> response) {
+                if(response.isSuccessful()){
+                    List<EntidadLoc> entidadesLocList = response.body();
+
+                    listaEntidadesLoc = new ArrayList<>();
+                    hashEntidadesLoc = new HashMap<String,Long>();
+                    listaEntidadesLoc.add("---Por favor seleccione EntidadLoc---");
+                    for (int i=0;i<entidadesLocList.size();i++){
+                        hashEntidadesLoc.put(entidadesLocList.get(i).getNombre(),entidadesLocList.get(i).getId());
+                        listaEntidadesLoc.add(entidadesLocList.get(i).getNombre());
+                    }
+                    ArrayAdapter<String> adapterSpinnerEntidadesLoc = new ArrayAdapter<String>(AlmacenamientoActivity.this, android.R.layout.simple_spinner_item, listaEntidadesLoc);
+                    spinnerEntidadLoc.setAdapter(adapterSpinnerEntidadesLoc);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<EntidadLoc>> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
+    }
+
 
     public void addAlmacenamiento(Almacenamiento u){
         Call<Almacenamiento> call = almacenamientoService.addAlmacenamiento(u);
