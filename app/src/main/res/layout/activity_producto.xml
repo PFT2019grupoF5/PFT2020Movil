@@ -230,6 +230,11 @@
             android:textSize="10dp"
             />
 
+        <Spinner
+            android:id="@+id/spinnerUsuarioProd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <TextView
             android:id="@+id/txtProductoFamiliaId"
             android:layout_width="match_parent"
@@ -246,6 +251,11 @@
             android:inputType="number"
             android:textSize="10dp"
             />
+
+        <Spinner
+            android:id="@+id/spinnerFamilia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btnSave"

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -20,7 +21,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.utec.pft202002.Enum.Segmentacion;
+import com.utec.pft202002.model.Familia;
 import com.utec.pft202002.model.Producto;
+import com.utec.pft202002.model.Usuario;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.FamiliaService;
 import com.utec.pft202002.remote.UsuarioService;
@@ -28,8 +31,11 @@ import com.utec.pft202002.remote.ProductoService;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,8 +67,14 @@ public class ProductoActivity extends AppCompatActivity {
     EditText edtProductoFamiliaId;
     TextView txtProductoId;
     Spinner  spinnerSegmentacion;
+    Spinner  spinnerUsuario;
+    Spinner  spinnerFamilia;
     Button   btnSave;
     Button   btnDel;
+    ArrayList<String> listaUsuarios;
+    HashMap<String,Long> hashUsuarios;
+    ArrayList<String> listaFamilias;
+    HashMap<String,Long> hashFamilias;
 
 
     @Override
@@ -89,10 +101,15 @@ public class ProductoActivity extends AppCompatActivity {
         edtProductoUsuarioId = (EditText) findViewById(R.id.edtProductoUsuarioId);
         edtProductoFamiliaId = (EditText) findViewById(R.id.edtProductoFamiliaId);
         spinnerSegmentacion = (Spinner) findViewById(R.id.spinnerSegmentacion);
+        spinnerUsuario = (Spinner) findViewById(R.id.spinnerUsuarioProd);
+        spinnerFamilia = (Spinner) findViewById(R.id.spinnerFamilia);
+
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
 
         productoService = APIUtils.getProductoService();
+        usuarioService = APIUtils.getUsuarioService();
+        familiaService = APIUtils.getFamiliaService();
 
         Bundle extras = getIntent().getExtras();
         final String productoId = extras.getString("producto_id");
@@ -206,6 +223,8 @@ public class ProductoActivity extends AppCompatActivity {
             }
         };
 
+        obtenerListasParaSpinnerUsuarios();
+        obtenerListasParaSpinnerFamilias();
 
         if(productoId != null && productoId.trim().length() > 0 ){
             edtProductoId.setFocusable(false);
@@ -225,6 +244,8 @@ public class ProductoActivity extends AppCompatActivity {
                 } else {
 
                     edtProductoSegmentac.setText((spinnerSegmentacion.getSelectedItem().toString()));
+                    edtProductoUsuarioId.setText(Long.toString(hashUsuarios.get(spinnerUsuario.getSelectedItem().toString())));
+                    edtProductoFamiliaId.setText(Long.toString(hashFamilias.get(spinnerFamilia.getSelectedItem().toString())));
 
                     Producto u = new Producto();
 
@@ -254,7 +275,6 @@ public class ProductoActivity extends AppCompatActivity {
                     u.setSegmentac(Segmentacion.valueOf(edtProductoSegmentac.getText().toString()));
 
                     Long usuarioId = Long.parseLong(edtProductoUsuarioId.getText().toString());
-                    usuarioService = APIUtils.getUsuarioService();
                     try {
                         u.setUsuario(usuarioService.getByIdUsuario(usuarioId).execute().body());
                     } catch (IOException e) {
@@ -262,7 +282,6 @@ public class ProductoActivity extends AppCompatActivity {
                     }
 
                     Long familiaId = Long.parseLong(edtProductoFamiliaId.getText().toString());
-                    familiaService = APIUtils.getFamiliaService();
                     try {
                         u.setFamilia(familiaService.getByIdFamilia(familiaId).execute().body());
                     } catch (IOException e) {
@@ -310,6 +329,62 @@ public class ProductoActivity extends AppCompatActivity {
         });
 
     }
+
+    public void obtenerListasParaSpinnerUsuarios(){
+
+        Call<List<Usuario>> call = usuarioService.getUsuarios();
+        call.enqueue(new Callback<List<Usuario>>() {
+            @Override
+            public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
+                if(response.isSuccessful()){
+                    List<Usuario> usuarioList = response.body();
+
+                    listaUsuarios = new ArrayList<>();
+                    hashUsuarios = new HashMap<String,Long>();
+                    listaUsuarios.add("---Por favor seleccione Usuario---");
+                    for (int i=0;i<usuarioList.size();i++){
+                        hashUsuarios.put(usuarioList.get(i).getNombre(),usuarioList.get(i).getId());
+                        listaUsuarios.add(usuarioList.get(i).getNombre());
+                    }
+                    ArrayAdapter<String> adapterSpinnerUsuarios = new ArrayAdapter<String>(ProductoActivity.this, android.R.layout.simple_spinner_item, listaUsuarios);
+                    spinnerUsuario.setAdapter(adapterSpinnerUsuarios);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Usuario>> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
+    }
+
+
+    public void obtenerListasParaSpinnerFamilias(){
+
+        Call<List<Familia>> call = familiaService.getFamilias();
+        call.enqueue(new Callback<List<Familia>>() {
+            @Override
+            public void onResponse(Call<List<Familia>> call, Response<List<Familia>> response) {
+                if(response.isSuccessful()){
+                    List<Familia> familiaList = response.body();
+
+                    listaFamilias = new ArrayList<>();
+                    hashFamilias = new HashMap<String,Long>();
+                    listaFamilias.add("---Por favor seleccione Familia---");
+                    for (int i=0;i<familiaList.size();i++){
+                        hashFamilias.put(familiaList.get(i).getNombre(),familiaList.get(i).getId());
+                        listaFamilias.add(familiaList.get(i).getNombre());
+                    }
+                    ArrayAdapter<String> adapterSpinnerFamilias = new ArrayAdapter<String>(ProductoActivity.this, android.R.layout.simple_spinner_item, listaFamilias);
+                    spinnerFamilia.setAdapter(adapterSpinnerFamilias);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Familia>> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
+    }
+
 
     public void addProducto(Producto u){
         Call<Producto> call = productoService.addProducto(u);

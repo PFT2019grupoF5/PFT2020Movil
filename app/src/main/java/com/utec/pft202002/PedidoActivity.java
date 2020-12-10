@@ -21,7 +21,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.utec.pft202002.Enum.estadoPedido;
-import com.utec.pft202002.model.Ciudad;
 import com.utec.pft202002.model.Pedido;
 import com.utec.pft202002.model.Usuario;
 import com.utec.pft202002.remote.APIUtils;
