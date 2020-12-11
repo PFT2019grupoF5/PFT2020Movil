@@ -31,10 +31,6 @@ public class APIUtils {
         return RetrofitClient.getClient(API_URL).create(PedidoService.class);
     }
 
-    public static PerfilService getPerfilService(){
-        return RetrofitClient.getClient(API_URL).create(PerfilService.class);
-    }
-
     public static ProductoService getProductoService(){
         return RetrofitClient.getClient(API_URL).create(ProductoService.class);
     }
