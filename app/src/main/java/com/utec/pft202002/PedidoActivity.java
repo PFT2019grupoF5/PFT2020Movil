@@ -115,7 +115,7 @@ public class PedidoActivity extends AppCompatActivity {
         }
         final Date pedFecEstim = new Date(NpedidoPedFecEstim);
         String SpedFecEstim = sdf.format(pedFecEstim);
-        edtPedidoPedFecEstim.setText(String.format("PedFecEstim: %s", SpedFecEstim));
+        edtPedidoPedFecEstim.setText(String.format("%s", SpedFecEstim));
 
         long NpedidoFecha = hoy.getTime();
         try {
@@ -125,7 +125,7 @@ public class PedidoActivity extends AppCompatActivity {
         }
         final Date fecha = new Date(NpedidoFecha);
         String Sfecha = sdf.format(fecha);
-        edtPedidoFecha.setText(String.format("Fecha: %s", Sfecha));
+        edtPedidoFecha.setText(String.format("%s", Sfecha));
 
         edtPedidoPedRecCodigo.setText(pedidoPedRecCodigo);
 
@@ -137,7 +137,7 @@ public class PedidoActivity extends AppCompatActivity {
         }
         final Date pedRecFecha = new Date(NpedidoPedRecFecha);
         String SpedRecFecha = sdf.format(pedRecFecha);
-        edtPedidoPedRecFecha.setText(String.format("PedRecFecha: %s", SpedRecFecha));
+        edtPedidoPedRecFecha.setText(String.format("%s", SpedRecFecha));
 
         edtPedidoPedRecComentario.setText(pedidoPedRecComentario);
         edtPedidoUsuarioId.setText(pedidoUsuarioId);
@@ -340,8 +340,8 @@ public class PedidoActivity extends AppCompatActivity {
                     hashUsuarios = new HashMap<String,Long>();
                     listaUsuarios.add("---Por favor seleccione Usuario---");
                     for (int i=0;i<usuarioList.size();i++){
-                        hashUsuarios.put(usuarioList.get(i).getNombre(),usuarioList.get(i).getId());
-                        listaUsuarios.add(usuarioList.get(i).getNombre());
+                        hashUsuarios.put(usuarioList.get(i).getNombre()+" "+usuarioList.get(i).getApellido(),usuarioList.get(i).getId());
+                        listaUsuarios.add(usuarioList.get(i).getNombre()+" "+usuarioList.get(i).getApellido());
                     }
                     ArrayAdapter<String> adapterSpinnerUsuarios = new ArrayAdapter<String>(PedidoActivity.this, android.R.layout.simple_spinner_item, listaUsuarios);
                     spinnerUsuario.setAdapter(adapterSpinnerUsuarios);

@@ -1,14 +1,5 @@
 package com.utec.pft202002.remote;
 
-import com.utec.pft202002.model.Almacenamiento;
-import com.utec.pft202002.model.Familia;
-import com.utec.pft202002.model.Movimiento;
-import com.utec.pft202002.model.Pedido;
-import com.utec.pft202002.model.Perfil;
-import com.utec.pft202002.model.Producto;
-import com.utec.pft202002.model.RenglonPedido;
-import com.utec.pft202002.model.Usuario;
-
 public class APIUtils {
 
     private APIUtils(){

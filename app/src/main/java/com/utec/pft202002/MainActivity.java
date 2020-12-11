@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     TextView txtBienvenido, txtNomAccesoPerfilID;
-    Button btnAlmacenamientos, btnCiudades, btnLocalesEnt, btnFamilias, btnMovimientos, btnPedidos, btnPerfiles, btnProductos, btnUsuarios, btnReporte, btnLogout;
+    Button btnAlmacenamientos, btnCiudades, btnLocalesEnt, btnFamilias, btnMovimientos, btnPedidos, btnProductos, btnUsuarios, btnReporte, btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         btnFamilias = (Button) findViewById(R.id.btnFamilias);
         btnMovimientos = (Button) findViewById(R.id.btnMovimientos);
         btnPedidos = (Button) findViewById(R.id.btnPedidos);
-        btnPerfiles = (Button) findViewById(R.id.btnPerfiles);
         btnProductos = (Button) findViewById(R.id.btnProductos);
         btnUsuarios = (Button) findViewById(R.id.btnUsuarios);
         btnReporte = (Button) findViewById(R.id.btnReporte);
@@ -60,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                 btnFamilias.setVisibility(View.INVISIBLE);
                 btnMovimientos.setVisibility(View.VISIBLE); // Si
                 btnPedidos.setVisibility(View.VISIBLE); // Si
-                btnPerfiles.setVisibility(View.INVISIBLE);
                 btnProductos.setVisibility(View.INVISIBLE);
                 btnUsuarios.setVisibility(View.INVISIBLE);
                 btnReporte.setVisibility(View.VISIBLE); // Si
@@ -73,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
                 btnFamilias.setVisibility(View.VISIBLE);
                 btnMovimientos.setVisibility(View.VISIBLE);
                 btnPedidos.setVisibility(View.VISIBLE);
-                btnPerfiles.setVisibility(View.INVISIBLE);  // Solo admin ve
                 btnProductos.setVisibility(View.VISIBLE);
                 btnUsuarios.setVisibility(View.INVISIBLE);  // Solo admin ve
                 btnReporte.setVisibility(View.VISIBLE); // Si
@@ -107,10 +104,6 @@ public class MainActivity extends AppCompatActivity {
         }
         public void menuPedidos (View view){
             Intent intent = new Intent(this, PedidoMainActivity.class);
-            startActivity(intent);
-        }
-        public void menuPerfiles (View view){
-            Intent intent = new Intent(this, PerfilMainActivity.class);
             startActivity(intent);
         }
         public void menuProductos (View view){

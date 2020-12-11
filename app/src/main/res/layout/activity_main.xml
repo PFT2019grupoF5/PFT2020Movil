@@ -100,22 +100,11 @@
             android:textColor="#ffffff" />
 
         <Button
-            android:id="@+id/btnPerfiles"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:background="#DD003F"
-            android:onClick="menuPerfiles"
-            android:text="PERFILES"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#ffffff" />
-
-        <Button
             android:id="@+id/btnProductos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:background="#FF9800"
+            android:background="#DD003F"
             android:onClick="menuProductos"
             android:text="PRODUCTOS"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -126,7 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:background="#FFEB3B"
+            android:background="#FF9800"
             android:onClick="menuUsuarios"
             android:text="USUARIOS"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"

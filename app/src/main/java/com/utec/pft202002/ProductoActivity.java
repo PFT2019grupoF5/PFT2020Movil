@@ -143,7 +143,7 @@ public class ProductoActivity extends AppCompatActivity {
         }
         final Date felab = new Date(NproductoFelab);
         String Sfelab = sdf.format(felab);
-        edtProductoFelab.setText(String.format("Felab: %s", Sfelab));
+        edtProductoFelab.setText(String.format("%s", Sfelab));
 
         long NproductoFven = hoy.getTime();
         try {
@@ -153,7 +153,7 @@ public class ProductoActivity extends AppCompatActivity {
         }
         final Date fven = new Date(NproductoFven);
         String Sfven = sdf.format(fven);
-        edtProductoFven.setText(String.format("Fven: %s", Sfven));
+        edtProductoFven.setText(String.format("%s", Sfven));
 
         edtProductoPeso.setText(productoPeso);
         edtProductoVolumen.setText(productoVolumen);
@@ -241,6 +241,10 @@ public class ProductoActivity extends AppCompatActivity {
 
                 if (spinnerSegmentacion.getSelectedItem().toString().equals("---Por favor seleccione Segmentacion---")){
                     Toast.makeText(getBaseContext(),"Por favor seleccione la Segmentacion. Gracias",Toast.LENGTH_LONG).show();
+                } else if (spinnerUsuario.getSelectedItem().toString().equals("---Por favor seleccione Usuario---")){
+                    Toast.makeText(getBaseContext(),"Por favor seleccione el Usuario. Gracias",Toast.LENGTH_LONG).show();
+                } else if (spinnerFamilia.getSelectedItem().toString().equals("---Por favor seleccione Familia---")){
+                                        Toast.makeText(getBaseContext(),"Por favor seleccione la Familia. Gracias",Toast.LENGTH_LONG).show();
                 } else {
 
                     edtProductoSegmentac.setText((spinnerSegmentacion.getSelectedItem().toString()));
@@ -343,8 +347,8 @@ public class ProductoActivity extends AppCompatActivity {
                     hashUsuarios = new HashMap<String,Long>();
                     listaUsuarios.add("---Por favor seleccione Usuario---");
                     for (int i=0;i<usuarioList.size();i++){
-                        hashUsuarios.put(usuarioList.get(i).getNombre(),usuarioList.get(i).getId());
-                        listaUsuarios.add(usuarioList.get(i).getNombre());
+                        hashUsuarios.put(usuarioList.get(i).getNombre()+" "+usuarioList.get(i).getApellido(),usuarioList.get(i).getId());
+                        listaUsuarios.add(usuarioList.get(i).getNombre()+" "+usuarioList.get(i).getApellido());
                     }
                     ArrayAdapter<String> adapterSpinnerUsuarios = new ArrayAdapter<String>(ProductoActivity.this, android.R.layout.simple_spinner_item, listaUsuarios);
                     spinnerUsuario.setAdapter(adapterSpinnerUsuarios);

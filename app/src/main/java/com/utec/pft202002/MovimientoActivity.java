@@ -121,7 +121,7 @@ public class MovimientoActivity extends AppCompatActivity {
         }
         final Date fecha2 = new Date(NmovimientoFecha);
         String Sfecha2 = sdf.format(fecha2);
-        edtMovimientoFecha.setText(String.format("Fecha: %s", Sfecha2));
+        edtMovimientoFecha.setText(String.format("%s", Sfecha2));
 
         edtMovimientoCantidad.setText(movimientoCantidad);
         edtMovimientoDescripcion.setText(movimientoDescripcion);

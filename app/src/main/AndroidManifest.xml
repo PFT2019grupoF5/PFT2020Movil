@@ -24,8 +24,6 @@
         <activity android:name=".MovimientoMainActivity" />
         <activity android:name=".PedidoActivity" />
         <activity android:name=".PedidoMainActivity" />
-        <activity android:name=".PerfilActivity" />
-        <activity android:name=".PerfilMainActivity" />
         <activity android:name=".ProductoActivity" />
         <activity android:name=".ProductoMainActivity" />
         <activity android:name=".UsuarioActivity" />
