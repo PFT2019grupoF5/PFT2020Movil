@@ -45,7 +45,7 @@ public class ProductoActivity extends AppCompatActivity {
 
     private DatePickerDialog.OnDateSetListener mDateSetListenerFelab;
     private DatePickerDialog.OnDateSetListener mDateSetListenerFven;
-    String dateFelab="", dateFven="";
+    String dateFelab = "", dateFven = "";
 
     ProductoService productoService;
     UsuarioService usuarioService;
@@ -66,15 +66,15 @@ public class ProductoActivity extends AppCompatActivity {
     EditText edtProductoUsuarioId;
     EditText edtProductoFamiliaId;
     TextView txtProductoId;
-    Spinner  spinnerSegmentacion;
-    Spinner  spinnerUsuario;
-    Spinner  spinnerFamilia;
-    Button   btnSave;
-    Button   btnDel;
+    Spinner spinnerSegmentacion;
+    Spinner spinnerUsuario;
+    Spinner spinnerFamilia;
+    Button btnSave;
+    Button btnDel;
     ArrayList<String> listaUsuarios;
-    HashMap<String,Long> hashUsuarios;
+    HashMap<String, Long> hashUsuarios;
     ArrayList<String> listaFamilias;
-    HashMap<String,Long> hashFamilias;
+    HashMap<String, Long> hashFamilias;
 
 
     @Override
@@ -177,7 +177,7 @@ public class ProductoActivity extends AppCompatActivity {
                         ProductoActivity.this,
                         android.R.style.Theme_Light,
                         mDateSetListenerFelab,
-                        year,month,day);
+                        year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
@@ -197,7 +197,7 @@ public class ProductoActivity extends AppCompatActivity {
                         ProductoActivity.this,
                         android.R.style.Theme_Light,
                         mDateSetListenerFven,
-                        year,month,day);
+                        year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -213,7 +213,7 @@ public class ProductoActivity extends AppCompatActivity {
             }
         };
 
-        mDateSetListenerFven=new DatePickerDialog.OnDateSetListener() {
+        mDateSetListenerFven = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 // +1 because January is zero
@@ -226,8 +226,11 @@ public class ProductoActivity extends AppCompatActivity {
         obtenerListasParaSpinnerUsuarios();
         obtenerListasParaSpinnerFamilias();
 
-        if(productoId != null && productoId.trim().length() > 0 ){
+        if (productoId != null && productoId.trim().length() > 0) {
+            // Validaciones MODIFICACION
+            // No se permitira cambiar el Codigo o la Descripcion
             edtProductoId.setFocusable(false);
+            edtProductoNombre.setFocusable(false);
         } else {
             txtProductoId.setVisibility(View.INVISIBLE);
             edtProductoId.setVisibility(View.INVISIBLE);
@@ -239,12 +242,12 @@ public class ProductoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (spinnerSegmentacion.getSelectedItem().toString().equals("---Por favor seleccione Segmentacion---")){
-                    Toast.makeText(getBaseContext(),"Por favor seleccione la Segmentacion. Gracias",Toast.LENGTH_LONG).show();
-                } else if (spinnerUsuario.getSelectedItem().toString().equals("---Por favor seleccione Usuario---")){
-                    Toast.makeText(getBaseContext(),"Por favor seleccione el Usuario. Gracias",Toast.LENGTH_LONG).show();
-                } else if (spinnerFamilia.getSelectedItem().toString().equals("---Por favor seleccione Familia---")){
-                                        Toast.makeText(getBaseContext(),"Por favor seleccione la Familia. Gracias",Toast.LENGTH_LONG).show();
+                if (spinnerSegmentacion.getSelectedItem().toString().equals("---Por favor seleccione Segmentacion---")) {
+                    Toast.makeText(getBaseContext(), "Por favor seleccione la Segmentacion. Gracias", Toast.LENGTH_LONG).show();
+                } else if (spinnerUsuario.getSelectedItem().toString().equals("---Por favor seleccione Usuario---")) {
+                    Toast.makeText(getBaseContext(), "Por favor seleccione el Usuario. Gracias", Toast.LENGTH_LONG).show();
+                } else if (spinnerFamilia.getSelectedItem().toString().equals("---Por favor seleccione Familia---")) {
+                    Toast.makeText(getBaseContext(), "Por favor seleccione la Familia. Gracias", Toast.LENGTH_LONG).show();
                 } else {
 
                     edtProductoSegmentac.setText((spinnerSegmentacion.getSelectedItem().toString()));
@@ -292,12 +295,17 @@ public class ProductoActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
+
                     if (productoId != null && productoId.trim().length() > 0) {
                         //update producto
-                        updateProducto(Long.parseLong(productoId), u);
+                        if (validaUpdateProducto()) {
+                            updateProducto(Long.parseLong(productoId), u);
+                        }
                     } else {
                         //add producto
-                        addProducto(u);
+                        if (validaAddProducto()) {
+                            addProducto(u);
+                        }
                     }
                 }
 
@@ -308,7 +316,7 @@ public class ProductoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder builder=new AlertDialog.Builder(ProductoActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProductoActivity.this);
                 builder.setMessage("¿Por favor confirme que quiere borrar este Producto? Gracias").
                         setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                             @Override
@@ -326,7 +334,7 @@ public class ProductoActivity extends AppCompatActivity {
                                 dialog.dismiss();
                             }
                         });
-                AlertDialog alertDialog=builder.create();
+                AlertDialog alertDialog = builder.create();
                 alertDialog.show();
 
             }
@@ -334,26 +342,27 @@ public class ProductoActivity extends AppCompatActivity {
 
     }
 
-    public void obtenerListasParaSpinnerUsuarios(){
+    public void obtenerListasParaSpinnerUsuarios() {
 
         Call<List<Usuario>> call = usuarioService.getUsuarios();
         call.enqueue(new Callback<List<Usuario>>() {
             @Override
             public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<Usuario> usuarioList = response.body();
 
                     listaUsuarios = new ArrayList<>();
-                    hashUsuarios = new HashMap<String,Long>();
+                    hashUsuarios = new HashMap<String, Long>();
                     listaUsuarios.add("---Por favor seleccione Usuario---");
-                    for (int i=0;i<usuarioList.size();i++){
-                        hashUsuarios.put(usuarioList.get(i).getNombre()+" "+usuarioList.get(i).getApellido(),usuarioList.get(i).getId());
-                        listaUsuarios.add(usuarioList.get(i).getNombre()+" "+usuarioList.get(i).getApellido());
+                    for (int i = 0; i < usuarioList.size(); i++) {
+                        hashUsuarios.put(usuarioList.get(i).getNombre() + " " + usuarioList.get(i).getApellido(), usuarioList.get(i).getId());
+                        listaUsuarios.add(usuarioList.get(i).getNombre() + " " + usuarioList.get(i).getApellido());
                     }
                     ArrayAdapter<String> adapterSpinnerUsuarios = new ArrayAdapter<String>(ProductoActivity.this, android.R.layout.simple_spinner_item, listaUsuarios);
                     spinnerUsuario.setAdapter(adapterSpinnerUsuarios);
                 }
             }
+
             @Override
             public void onFailure(Call<List<Usuario>> call, Throwable t) {
                 Log.e("ERROR: ", t.getMessage());
@@ -362,26 +371,27 @@ public class ProductoActivity extends AppCompatActivity {
     }
 
 
-    public void obtenerListasParaSpinnerFamilias(){
+    public void obtenerListasParaSpinnerFamilias() {
 
         Call<List<Familia>> call = familiaService.getFamilias();
         call.enqueue(new Callback<List<Familia>>() {
             @Override
             public void onResponse(Call<List<Familia>> call, Response<List<Familia>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<Familia> familiaList = response.body();
 
                     listaFamilias = new ArrayList<>();
-                    hashFamilias = new HashMap<String,Long>();
+                    hashFamilias = new HashMap<String, Long>();
                     listaFamilias.add("---Por favor seleccione Familia---");
-                    for (int i=0;i<familiaList.size();i++){
-                        hashFamilias.put(familiaList.get(i).getNombre(),familiaList.get(i).getId());
+                    for (int i = 0; i < familiaList.size(); i++) {
+                        hashFamilias.put(familiaList.get(i).getNombre(), familiaList.get(i).getId());
                         listaFamilias.add(familiaList.get(i).getNombre());
                     }
                     ArrayAdapter<String> adapterSpinnerFamilias = new ArrayAdapter<String>(ProductoActivity.this, android.R.layout.simple_spinner_item, listaFamilias);
                     spinnerFamilia.setAdapter(adapterSpinnerFamilias);
                 }
             }
+
             @Override
             public void onFailure(Call<List<Familia>> call, Throwable t) {
                 Log.e("ERROR: ", t.getMessage());
@@ -390,12 +400,48 @@ public class ProductoActivity extends AppCompatActivity {
     }
 
 
-    public void addProducto(Producto u){
+    public boolean validaAddProducto() {
+        try {
+            Producto productoEnBD = productoService.getByNombreProducto(edtProductoNombre.getText().toString()).execute().body();
+            boolean productoyaexiste = (productoEnBD != null);
+            if (productoyaexiste) {
+                Toast.makeText(getBaseContext(), "Prodcuto ya existe, por favor revise sus datos.", Toast.LENGTH_LONG).show();
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if ((edtProductoNombre == null || edtProductoLote == null || edtProductoPrecio == null || edtProductoFelab == null || edtProductoFven == null ||
+                edtProductoPeso == null || edtProductoVolumen == null || edtProductoEstiba == null || edtProductoStkMin == null || edtProductoStkTotal == null ||
+                edtProductoSegmentac == null || edtProductoUsuarioId == null || edtProductoFamiliaId == null)) {
+            Toast.makeText(getBaseContext(), "Es necesario ingresar todos los datos requeridos", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (edtProductoNombre.length() > 50) {
+            Toast.makeText(getBaseContext(), "Los datos ingresados superan el largo permitido. Por favor revise sus datos.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if (felab.compareTo(fven) > 0) {
+            Toast.makeText(getBaseContext(), "La fecha de Fabricacion no puede ser posterior a la de Vencimiento", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validaUpdateProducto() {
+        return false;
+
+    }
+
+
+    public void addProducto(Producto u) {
         Call<Producto> call = productoService.addProducto(u);
         call.enqueue(new Callback<Producto>() {
             @Override
             public void onResponse(Call<Producto> call, Response<Producto> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Toast.makeText(ProductoActivity.this, "Producto creado ok!", Toast.LENGTH_LONG).show();
                 }
             }
@@ -407,12 +453,12 @@ public class ProductoActivity extends AppCompatActivity {
         });
     }
 
-    public void updateProducto(Long id, Producto u){
+    public void updateProducto(Long id, Producto u) {
         Call<Producto> call = productoService.updateProducto(id, u);
         call.enqueue(new Callback<Producto>() {
             @Override
             public void onResponse(Call<Producto> call, Response<Producto> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Toast.makeText(ProductoActivity.this, "Producto modificado ok!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -424,12 +470,12 @@ public class ProductoActivity extends AppCompatActivity {
         });
     }
 
-    public void deleteProducto(Long id){
+    public void deleteProducto(Long id) {
         Call<Producto> call = productoService.deleteProducto(id);
         call.enqueue(new Callback<Producto>() {
             @Override
             public void onResponse(Call<Producto> call, Response<Producto> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Toast.makeText(ProductoActivity.this, "Producto borrado ok!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -441,12 +487,12 @@ public class ProductoActivity extends AppCompatActivity {
         });
     }
 
-    public void getByIdProducto(Long id){
+    public void getByIdProducto(Long id) {
         Call<Producto> call = productoService.getByIdProducto(id);
         call.enqueue(new Callback<Producto>() {
             @Override
             public void onResponse(Call<Producto> call, Response<Producto> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Toast.makeText(ProductoActivity.this, "Producto encontrado ok!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -469,5 +515,5 @@ public class ProductoActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    
+
 }

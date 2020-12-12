@@ -41,34 +41,42 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String nomAcceso = edtUsuarioNomAcceso.getText().toString();
                 String contrasena = edtUsuarioContrasena.getText().toString();
-                if(validateLogin(nomAcceso, contrasena)){
+                if (validateLogin(nomAcceso, contrasena)) {
                     doLogin(nomAcceso, contrasena);
                 }
             }
         });
     }
 
-    private boolean validateLogin(String nomAcceso, String contrasena){
-        if(nomAcceso == null || nomAcceso.trim().length() == 0){
-            Toast.makeText(this, "Por favor ingrese el nombre de aceeso del usuario", Toast.LENGTH_SHORT).show();
+    private boolean validateLogin(String nomAcceso, String contrasena) {
+        if (nomAcceso == null || nomAcceso.trim().length() == 0) {
+            Toast.makeText(this, "Por favor ingrese el nombre de acceso del usuario", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(contrasena == null || contrasena.trim().length() == 0){
+        if (nomAcceso.length() > 20) {
+            Toast.makeText(this, "El nombre de usuario no debe superar los 20 caracteres", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (contrasena == null || contrasena.trim().length() == 0) {
             Toast.makeText(this, "Por favor ingrese la contraseña del usuario", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (contrasena.length() < 8 || contrasena.length() > 16) {
+            Toast.makeText(this, "La contraeña debe ser minimo 8 y maximo 16 caracteres", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
 
-    private void doLogin(final String nomAcceso,final String contrasena){
+    private void doLogin(final String nomAcceso, final String contrasena) {
         System.out.println("getLogin-nomAcceso-contrasena " + nomAcceso + " : " + contrasena);
-        Call<Usuario> call = usuarioService.login(nomAcceso,contrasena);
+        Call<Usuario> call = usuarioService.login(nomAcceso, contrasena);
         call.enqueue(new Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 System.out.println("response.isSuccessful() " + response.isSuccessful());
-                if(response.isSuccessful()){
-                    if(response.body().getContrasena().equals("+Login-Ok!")){
+                if (response.isSuccessful()) {
+                    if (response.body().getContrasena().equals("+Login-Ok!")) {
                         Toast.makeText(LoginActivity.this, "Login Correcto", Toast.LENGTH_LONG).show();
                         //login start main activity
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -78,11 +86,12 @@ public class LoginActivity extends AppCompatActivity {
                         intent.putExtra("usuario_tipoperfil", String.valueOf(response.body().getTipoPerfil()));
                         startActivity(intent);
 
+                    } else if (response.body().getContrasena().equals("+Error!")) {
+                        Toast.makeText(LoginActivity.this, "Contraseña no Válidas, por favor revise los datos ingresados.", Toast.LENGTH_SHORT).show();
+
                     } else {
-                        Toast.makeText(LoginActivity.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Usuario o Contraseña no Válidas, por favor revise los datos ingresados.", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(LoginActivity.this, "Error! Please try again!", Toast.LENGTH_SHORT).show();
                 }
             }
 

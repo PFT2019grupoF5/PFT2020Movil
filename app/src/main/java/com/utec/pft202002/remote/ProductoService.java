@@ -20,6 +20,9 @@ public interface ProductoService {
     @GET("productos/getById/{id}")
     Call<Producto> getByIdProducto(@Path("id") Long id);
 
+    @GET("productos/getNombre/{nombre}")
+    Call<Producto> getByNombreProducto(@Path("nombre") String nombre);
+
     @POST("productos/add/")
     Call<Producto> addProducto(@Body Producto producto);
 
