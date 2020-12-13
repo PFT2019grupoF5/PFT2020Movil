@@ -478,7 +478,7 @@ public class ProductoActivity extends AppCompatActivity {
         try {
             Movimiento movimiento = movimientoService.validoBajaProducto(idProducto).execute().body();
             if (movimiento != null) {
-                Toast.makeText(getBaseContext(), "Producto no se puede Eliminar porque existe en X, elimínelo de X para luego Eliminar el mismo", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Producto no se puede Eliminar porque existe en Movimiento, elimínelo de Movimiento para luego Eliminar el mismo", Toast.LENGTH_LONG).show();
                 return false;
             }
         } catch (IOException e) {
