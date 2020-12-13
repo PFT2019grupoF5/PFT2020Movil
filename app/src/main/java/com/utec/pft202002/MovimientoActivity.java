@@ -108,7 +108,8 @@ public class MovimientoActivity extends AppCompatActivity {
         String movimientoProductoId = extras.getString("movimiento_productoid");
         String movimientoAlmacenamientoId = extras.getString("movimiento_almacenamientoid");
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         edtMovimientoId.setText(movimientoId);
 
@@ -164,23 +165,51 @@ public class MovimientoActivity extends AppCompatActivity {
 
         if(movimientoId != null && movimientoId.trim().length() > 0 ){
             edtMovimientoId.setFocusable(false);
+            //Por requerimiento RF007 no se permite modificar Movimientos de tipo Perdida
+            if (movimientoTipoMov==tipoMovimiento.valueOf("P").toString()) {
+                edtMovimientoFecha.setFocusable(false);
+                edtMovimientoCantidad.setFocusable(false);
+                edtMovimientoDescripcion.setFocusable(false);
+                edtMovimientoCosto.setFocusable(false);
+                edtMovimientoTipoMov.setFocusable(false);
+                edtMovimientoProductoId.setFocusable(false);
+                edtMovimientoAlmacenamientoId.setFocusable(false);
+                btnSave.setVisibility(View.INVISIBLE);
+            }
+
         } else {
             txtMovimientoId.setVisibility(View.INVISIBLE);
             edtMovimientoId.setVisibility(View.INVISIBLE);
             btnDel.setVisibility(View.INVISIBLE);
         }
 
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (spinnerTipoMovimiento.getSelectedItem().toString().equals("---Por favor seleccione Tipo de Movimiento---")){
-                    Toast.makeText(getBaseContext(),"Por favor seleccione el Tipo de Movimiento. Gracias",Toast.LENGTH_LONG).show();
+                if (edtMovimientoFecha.getText().toString().equals("")) {
+                    edtMovimientoFecha.requestFocus();
+                    edtMovimientoFecha.setError("Es necesario ingresar todo los datos requeridos");
+                } else if  (edtMovimientoCantidad.getText().toString().equals("")) {
+                    edtMovimientoCantidad.requestFocus();
+                    edtMovimientoCantidad.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtMovimientoDescripcion.getText().toString().equals("")) {
+                    edtMovimientoDescripcion.requestFocus();
+                    edtMovimientoDescripcion.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtMovimientoDescripcion.getText().toString().length() > 250) {
+                    edtMovimientoDescripcion.requestFocus();
+                    edtMovimientoDescripcion.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
+                } else if (edtMovimientoCosto.getText().toString().equals("")) {
+                    edtMovimientoCosto.requestFocus();
+                    edtMovimientoCosto.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (spinnerTipoMovimiento.getSelectedItem().toString().equals("---Por favor seleccione Tipo de Movimiento---")) {
+                    Toast.makeText(getBaseContext(), "Por favor seleccione el tipo de movimiento. Gracias", Toast.LENGTH_LONG).show();
+                } else if (spinnerProducto.getSelectedItem().toString().equals("---Por favor seleccione Producto---")) {
+                    Toast.makeText(getBaseContext(), "Por favor seleccione el Producto. Gracias", Toast.LENGTH_LONG).show();
+                } else if (spinnerAlmacenamiento.getSelectedItem().toString().equals("---Por favor seleccione Almacenamiento---")) {
+                    Toast.makeText(getBaseContext(), "Por favor seleccione el Almacenamiento. Gracias", Toast.LENGTH_LONG).show();
                 } else {
-
-                    edtMovimientoTipoMov.setText((spinnerTipoMovimiento.getSelectedItem().toString()));
-                    edtMovimientoProductoId.setText(Long.toString(hashProductos.get(spinnerProducto.getSelectedItem().toString())));
-                    edtMovimientoAlmacenamientoId.setText(Long.toString(hashAlmacenamientos.get(spinnerAlmacenamiento.getSelectedItem().toString())));
 
                     Movimiento u = new Movimiento();
 
@@ -194,8 +223,11 @@ public class MovimientoActivity extends AppCompatActivity {
                     u.setCantidad(Integer.parseInt(edtMovimientoCantidad.getText().toString()));
                     u.setDescripcion(edtMovimientoDescripcion.getText().toString());
                     u.setCosto(Double.parseDouble(edtMovimientoCosto.getText().toString()));
+
+                    edtMovimientoTipoMov.setText((spinnerTipoMovimiento.getSelectedItem().toString()));
                     u.setTipoMov(tipoMovimiento.valueOf(edtMovimientoTipoMov.getText().toString()));
 
+                    edtMovimientoProductoId.setText(Long.toString(hashProductos.get(spinnerProducto.getSelectedItem().toString())));
                     Long productoId = Long.parseLong(edtMovimientoProductoId.getText().toString());
                     try {
                         u.setProducto(productoService.getByIdProducto(productoId).execute().body());
@@ -203,6 +235,7 @@ public class MovimientoActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
+                    edtMovimientoAlmacenamientoId.setText(Long.toString(hashAlmacenamientos.get(spinnerAlmacenamiento.getSelectedItem().toString())));
                     Long almacenamientoId = Long.parseLong(edtMovimientoAlmacenamientoId.getText().toString());
                     try {
                         u.setAlmacenamiento(almacenamientoService.getByIdAlmacenamiento(almacenamientoId).execute().body());
@@ -212,10 +245,14 @@ public class MovimientoActivity extends AppCompatActivity {
 
                     if (movimientoId != null && movimientoId.trim().length() > 0) {
                         //update movimiento
-                        updateMovimiento(Long.parseLong(movimientoId), u);
+                        if (validaUpdateMovimiento(u)) {
+                            updateMovimiento(Long.parseLong(movimientoId), u);
+                        }
                     } else {
                         //add movimiento
-                        addMovimiento(u);
+                        if (validaAddMovimiento(u)) {
+                            addMovimiento(u);
+                        }
                     }
                 }
             }
@@ -231,9 +268,11 @@ public class MovimientoActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                deleteMovimiento(Long.parseLong(movimientoId));
-                                Intent intent = new Intent(MovimientoActivity.this, MovimientoMainActivity.class);
-                                startActivity(intent);
+                                if (validaDeleteMovimiento(Long.parseLong(movimientoId))) {
+                                    deleteMovimiento(Long.parseLong(movimientoId));
+                                    Intent intent = new Intent(MovimientoActivity.this, MovimientoMainActivity.class);
+                                    startActivity(intent);
+                                }
 
                             }
                         }).
@@ -305,10 +344,84 @@ public class MovimientoActivity extends AppCompatActivity {
         });
     }
 
+    public boolean validaAddMovimiento(Movimiento movimiento) {
+        if (movimiento.getTipoMov() == tipoMovimiento.valueOf("P")) {
+            try {
+                Long idProductoAsociadoAlMovimiento = movimiento.getProducto().getId();
+                Producto productoEnBD = productoService.getByIdProducto(idProductoAsociadoAlMovimiento).execute().body();
+                if ((productoEnBD.getStkTotal() < movimiento.getCantidad())) {
+                    Toast.makeText(getBaseContext(), "Stock insuficiente de Producto para registrar la Pérdida, por favor revise sus datos.", Toast.LENGTH_LONG).show();
+                    return false;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+
+    public boolean validaUpdateMovimiento(Movimiento movimiento) {
+        //Por requerimiento RF007 no se permite modificar Movimientos de tipo Perdida
+        if (movimiento.getTipoMov() == tipoMovimiento.valueOf("P")) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validaDeleteMovimiento(Long idMovimiento) {
+        try {
+            Movimiento movimiento = movimientoService.getByIdMovimiento(idMovimiento).execute().body();
+            if (movimiento != null) {
+                if (movimiento.getTipoMov() == tipoMovimiento.valueOf("P")) {
+                    try {
+                        Long idAlmacenamientoAsociadoAlMovimiento = movimiento.getAlmacenamiento().getId();
+                        Almacenamiento almacenamientoEnBD = almacenamientoService.getByIdAlmacenamiento(idAlmacenamientoAsociadoAlMovimiento).execute().body();
+                        Long idProductoAsociadoAlMovimiento = movimiento.getProducto().getId();
+                        Producto productoEnBD = productoService.getByIdProducto(idProductoAsociadoAlMovimiento).execute().body();
+                        if (almacenamientoEnBD.getVolumen() < (movimiento.getCantidad()*productoEnBD.getVolumen())) {
+                            Toast.makeText(getBaseContext(), "Espacio insuficiente en Almacenamiento para reponer producto al eliminar la Pérdida, por favor revise sus datos.", Toast.LENGTH_LONG).show();
+                            return false;
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else {
+                Toast.makeText(getBaseContext(), "No se encontró Movimiento", Toast.LENGTH_LONG).show();
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 
 
-    public void addMovimiento(Movimiento u){
-        Call<Movimiento> call = movimientoService.addMovimiento(u);
+
+    public void addMovimiento(Movimiento movimiento){
+        if (movimiento.getTipoMov() == tipoMovimiento.valueOf("P")) {
+            try {
+                // Significa que Registro una PERDIDA de un producto en un almacenamiento
+                Long idAlmacenamientoAsociadoAlMovimiento = movimiento.getAlmacenamiento().getId();
+                Almacenamiento almacenamientoEnBD = almacenamientoService.getByIdAlmacenamiento(idAlmacenamientoAsociadoAlMovimiento).execute().body();
+                Long idProductoAsociadoAlMovimiento = movimiento.getProducto().getId();
+                Producto productoEnBD = productoService.getByIdProducto(idProductoAsociadoAlMovimiento).execute().body();
+                // descuenta stock del producto
+                productoEnBD.setStkTotal(productoEnBD.getStkTotal() - movimiento.getCantidad());
+                // controla si es necesario iniciar pedido de reposicion
+                if (productoEnBD.getStkTotal() <= productoEnBD.getStkMin()) {
+                    Toast.makeText(getBaseContext(), "Stock por debajo del mínimo requerido para este producto, por favor gestione un Pedido de reposición.", Toast.LENGTH_LONG).show();
+                }
+                // disponibiliza espacio en el almacenamiento correspondiente a la perdida ocasionada
+                almacenamientoEnBD.setVolumen((int) (almacenamientoEnBD.getVolumen() + (movimiento.getCantidad()*productoEnBD.getVolumen())));
+                // actualiza BD
+                Almacenamiento almacenamientoActualizadoEnBD = almacenamientoService.updateAlmacenamiento(idAlmacenamientoAsociadoAlMovimiento, almacenamientoEnBD).execute().body();
+                Producto productoActualizadoEnBD = productoService.updateProducto(idProductoAsociadoAlMovimiento, productoEnBD).execute().body();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Call<Movimiento> call = movimientoService.addMovimiento(movimiento);
         call.enqueue(new Callback<Movimiento>() {
             @Override
             public void onResponse(Call<Movimiento> call, Response<Movimiento> response) {
@@ -341,8 +454,35 @@ public class MovimientoActivity extends AppCompatActivity {
         });
     }
 
-    public void deleteMovimiento(Long id){
-        Call<Movimiento> call = movimientoService.deleteMovimiento(id);
+    public void deleteMovimiento(Long idMovimiento){
+        try {
+            // Significa que ELIMINO un registro de una PERDIDA previamente ingresada de un producto en un almacenamiento
+            Movimiento movimiento = movimientoService.getByIdMovimiento(idMovimiento).execute().body();
+            if (movimiento != null) {
+                if (movimiento.getTipoMov() == tipoMovimiento.valueOf("P")) {
+                    try {
+                        Long idAlmacenamientoAsociadoAlMovimiento = movimiento.getAlmacenamiento().getId();
+                        Almacenamiento almacenamientoEnBD = almacenamientoService.getByIdAlmacenamiento(idAlmacenamientoAsociadoAlMovimiento).execute().body();
+                        Long idProductoAsociadoAlMovimiento = movimiento.getProducto().getId();
+                        Producto productoEnBD = productoService.getByIdProducto(idProductoAsociadoAlMovimiento).execute().body();
+                        //repone stock del producto
+                        productoEnBD.setStkTotal(productoEnBD.getStkTotal() + movimiento.getCantidad());
+                        // vuelve a ocupar espacio en el almacenamiento
+                        almacenamientoEnBD.setVolumen((int) (almacenamientoEnBD.getVolumen() - (movimiento.getCantidad()*productoEnBD.getVolumen())));
+                        // actualiza BD
+                        Almacenamiento almacenamientoActualizadoEnBD = almacenamientoService.updateAlmacenamiento(idAlmacenamientoAsociadoAlMovimiento, almacenamientoEnBD).execute().body();
+                        Producto productoActualizadoEnBD = productoService.updateProducto(idProductoAsociadoAlMovimiento, productoEnBD).execute().body();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else {
+                Toast.makeText(getBaseContext(), "No se encontró Movimiento", Toast.LENGTH_LONG).show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Call<Movimiento> call = movimientoService.deleteMovimiento(idMovimiento);
         call.enqueue(new Callback<Movimiento>() {
             @Override
             public void onResponse(Call<Movimiento> call, Response<Movimiento> response) {
