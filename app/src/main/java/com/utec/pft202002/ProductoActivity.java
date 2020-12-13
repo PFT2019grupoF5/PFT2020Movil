@@ -504,8 +504,8 @@ public class ProductoActivity extends AppCompatActivity {
         });
     }
 
-    public void updateProducto(Long id, Producto u) {
-        Call<Producto> call = productoService.updateProducto(id, u);
+    public void updateProducto(Long id, Producto producto) {
+        Call<Producto> call = productoService.updateProducto(id, producto);
         call.enqueue(new Callback<Producto>() {
             @Override
             public void onResponse(Call<Producto> call, Response<Producto> response) {
@@ -529,7 +529,7 @@ public class ProductoActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Toast.makeText(ProductoActivity.this, "Producto borrado ok!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ProductoActivity.this, "No fue posible borrar el Producto. Verifique si está en otro registro.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductoActivity.this, "No fue posible borrar el Producto. Verifique si está en otro registro.", Toast.LENGTH_LONG).show();
                 }
             }
 
