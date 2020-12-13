@@ -148,6 +148,8 @@ public class CiudadActivity extends AppCompatActivity {
             public void onResponse(Call<Ciudad> call, Response<Ciudad> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(CiudadActivity.this, "Ciudad borrada ok!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(CiudadActivity.this, "No fue posible borrar la Ciudad. Verifique si está en otro registro.", Toast.LENGTH_SHORT).show();
                 }
             }
 

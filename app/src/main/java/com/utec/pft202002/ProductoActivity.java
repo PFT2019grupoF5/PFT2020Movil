@@ -22,10 +22,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.utec.pft202002.Enum.Segmentacion;
 import com.utec.pft202002.model.Familia;
+import com.utec.pft202002.model.Movimiento;
 import com.utec.pft202002.model.Producto;
 import com.utec.pft202002.model.Usuario;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.FamiliaService;
+import com.utec.pft202002.remote.MovimientoService;
 import com.utec.pft202002.remote.UsuarioService;
 import com.utec.pft202002.remote.ProductoService;
 
@@ -50,6 +52,7 @@ public class ProductoActivity extends AppCompatActivity {
     ProductoService productoService;
     UsuarioService usuarioService;
     FamiliaService familiaService;
+    MovimientoService movimientoService;
 
     EditText edtProductoId;
     EditText edtProductoNombre;
@@ -110,6 +113,7 @@ public class ProductoActivity extends AppCompatActivity {
         productoService = APIUtils.getProductoService();
         usuarioService = APIUtils.getUsuarioService();
         familiaService = APIUtils.getFamiliaService();
+        movimientoService = APIUtils.getMovimientoService();
 
         Bundle extras = getIntent().getExtras();
         final String productoId = extras.getString("producto_id");
@@ -127,7 +131,9 @@ public class ProductoActivity extends AppCompatActivity {
         String productoUsuarioId = extras.getString("producto_usuarioid");
         String productoFamiliaId = extras.getString("producto_familiaid");
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
 
         edtProductoId.setText(productoId);
         edtProductoNombre.setText(productoNombre);
@@ -163,6 +169,7 @@ public class ProductoActivity extends AppCompatActivity {
         edtProductoSegmentac.setText(productoSegmentac);
         edtProductoUsuarioId.setText(productoUsuarioId);
         edtProductoFamiliaId.setText(productoFamiliaId);
+
 
         edtProductoFelab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,7 +249,41 @@ public class ProductoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (spinnerSegmentacion.getSelectedItem().toString().equals("---Por favor seleccione Segmentacion---")) {
+                if (edtProductoNombre.getText().toString().equals("")) {
+                    edtProductoNombre.requestFocus();
+                    edtProductoNombre.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtProductoNombre.getText().toString().length() > 50) {
+                    System.out.println("edtProductoNombre : " + edtProductoNombre.toString());
+                    edtProductoNombre.requestFocus();
+                    edtProductoNombre.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
+                } else if (edtProductoLote.getText().toString().equals("")) {
+                    edtProductoLote.requestFocus();
+                    edtProductoLote.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtProductoPrecio.getText().toString().equals("")) {
+                    edtProductoPrecio.requestFocus();
+                    edtProductoPrecio.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtProductoFelab.getText().toString().equals("")) {
+                    edtProductoFelab.requestFocus();
+                    edtProductoFelab.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtProductoFven.getText().toString().equals("")) {
+                    edtProductoFven.requestFocus();
+                    edtProductoFven.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtProductoPeso.getText().toString().equals("")) {
+                    edtProductoPeso.requestFocus();
+                    edtProductoPeso.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtProductoVolumen.getText().toString().equals("")) {
+                    edtProductoVolumen.requestFocus();
+                    edtProductoVolumen.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtProductoEstiba.getText().toString().equals("")) {
+                    edtProductoEstiba.requestFocus();
+                    edtProductoEstiba.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtProductoStkMin.getText().toString().equals("")) {
+                    edtProductoStkMin.requestFocus();
+                    edtProductoStkMin.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtProductoStkTotal.getText().toString().equals("")) {
+                    edtProductoStkTotal.requestFocus();
+                    edtProductoStkTotal.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (spinnerSegmentacion.getSelectedItem().toString().equals("---Por favor seleccione Segmentacion---")) {
                     Toast.makeText(getBaseContext(), "Por favor seleccione la Segmentacion. Gracias", Toast.LENGTH_LONG).show();
                 } else if (spinnerUsuario.getSelectedItem().toString().equals("---Por favor seleccione Usuario---")) {
                     Toast.makeText(getBaseContext(), "Por favor seleccione el Usuario. Gracias", Toast.LENGTH_LONG).show();
@@ -250,12 +291,7 @@ public class ProductoActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Por favor seleccione la Familia. Gracias", Toast.LENGTH_LONG).show();
                 } else {
 
-                    edtProductoSegmentac.setText((spinnerSegmentacion.getSelectedItem().toString()));
-                    edtProductoUsuarioId.setText(Long.toString(hashUsuarios.get(spinnerUsuario.getSelectedItem().toString())));
-                    edtProductoFamiliaId.setText(Long.toString(hashFamilias.get(spinnerFamilia.getSelectedItem().toString())));
-
                     Producto u = new Producto();
-
                     u.setNombre(edtProductoNombre.getText().toString());
                     u.setLote(edtProductoLote.getText().toString());
                     u.setPrecio(Double.parseDouble(edtProductoPrecio.getText().toString()));
@@ -279,8 +315,11 @@ public class ProductoActivity extends AppCompatActivity {
                     u.setEstiba(Integer.parseInt(edtProductoEstiba.getText().toString()));
                     u.setStkMin(Double.parseDouble(edtProductoStkMin.getText().toString()));
                     u.setStkTotal(Double.parseDouble(edtProductoStkTotal.getText().toString()));
+
+                    edtProductoSegmentac.setText((spinnerSegmentacion.getSelectedItem().toString()));
                     u.setSegmentac(Segmentacion.valueOf(edtProductoSegmentac.getText().toString()));
 
+                    edtProductoUsuarioId.setText(Long.toString(hashUsuarios.get(spinnerUsuario.getSelectedItem().toString())));
                     Long usuarioId = Long.parseLong(edtProductoUsuarioId.getText().toString());
                     try {
                         u.setUsuario(usuarioService.getByIdUsuario(usuarioId).execute().body());
@@ -288,6 +327,7 @@ public class ProductoActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
+                    edtProductoFamiliaId.setText(Long.toString(hashFamilias.get(spinnerFamilia.getSelectedItem().toString())));
                     Long familiaId = Long.parseLong(edtProductoFamiliaId.getText().toString());
                     try {
                         u.setFamilia(familiaService.getByIdFamilia(familiaId).execute().body());
@@ -295,15 +335,14 @@ public class ProductoActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-
                     if (productoId != null && productoId.trim().length() > 0) {
                         //update producto
-                        if (validaUpdateProducto()) {
+                        if (validaUpdateProducto(u)) {
                             updateProducto(Long.parseLong(productoId), u);
                         }
                     } else {
                         //add producto
-                        if (validaAddProducto()) {
+                        if (validaAddProducto(u)) {
                             addProducto(u);
                         }
                     }
@@ -322,9 +361,11 @@ public class ProductoActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                deleteProducto(Long.parseLong(productoId));
-                                Intent intent = new Intent(ProductoActivity.this, ProductoMainActivity.class);
-                                startActivity(intent);
+                                if (validaDeleteProducto(Long.parseLong(productoId))) {
+                                    deleteProducto(Long.parseLong(productoId));
+                                    Intent intent = new Intent(ProductoActivity.this, ProductoMainActivity.class);
+                                    startActivity(intent);
+                                }
 
                             }
                         }).
@@ -400,9 +441,12 @@ public class ProductoActivity extends AppCompatActivity {
     }
 
 
-    public boolean validaAddProducto() {
+
+
+    public boolean validaAddProducto(Producto producto) {
         try {
-            Producto productoEnBD = productoService.getByNombreProducto(edtProductoNombre.getText().toString()).execute().body();
+            String nombreProductoAbuscar = producto.getNombre();
+            Producto productoEnBD = productoService.getByNombreProducto(nombreProductoAbuscar).execute().body();
             boolean productoyaexiste = (productoEnBD != null);
             if (productoyaexiste) {
                 Toast.makeText(getBaseContext(), "Prodcuto ya existe, por favor revise sus datos.", Toast.LENGTH_LONG).show();
@@ -412,29 +456,36 @@ public class ProductoActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if ((edtProductoNombre == null || edtProductoLote == null || edtProductoPrecio == null || edtProductoFelab == null || edtProductoFven == null ||
-                edtProductoPeso == null || edtProductoVolumen == null || edtProductoEstiba == null || edtProductoStkMin == null || edtProductoStkTotal == null ||
-                edtProductoSegmentac == null || edtProductoUsuarioId == null || edtProductoFamiliaId == null)) {
-            Toast.makeText(getBaseContext(), "Es necesario ingresar todos los datos requeridos", Toast.LENGTH_LONG).show();
-            return false;
-        }
-        if (edtProductoNombre.length() > 50) {
-            Toast.makeText(getBaseContext(), "Los datos ingresados superan el largo permitido. Por favor revise sus datos.", Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        if (felab.compareTo(fven) > 0) {
+        //felab.compareTo(fven) > 0
+        if (producto.getFelab().compareTo(producto.getFven()) > 0) {
             Toast.makeText(getBaseContext(), "La fecha de Fabricacion no puede ser posterior a la de Vencimiento", Toast.LENGTH_LONG).show();
             return false;
         }
         return true;
     }
 
-    public boolean validaUpdateProducto() {
-        return false;
+    public boolean validaUpdateProducto(Producto producto) {
 
+        //felab.compareTo(fven) > 0
+        if (producto.getFelab().compareTo(producto.getFven()) > 0) {
+            Toast.makeText(getBaseContext(), "La fecha de Fabricacion no puede ser posterior a la de Vencimiento", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
+    public boolean validaDeleteProducto(Long idProducto) {
+        try {
+            Movimiento movimiento = movimientoService.validoBajaProducto(idProducto).execute().body();
+            if (movimiento != null) {
+                Toast.makeText(getBaseContext(), "Producto no se puede Eliminar porque existe en X, elimínelo de X para luego Eliminar el mismo", Toast.LENGTH_LONG).show();
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 
     public void addProducto(Producto u) {
         Call<Producto> call = productoService.addProducto(u);
@@ -477,6 +528,8 @@ public class ProductoActivity extends AppCompatActivity {
             public void onResponse(Call<Producto> call, Response<Producto> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(ProductoActivity.this, "Producto borrado ok!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ProductoActivity.this, "No fue posible borrar el Producto. Verifique si está en otro registro.", Toast.LENGTH_SHORT).show();
                 }
             }
 

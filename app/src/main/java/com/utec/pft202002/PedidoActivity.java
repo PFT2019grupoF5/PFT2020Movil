@@ -396,6 +396,8 @@ public class PedidoActivity extends AppCompatActivity {
             public void onResponse(Call<Pedido> call, Response<Pedido> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(PedidoActivity.this, "Pedido borrado ok!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(PedidoActivity.this, "No fue posible borrar el Pedido. Verifique si está en otro registro.", Toast.LENGTH_SHORT).show();
                 }
             }
 

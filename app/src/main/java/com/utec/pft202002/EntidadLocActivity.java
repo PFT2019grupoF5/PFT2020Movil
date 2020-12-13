@@ -235,6 +235,8 @@ public class EntidadLocActivity extends AppCompatActivity {
             public void onResponse(Call<EntidadLoc> call, Response<EntidadLoc> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(EntidadLocActivity.this, "EntidadLoc borrada ok!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(EntidadLocActivity.this, "No fue posible borrar el Local. Verifique si está en otro registro.", Toast.LENGTH_SHORT).show();
                 }
             }
 

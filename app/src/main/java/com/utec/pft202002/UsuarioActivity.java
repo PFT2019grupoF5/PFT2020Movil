@@ -195,6 +195,8 @@ public class UsuarioActivity extends AppCompatActivity {
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(UsuarioActivity.this, "Usuario borrada ok!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(UsuarioActivity.this, "No fue posible borrar el Usuario. Verifique si está en otro registro.", Toast.LENGTH_SHORT).show();
                 }
             }
 

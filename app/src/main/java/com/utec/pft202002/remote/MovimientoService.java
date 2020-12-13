@@ -21,6 +21,9 @@ public interface MovimientoService {
     @GET("movimientos/getById/{id}")
     Call<Movimiento> getByIdMovimiento(@Path("id") Long id);
 
+    @GET("movimientos/validoBajaProducto/{idProducto}")
+    Call<Movimiento> validoBajaProducto(@Path("idProducto") Long idProducto);
+
     @POST("movimientos/add/")
     Call<Movimiento> addMovimiento(@Body Movimiento movimiento);
 

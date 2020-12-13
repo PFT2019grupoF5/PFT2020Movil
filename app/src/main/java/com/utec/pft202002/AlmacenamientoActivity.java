@@ -229,6 +229,8 @@ public class AlmacenamientoActivity extends AppCompatActivity {
             public void onResponse(Call<Almacenamiento> call, Response<Almacenamiento> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(AlmacenamientoActivity.this, "Almacenamiento borrado ok!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AlmacenamientoActivity.this, "No fue posible borrar el Almacenamiento. Verifique si está en otro registro.", Toast.LENGTH_SHORT).show();
                 }
             }
 

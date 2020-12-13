@@ -49,7 +49,8 @@ public class ProductoAdapter extends ArrayAdapter<Producto> {
         TextView txtProductoUsuarioId = (TextView) rowView.findViewById(R.id.txtProductoUsuarioId);
         TextView txtProductoFamiliaId = (TextView) rowView.findViewById(R.id.txtProductoFamiliaId);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         txtProductoId.setText(String.format("#ID: %d", productos.get(pos).getId()));
         txtProductoNombre.setText(String.format("Nombre: %s", productos.get(pos).getNombre()));

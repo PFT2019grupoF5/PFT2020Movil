@@ -348,6 +348,8 @@ public class MovimientoActivity extends AppCompatActivity {
             public void onResponse(Call<Movimiento> call, Response<Movimiento> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(MovimientoActivity.this, "Movimiento borrado ok!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MovimientoActivity.this, "No fue posible borrar el Movimiento. Verifique si está en otro registro.", Toast.LENGTH_SHORT).show();
                 }
             }
 

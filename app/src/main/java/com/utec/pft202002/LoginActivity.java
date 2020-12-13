@@ -69,7 +69,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void doLogin(final String nomAcceso, final String contrasena) {
-        System.out.println("getLogin-nomAcceso-contrasena " + nomAcceso + " : " + contrasena);
         Call<Usuario> call = usuarioService.login(nomAcceso, contrasena);
         call.enqueue(new Callback<Usuario>() {
             @Override

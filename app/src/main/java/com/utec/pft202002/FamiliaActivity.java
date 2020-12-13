@@ -157,6 +157,8 @@ public class FamiliaActivity extends AppCompatActivity {
             public void onResponse(Call<Familia> call, Response<Familia> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(FamiliaActivity.this, "Familia borrada ok!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(FamiliaActivity.this, "No fue posible borrar la Familia. Verifique si está en otro registro.", Toast.LENGTH_SHORT).show();
                 }
             }
 
