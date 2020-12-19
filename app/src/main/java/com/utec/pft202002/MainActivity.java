@@ -36,17 +36,16 @@ public class MainActivity extends AppCompatActivity {
         btnLogout = (Button) findViewById(R.id.btnLogout);
 
         Bundle extras = getIntent().getExtras();
-        String usuarioNombre; // = "Adrian";
-        String usuarioApellido; // = "Sigot";
-        String usuarioNomAcceso; // = "adrian";
-        String usuarioTipoPerfil; // = "ADMINISRTADOR";  // OJO PERFIL ACA ES STRING !!!!!
+        String usuarioNombre;
+        String usuarioApellido;
+        String usuarioNomAcceso;
+        String usuarioTipoPerfil;
 
-        // if (extras != null) {
-            usuarioNombre = extras.getString("usuario_nombre");
-            usuarioApellido = extras.getString("usuario_apellido");
-            usuarioNomAcceso = extras.getString("usuario_nomacceso");
-            usuarioTipoPerfil = extras.getString("usuario_tipoperfil");
-        // }
+        usuarioNombre = extras.getString("usuario_nombre");
+        usuarioApellido = extras.getString("usuario_apellido");
+        usuarioNomAcceso = extras.getString("usuario_nomacceso");
+        usuarioTipoPerfil = extras.getString("usuario_tipoperfil");
+
         txtBienvenido.setText("Bienvenida/o " + usuarioNombre + " " + usuarioApellido );
         txtNomAccesoPerfilID.setText("nomacceso: " + usuarioNomAcceso + " perfil: " + usuarioTipoPerfil );
 
