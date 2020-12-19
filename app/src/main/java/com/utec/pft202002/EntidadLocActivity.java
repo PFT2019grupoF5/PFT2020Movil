@@ -104,8 +104,14 @@ public class EntidadLocActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (spinnerTipoLoc.getSelectedItem().toString().equals("---Por favor seleccione Tipo de Local---")) {
+
+
+                if (edtEntidadLocCodigo.getText().toString().trim().equals("") || edtEntidadLocNombre.getText().toString().trim().equals("") || edtEntidadLocDireccion.getText().toString().trim().equals("") ) {
+                    Toast.makeText(getBaseContext(), "Es necesario ingresar todo los datos requeridos", Toast.LENGTH_LONG).show();
+                } else if (spinnerTipoLoc.getSelectedItem().toString().equals("---Por favor seleccione Tipo de Local---")) {
                     Toast.makeText(getBaseContext(), "Por favor seleccione un Tipo de Local. Gracias", Toast.LENGTH_LONG).show();
+                } else if (spinnerCiudad.getSelectedItem().toString().equals("---Por favor seleccione Ciudad---")) {
+                    Toast.makeText(getBaseContext(), "Por favor seleccione la Ciudad. Gracias", Toast.LENGTH_LONG).show();
                 } else {
 
                     edtEntidadLocTipoLoc.setText((spinnerTipoLoc.getSelectedItem().toString()));

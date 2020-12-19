@@ -170,7 +170,7 @@ public class ProductoActivity extends AppCompatActivity {
         edtProductoUsuarioId.setText(productoUsuarioId);
         edtProductoFamiliaId.setText(productoFamiliaId);
 
-
+/*
         edtProductoFelab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -229,7 +229,7 @@ public class ProductoActivity extends AppCompatActivity {
                 edtProductoFven.setText(dateFven);
             }
         };
-
+*/
         obtenerListasParaSpinnerUsuarios();
         obtenerListasParaSpinnerFamilias();
 
@@ -249,38 +249,48 @@ public class ProductoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (edtProductoNombre.getText().toString().equals("")) {
+                DateValidator validator = new DateValidatorUsingDateFormat("yyyy-MM-dd");
+
+                if (edtProductoNombre.getText().toString().trim().equals("")) {
                     edtProductoNombre.requestFocus();
                     edtProductoNombre.setError("Es necesario ingresar todo los datos requeridos");
                 } else if (edtProductoNombre.getText().toString().length() > 50) {
                     System.out.println("edtProductoNombre : " + edtProductoNombre.toString());
                     edtProductoNombre.requestFocus();
                     edtProductoNombre.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
-                } else if (edtProductoLote.getText().toString().equals("")) {
+                } else if (edtProductoLote.getText().toString().trim().equals("")) {
                     edtProductoLote.requestFocus();
                     edtProductoLote.setError("Es necesario ingresar todo los datos requeridos");
-                } else if (edtProductoPrecio.getText().toString().equals("")) {
+                } else if (edtProductoPrecio.getText().toString().trim().equals("")) {
                     edtProductoPrecio.requestFocus();
                     edtProductoPrecio.setError("Es necesario ingresar todo los datos requeridos");
-                } else if (edtProductoFelab.getText().toString().equals("")) {
+                } else if (!validator.isValid(edtProductoFelab.getText().toString())) {
+                    edtProductoFelab.requestFocus();
+                    edtProductoFelab.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtProductoFelab.getText().toString() );
+                    System.out.println("EN EL IF ::: edtProductoFelab: " + edtProductoFelab + "dateFelab: " + dateFelab);
+                } else if (edtProductoFelab.getText().toString().trim().equals("")) {
                     edtProductoFelab.requestFocus();
                     edtProductoFelab.setError("Es necesario ingresar todo los datos requeridos");
-                } else if (edtProductoFven.getText().toString().equals("")) {
+                } else if (!validator.isValid(edtProductoFven.getText().toString())) {
+                    edtProductoFven.requestFocus();
+                    edtProductoFven.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtProductoFven.getText().toString() );
+                    System.out.println("EN EL IF ::: edtProductoFven: " + edtProductoFven + "dateFven: " + dateFven);
+                } else if (edtProductoFven.getText().toString().trim().equals("")) {
                     edtProductoFven.requestFocus();
                     edtProductoFven.setError("Es necesario ingresar todo los datos requeridos");
-                } else if (edtProductoPeso.getText().toString().equals("")) {
+                } else if (edtProductoPeso.getText().toString().trim().equals("")) {
                     edtProductoPeso.requestFocus();
                     edtProductoPeso.setError("Es necesario ingresar todo los datos requeridos");
-                } else if (edtProductoVolumen.getText().toString().equals("")) {
+                } else if (edtProductoVolumen.getText().toString().trim().equals("")) {
                     edtProductoVolumen.requestFocus();
                     edtProductoVolumen.setError("Es necesario ingresar todo los datos requeridos");
-                } else if (edtProductoEstiba.getText().toString().equals("")) {
+                } else if (edtProductoEstiba.getText().toString().trim().equals("")) {
                     edtProductoEstiba.requestFocus();
                     edtProductoEstiba.setError("Es necesario ingresar todo los datos requeridos");
-                } else if (edtProductoStkMin.getText().toString().equals("")) {
+                } else if (edtProductoStkMin.getText().toString().trim().equals("")) {
                     edtProductoStkMin.requestFocus();
                     edtProductoStkMin.setError("Es necesario ingresar todo los datos requeridos");
-                } else if (edtProductoStkTotal.getText().toString().equals("")) {
+                } else if (edtProductoStkTotal.getText().toString().trim().equals("")) {
                     edtProductoStkTotal.requestFocus();
                     edtProductoStkTotal.setError("Es necesario ingresar todo los datos requeridos");
                 } else if (spinnerSegmentacion.getSelectedItem().toString().equals("---Por favor seleccione Segmentacion---")) {
@@ -297,15 +307,15 @@ public class ProductoActivity extends AppCompatActivity {
                     u.setPrecio(Double.parseDouble(edtProductoPrecio.getText().toString()));
 
                     try {
-                        u.setFelab(dateFelab);
-                        Log.i("dateFelab :", dateFelab);
+                        u.setFelab(edtProductoFelab.getText().toString());
+                        Log.i("edtProductoFelab.getText().toString() :", edtProductoFelab.getText().toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                     try {
-                        u.setFven(dateFven);
-                        Log.i("dateFven :", dateFven);
+                        u.setFven(edtProductoFven.getText().toString());
+                        Log.i("edtProductoFven.getText().toString() :", edtProductoFven.getText().toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
