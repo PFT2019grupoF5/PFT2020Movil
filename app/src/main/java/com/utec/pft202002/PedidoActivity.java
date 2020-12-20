@@ -21,7 +21,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.utec.pft202002.Enum.estadoPedido;
+import com.utec.pft202002.Enum.tipoMovimiento;
+import com.utec.pft202002.model.Movimiento;
 import com.utec.pft202002.model.Pedido;
+import com.utec.pft202002.model.Producto;
 import com.utec.pft202002.model.Usuario;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.PedidoService;
@@ -62,6 +65,7 @@ public class PedidoActivity extends AppCompatActivity {
     Spinner  spinnerUsuario;
     Button   btnSave;
     Button   btnDel;
+    Button   btnVolverPed;
     ArrayList<String> listaUsuarios;
     HashMap<String,Long> hashUsuarios;
 
@@ -85,8 +89,10 @@ public class PedidoActivity extends AppCompatActivity {
         spinnerEstadoPedido = (Spinner) findViewById(R.id.spinnerEstadoPedido);
         spinnerUsuario = (Spinner) findViewById(R.id.spinnerUsuario);
 
-        btnSave = (Button) findViewById(R.id.btnSave);
-        btnDel = (Button) findViewById(R.id.btnDel);
+        btnSave = (Button) findViewById(R.id.btnSavePed);
+        btnDel = (Button) findViewById(R.id.btnDelPed);
+        btnVolverPed = (Button) findViewById(R.id.btnVolverPed);
+
 
         pedidoService = APIUtils.getPedidoService();
         usuarioService = APIUtils.getUsuarioService();
@@ -101,7 +107,10 @@ public class PedidoActivity extends AppCompatActivity {
         String pedidoPedRecComentario = extras.getString("pedido_pedreccomentario");
         String pedidoUsuarioId = extras.getString("pedido_usuarioid");
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        //sdf.setTimeZone(TimeZone.getTimeZone("GMT-03:00"));
 
         edtPedidoId.setText(pedidoId);
         edtPedidoPedEstado.setText(pedidoPedEstado);
@@ -141,7 +150,7 @@ public class PedidoActivity extends AppCompatActivity {
 
         edtPedidoPedRecComentario.setText(pedidoPedRecComentario);
         edtPedidoUsuarioId.setText(pedidoUsuarioId);
-
+/*
         edtPedidoPedFecEstim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -228,7 +237,7 @@ public class PedidoActivity extends AppCompatActivity {
                 edtPedidoPedRecFecha.setText(dateRecFecha);
             }
         };
-
+*/
         obtenerListasParaSpinnerUsuarios();
 
         if(pedidoId != null && pedidoId.trim().length() > 0 ){
@@ -243,42 +252,63 @@ public class PedidoActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DateValidator validator = new DateValidatorUsingDateFormat("yyyy-MM-dd");
 
-                if (spinnerEstadoPedido.getSelectedItem().toString().equals("---Por favor seleccione Estado del Pedido---")){
+                if (!validator.isValid(edtPedidoFecha.getText().toString())) {
+                    edtPedidoFecha.requestFocus();
+                    edtPedidoFecha.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtPedidoFecha.getText().toString());
+                    System.out.println("EN EL IF ::: edtPedidoFecha: " + edtPedidoFecha);
+                } else if  (!validator.isValid(edtPedidoPedFecEstim.getText().toString())) {
+                    edtPedidoPedFecEstim.requestFocus();
+                    edtPedidoPedFecEstim.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtPedidoPedFecEstim.getText().toString());
+                    System.out.println("EN EL IF ::: edtPedidoFecha: " + edtPedidoPedFecEstim);
+                } else if (!validator.isValid(edtPedidoPedRecFecha.getText().toString())) {
+                    edtPedidoPedRecFecha.requestFocus();
+                    edtPedidoPedRecFecha.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtPedidoPedRecFecha.getText().toString());
+                    System.out.println("EN EL IF ::: edtPedidoFecha: " + edtPedidoPedRecFecha);
+                } else if   (edtPedidoPedRecCodigo.getText().toString().trim().equals("")) {
+                    edtPedidoPedRecCodigo.requestFocus();
+                    edtPedidoPedRecCodigo.setError("Es necesario ingresar todo los datos requeridos");
+                } else if  (edtPedidoPedRecComentario.getText().toString().trim().equals("")) {
+                    edtPedidoPedRecComentario.requestFocus();
+                    edtPedidoPedRecComentario.setError("Es necesario ingresar todo los datos requeridos");
+                }else if  (spinnerEstadoPedido.getSelectedItem().toString().equals("---Por favor seleccione Estado del Pedido---")){
                     Toast.makeText(getBaseContext(),"Por favor seleccione el Estado del Pedido. Gracias",Toast.LENGTH_LONG).show();
+                } else if (spinnerUsuario.getSelectedItem().toString().equals("---Por favor seleccione Usuario---")) {
+                    Toast.makeText(getBaseContext(), "Por favor seleccione el Usuario. Gracias", Toast.LENGTH_LONG).show();
                 } else {
-
-                    edtPedidoPedEstado.setText((spinnerEstadoPedido.getSelectedItem().toString()));
-                    edtPedidoUsuarioId.setText(Long.toString(hashUsuarios.get(spinnerUsuario.getSelectedItem().toString())));
 
                     Pedido u = new Pedido();
 
+                    edtPedidoPedEstado.setText((spinnerEstadoPedido.getSelectedItem().toString()));
                     u.setPedestado(estadoPedido.valueOf(edtPedidoPedEstado.getText().toString()));
+
                     u.setPedreccomentario(edtPedidoPedRecComentario.getText().toString());
 
                     try {
-                        u.setPedfecestim(dateFecEstim);
-                        Log.i("pedfecestim:", dateFecEstim);
+                        u.setPedfecestim(edtPedidoPedFecEstim.getText().toString());
+                        Log.i("edtPedidoPedFecEstim.getText().toString():", edtPedidoPedFecEstim.getText().toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                     try {
-                        u.setFecha(dateFecha);
-                        Log.i("fecha:", dateFecha);
+                        u.setFecha(edtPedidoFecha.getText().toString());
+                        Log.i("edtPedidoFecha.getText().toString():", edtPedidoFecha.getText().toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                     try {
-                        u.setPedrecfecha(dateRecFecha);
-                        Log.i("pedrecfecha:", dateRecFecha);
+                        u.setPedrecfecha(edtPedidoPedRecFecha.getText().toString());
+                        Log.i("edtPedidoPedRecFecha.getText().toString():", edtPedidoPedRecFecha.getText().toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                     u.setPedreccodigo(Integer.parseInt(edtPedidoPedRecCodigo.getText().toString()));
 
+                    edtPedidoUsuarioId.setText(Long.toString(hashUsuarios.get(spinnerUsuario.getSelectedItem().toString())));
                     Long usuarioId = Long.parseLong(edtPedidoUsuarioId.getText().toString());
                     try {
                         u.setUsuario(usuarioService.getByIdUsuario(usuarioId).execute().body());
@@ -288,10 +318,16 @@ public class PedidoActivity extends AppCompatActivity {
 
                     if (pedidoId != null && pedidoId.trim().length() > 0) {
                         //update pedido
-                        updatePedido(Long.parseLong(pedidoId), u);
+                        if (validaUpdatePedido(u)) {
+                            updatePedido(Long.parseLong(pedidoId), u);
+                            finish();
+                        }
                     } else {
                         //add pedido
-                        addPedido(u);
+                        if (validaAddPedido(u)) {
+                            addPedido(u);
+                        finish();
+                        }
                     }
                 }
             }
@@ -307,9 +343,13 @@ public class PedidoActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                deletePedido(Long.parseLong(pedidoId));
-                                Intent intent = new Intent(PedidoActivity.this, PedidoMainActivity.class);
-                                startActivity(intent);
+                                if (validaDeletePedido(Long.parseLong(pedidoId))) {
+                                    deletePedido(Long.parseLong(pedidoId));
+                                    finish();
+
+                                    //Intent intent = new Intent(PedidoActivity.this, PedidoMainActivity.class);
+                                    //startActivity(intent);
+                                }
 
                             }
                         }).
@@ -322,6 +362,13 @@ public class PedidoActivity extends AppCompatActivity {
                 AlertDialog alertDialog=builder.create();
                 alertDialog.show();
 
+            }
+        });
+
+        btnVolverPed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -340,8 +387,8 @@ public class PedidoActivity extends AppCompatActivity {
                     hashUsuarios = new HashMap<String,Long>();
                     listaUsuarios.add("---Por favor seleccione Usuario---");
                     for (int i=0;i<usuarioList.size();i++){
-                        hashUsuarios.put(usuarioList.get(i).getNombre()+" "+usuarioList.get(i).getApellido(),usuarioList.get(i).getId());
-                        listaUsuarios.add(usuarioList.get(i).getNombre()+" "+usuarioList.get(i).getApellido());
+                        hashUsuarios.put(usuarioList.get(i).getId()+" "+usuarioList.get(i).getApellido(),usuarioList.get(i).getId());
+                        listaUsuarios.add(usuarioList.get(i).getId()+" "+usuarioList.get(i).getApellido());
                     }
                     ArrayAdapter<String> adapterSpinnerUsuarios = new ArrayAdapter<String>(PedidoActivity.this, android.R.layout.simple_spinner_item, listaUsuarios);
                     spinnerUsuario.setAdapter(adapterSpinnerUsuarios);
@@ -353,6 +400,19 @@ public class PedidoActivity extends AppCompatActivity {
             }
         });
     }
+
+    public boolean validaAddPedido(Pedido pedido) {
+        return true;
+    }
+
+    public boolean validaUpdatePedido(Pedido pedido) {
+        return true;
+    }
+
+    public boolean validaDeletePedido(Long idPedido) {
+        return true;
+    }
+
 
 
     public void addPedido(Pedido u){

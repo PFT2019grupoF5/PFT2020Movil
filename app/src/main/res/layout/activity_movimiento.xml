@@ -41,6 +41,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="ID Movi."
                         android:textColor="@android:color/black"
                         android:textSize="20dp" />
@@ -72,7 +73,9 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Fecha" />
+                        android:gravity="center_vertical"
+                        android:text="Fecha"
+                        android:textSize="10sp" />
 
                     <EditText
                         android:id="@+id/edtMovimientoFecha"
@@ -101,6 +104,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Cantidad"
                         android:textSize="10dp" />
 
@@ -131,6 +135,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Descripcion"
                         android:textSize="10dp" />
 
@@ -161,6 +166,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Costo"
                         android:textSize="10dp" />
 
@@ -192,6 +198,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Tipo Mov"
                         android:textSize="10dp" />
 
@@ -229,6 +236,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Producto Id"
                         android:textSize="10dp" />
 
@@ -264,6 +272,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Almacenamiento Id"
                         android:textSize="10dp" />
 
@@ -294,7 +303,7 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btnSave"
+                        android:id="@+id/btnSaveMovi"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"
@@ -303,7 +312,7 @@
                         android:textColor="#ffffff" />
 
                     <Button
-                        android:id="@+id/btnDel"
+                        android:id="@+id/btnDelMovi"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"
@@ -312,7 +321,7 @@
                         android:textColor="#ffffff" />
 
                     <Button
-                        android:id="@+id/btVolverMovi"
+                        android:id="@+id/btnVolverMovi"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"

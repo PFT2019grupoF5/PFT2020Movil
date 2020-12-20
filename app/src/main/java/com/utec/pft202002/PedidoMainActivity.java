@@ -24,6 +24,7 @@ public class PedidoMainActivity extends AppCompatActivity {
 
     Button btnAddPedido;
     Button btnGetPedidosList;
+    Button btnVolverPedMain;
     ListView listViewPedidos;
 
     PedidoService pedidoService;
@@ -39,6 +40,8 @@ public class PedidoMainActivity extends AppCompatActivity {
         btnAddPedido = (Button) findViewById(R.id.btnAddPedido);
         btnGetPedidosList = (Button) findViewById(R.id.btnGetPedidosList);
         listViewPedidos = (ListView) findViewById(R.id.listViewPedidos);
+        btnVolverPedMain = (Button) findViewById(R.id.btnVolverPedMain);
+
         pedidoService = APIUtils.getPedidoService();
 
         btnGetPedidosList.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +64,14 @@ public class PedidoMainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnVolverPedMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     public void getPedidosList(){

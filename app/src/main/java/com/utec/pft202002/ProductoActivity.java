@@ -32,6 +32,7 @@ import com.utec.pft202002.remote.UsuarioService;
 import com.utec.pft202002.remote.ProductoService;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -75,7 +76,7 @@ public class ProductoActivity extends AppCompatActivity {
     Spinner spinnerFamilia;
     Button btnSave;
     Button btnDel;
-    Button btVolverProduc;
+    Button btnVolverProduc;
     ArrayList<String> listaUsuarios;
     HashMap<String, Long> hashUsuarios;
     ArrayList<String> listaFamilias;
@@ -112,7 +113,7 @@ public class ProductoActivity extends AppCompatActivity {
 
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
-        btVolverProduc = (Button) findViewById(R.id.btVolverProduc);
+        btnVolverProduc = (Button) findViewById(R.id.btnVolverProduc);
 
         productoService = APIUtils.getProductoService();
         usuarioService = APIUtils.getUsuarioService();
@@ -354,15 +355,16 @@ public class ProductoActivity extends AppCompatActivity {
                         //update producto
                         if (validaUpdateProducto(u)) {
                             updateProducto(Long.parseLong(productoId), u);
+                            finish();
                         }
                     } else {
                         //add producto
                         if (validaAddProducto(u)) {
                             addProducto(u);
+                            finish();
                         }
                     }
                 }
-
             }
         });
 
@@ -378,8 +380,10 @@ public class ProductoActivity extends AppCompatActivity {
 
                                 if (validaDeleteProducto(Long.parseLong(productoId))) {
                                     deleteProducto(Long.parseLong(productoId));
-                                    Intent intent = new Intent(ProductoActivity.this, ProductoMainActivity.class);
-                                    startActivity(intent);
+                                    finish();
+
+                                    //Intent intent = new Intent(ProductoActivity.this, ProductoMainActivity.class);
+                                    //startActivity(intent);
                                 }
 
                             }
@@ -392,10 +396,10 @@ public class ProductoActivity extends AppCompatActivity {
                         });
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
-
             }
         });
-        btVolverProduc.setOnClickListener(new View.OnClickListener() {
+
+        btnVolverProduc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -421,8 +425,8 @@ public class ProductoActivity extends AppCompatActivity {
                     hashUsuarios = new HashMap<String, Long>();
                     listaUsuarios.add("---Por favor seleccione Usuario---");
                     for (int i = 0; i < usuarioList.size(); i++) {
-                        hashUsuarios.put(usuarioList.get(i).getNombre() + " " + usuarioList.get(i).getApellido(), usuarioList.get(i).getId());
-                        listaUsuarios.add(usuarioList.get(i).getNombre() + " " + usuarioList.get(i).getApellido());
+                        hashUsuarios.put(usuarioList.get(i).getId() + " " + usuarioList.get(i).getApellido(), usuarioList.get(i).getId());
+                        listaUsuarios.add(usuarioList.get(i).getId() + " " + usuarioList.get(i).getApellido());
                     }
                     ArrayAdapter<String> adapterSpinnerUsuarios = new ArrayAdapter<String>(ProductoActivity.this, android.R.layout.simple_spinner_item, listaUsuarios);
                     spinnerUsuario.setAdapter(adapterSpinnerUsuarios);
@@ -450,8 +454,8 @@ public class ProductoActivity extends AppCompatActivity {
                     hashFamilias = new HashMap<String, Long>();
                     listaFamilias.add("---Por favor seleccione Familia---");
                     for (int i = 0; i < familiaList.size(); i++) {
-                        hashFamilias.put(familiaList.get(i).getNombre(), familiaList.get(i).getId());
-                        listaFamilias.add(familiaList.get(i).getNombre());
+                        hashFamilias.put(familiaList.get(i).getId() + " " + familiaList.get(i).getNombre(), familiaList.get(i).getId());
+                        listaFamilias.add(familiaList.get(i).getId() + " " + familiaList.get(i).getNombre());
                     }
                     ArrayAdapter<String> adapterSpinnerFamilias = new ArrayAdapter<String>(ProductoActivity.this, android.R.layout.simple_spinner_item, listaFamilias);
                     spinnerFamilia.setAdapter(adapterSpinnerFamilias);
@@ -479,9 +483,20 @@ public class ProductoActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //felab.compareTo(fven) > 0
-        if (producto.getFelab().compareTo(producto.getFven()) > 0) {
-            Toast.makeText(getBaseContext(), "La fecha de Fabricacion no puede ser posterior a la de Vencimiento", Toast.LENGTH_LONG).show();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+        Date fechaElab = null;
+        Date fechaVen = null;
+        try {
+            fechaElab = sdf.parse(producto.getFelab());
+            fechaVen = sdf.parse(producto.getFven());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        //producto.getFelab().compareTo(producto.getFven()) > 0
+        if ( fechaElab.compareTo(fechaVen) > 0 ) {
+            Toast.makeText(getBaseContext(), "La fecha de Fabricacion (" + producto.getFelab() + ") no puede ser posterior a la de Vencimiento (" + producto.getFven() + ")", Toast.LENGTH_LONG).show();
             return false;
         }
         return true;
@@ -489,9 +504,20 @@ public class ProductoActivity extends AppCompatActivity {
 
     public boolean validaUpdateProducto(Producto producto) {
 
-        //felab.compareTo(fven) > 0
-        if (producto.getFelab().compareTo(producto.getFven()) > 0) {
-            Toast.makeText(getBaseContext(), "La fecha de Fabricacion no puede ser posterior a la de Vencimiento", Toast.LENGTH_LONG).show();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+        Date fechaElab = null;
+        Date fechaVen = null;
+        try {
+            fechaElab = sdf.parse(producto.getFelab());
+            fechaVen = sdf.parse(producto.getFven());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        //producto.getFelab().compareTo(producto.getFven()) > 0
+        if ( fechaElab.compareTo(fechaVen) > 0 ) {
+            Toast.makeText(getBaseContext(), "La fecha de Fabricacion (" + producto.getFelab() + ") no puede ser posterior a la de Vencimiento (" + producto.getFven() + ")", Toast.LENGTH_LONG).show();
             return false;
         }
         return true;

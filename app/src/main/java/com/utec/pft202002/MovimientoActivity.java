@@ -46,7 +46,6 @@ public class MovimientoActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListenerFecha;
     String fecha="";
 
-
     MovimientoService movimientoService;
     ProductoService productoService;
     AlmacenamientoService almacenamientoService;
@@ -65,11 +64,11 @@ public class MovimientoActivity extends AppCompatActivity {
     Spinner  spinnerAlmacenamiento;
     Button   btnSave;
     Button   btnDel;
+    Button   btnVolverMovi;
     ArrayList<String> listaProductos;
     HashMap<String,Long> hashProductos;
     ArrayList<String> listaAlmacenamientos;
     HashMap<String,Long> hashAlmacenamientos;
-    Button btVolverMovi;
 
 
     @Override
@@ -93,9 +92,9 @@ public class MovimientoActivity extends AppCompatActivity {
         spinnerProducto = (Spinner) findViewById(R.id.spinnerProducto);
         spinnerAlmacenamiento = (Spinner) findViewById(R.id.spinnerAlmacenamiento);
 
-        btnSave = (Button) findViewById(R.id.btnSave);
-        btnDel = (Button) findViewById(R.id.btnDel);
-        btVolverMovi = (Button) findViewById(R.id.btVolverMovi);
+        btnSave = (Button) findViewById(R.id.btnSaveMovi);
+        btnDel = (Button) findViewById(R.id.btnDelMovi);
+        btnVolverMovi = (Button) findViewById(R.id.btnVolverMovi);
 
         movimientoService = APIUtils.getMovimientoService();
         productoService = APIUtils.getProductoService();
@@ -112,9 +111,8 @@ public class MovimientoActivity extends AppCompatActivity {
         String movimientoAlmacenamientoId = extras.getString("movimiento_almacenamientoid");
 
         //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         //sdf.setTimeZone(TimeZone.getTimeZone("GMT-03:00"));
 
         edtMovimientoId.setText(movimientoId);
@@ -136,7 +134,7 @@ public class MovimientoActivity extends AppCompatActivity {
         edtMovimientoTipoMov.setText(movimientoTipoMov);
         edtMovimientoProductoId.setText(movimientoProductoId);
         edtMovimientoAlmacenamientoId.setText(movimientoAlmacenamientoId);
-
+/*
         edtMovimientoFecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,7 +163,7 @@ public class MovimientoActivity extends AppCompatActivity {
                 edtMovimientoFecha.setText(fecha);
             }
         };
-
+*/
         obtenerListasParaSpinnerProductos();
         obtenerListasParaSpinnerAlmacenamientos();
 
@@ -193,20 +191,19 @@ public class MovimientoActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DateValidator validator = new DateValidatorUsingDateFormat("yyyy-MM-dd");
 
-                if (edtMovimientoFecha.getText().toString().equals("")) {
+                if (!validator.isValid(edtMovimientoFecha.getText().toString())) {
                     edtMovimientoFecha.requestFocus();
-                    edtMovimientoFecha.setError("Es necesario ingresar todo los datos requeridos");
-                } else if  (edtMovimientoCantidad.getText().toString().equals("")) {
+                    edtMovimientoFecha.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtMovimientoFecha.getText().toString());
+                    System.out.println("EN EL IF ::: edtMovimientoFecha: " + edtMovimientoFecha);
+                } else if  (edtMovimientoCantidad.getText().toString().trim().equals("")) {
                     edtMovimientoCantidad.requestFocus();
                     edtMovimientoCantidad.setError("Es necesario ingresar todo los datos requeridos");
-                } else if (edtMovimientoDescripcion.getText().toString().equals("")) {
-                    edtMovimientoDescripcion.requestFocus();
-                    edtMovimientoDescripcion.setError("Es necesario ingresar todo los datos requeridos");
-                } else if (edtMovimientoDescripcion.getText().toString().length() > 250) {
+                } else if (edtMovimientoDescripcion.getText().toString().trim().length() > 250) {
                     edtMovimientoDescripcion.requestFocus();
                     edtMovimientoDescripcion.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
-                } else if (edtMovimientoCosto.getText().toString().equals("")) {
+                } else if (edtMovimientoCosto.getText().toString().trim().equals("")) {
                     edtMovimientoCosto.requestFocus();
                     edtMovimientoCosto.setError("Es necesario ingresar todo los datos requeridos");
                 } else if (spinnerTipoMovimiento.getSelectedItem().toString().equals("---Por favor seleccione Tipo de Movimiento---")) {
@@ -220,8 +217,8 @@ public class MovimientoActivity extends AppCompatActivity {
                     Movimiento u = new Movimiento();
 
                     try {
-                        u.setFecha(fecha);
-                        Log.i("fecha :", fecha);
+                        u.setFecha(edtMovimientoFecha.getText().toString());
+                        Log.i("edtMovimientoFecha.getText().toString() :", edtMovimientoFecha.getText().toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -253,11 +250,13 @@ public class MovimientoActivity extends AppCompatActivity {
                         //update movimiento
                         if (validaUpdateMovimiento(u)) {
                             updateMovimiento(Long.parseLong(movimientoId), u);
+                            finish();
                         }
                     } else {
                         //add movimiento
                         if (validaAddMovimiento(u)) {
                             addMovimiento(u);
+                            finish();
                         }
                     }
                 }
@@ -276,8 +275,10 @@ public class MovimientoActivity extends AppCompatActivity {
 
                                 if (validaDeleteMovimiento(Long.parseLong(movimientoId))) {
                                     deleteMovimiento(Long.parseLong(movimientoId));
-                                    Intent intent = new Intent(MovimientoActivity.this, MovimientoMainActivity.class);
-                                    startActivity(intent);
+                                    finish();
+
+                                    //Intent intent = new Intent(MovimientoActivity.this, MovimientoMainActivity.class);
+                                    //startActivity(intent);
                                 }
 
                             }
@@ -294,7 +295,7 @@ public class MovimientoActivity extends AppCompatActivity {
             }
         });
 
-        btVolverMovi.setOnClickListener(new View.OnClickListener() {
+        btnVolverMovi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -317,8 +318,8 @@ public class MovimientoActivity extends AppCompatActivity {
                     hashProductos = new HashMap<String,Long>();
                     listaProductos.add("---Por favor seleccione Producto---");
                     for (int i=0;i<productoList.size();i++){
-                        hashProductos.put(productoList.get(i).getNombre(),productoList.get(i).getId());
-                        listaProductos.add(productoList.get(i).getNombre());
+                        hashProductos.put(productoList.get(i).getId() + " " + productoList.get(i).getNombre(),productoList.get(i).getId());
+                        listaProductos.add(productoList.get(i).getId() + " " + productoList.get(i).getNombre());
                     }
                     ArrayAdapter<String> adapterSpinnerProductos = new ArrayAdapter<String>(MovimientoActivity.this, android.R.layout.simple_spinner_item, listaProductos);
                     spinnerProducto.setAdapter(adapterSpinnerProductos);
@@ -344,8 +345,8 @@ public class MovimientoActivity extends AppCompatActivity {
                     hashAlmacenamientos = new HashMap<String,Long>();
                     listaAlmacenamientos.add("---Por favor seleccione Almacenamiento---");
                     for (int i=0;i<almacenamientoList.size();i++){
-                        hashAlmacenamientos.put(almacenamientoList.get(i).getNombre(),almacenamientoList.get(i).getId());
-                        listaAlmacenamientos.add(almacenamientoList.get(i).getNombre());
+                        hashAlmacenamientos.put(almacenamientoList.get(i).getId() + " " + almacenamientoList.get(i).getNombre(),almacenamientoList.get(i).getId());
+                        listaAlmacenamientos.add(almacenamientoList.get(i).getId() + " " + almacenamientoList.get(i).getNombre());
                     }
                     ArrayAdapter<String> adapterSpinnerAlmacenamientos = new ArrayAdapter<String>(MovimientoActivity.this, android.R.layout.simple_spinner_item, listaAlmacenamientos);
                     spinnerAlmacenamiento.setAdapter(adapterSpinnerAlmacenamientos);

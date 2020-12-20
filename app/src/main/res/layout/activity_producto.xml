@@ -40,6 +40,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="ID Producto"
                         android:textColor="@android:color/black"
                         android:textSize="20dp" />
@@ -72,7 +73,9 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Nombre"
+                        android:textSize="10sp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -102,6 +105,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Lote"
                         android:textSize="10dp" />
 
@@ -131,6 +135,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Precio"
                         android:textSize="10dp" />
 
@@ -161,6 +166,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Felab"
                         android:textSize="10dp" />
 
@@ -191,6 +197,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Fven"
                         android:textSize="10dp" />
 
@@ -222,6 +229,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Peso"
                         android:textSize="10dp" />
 
@@ -252,6 +260,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Volumen"
                         android:textSize="10dp" />
 
@@ -282,6 +291,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Estiba"
                         android:textSize="10dp" />
 
@@ -312,6 +322,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="StkMin"
                         android:textSize="10dp" />
 
@@ -342,6 +353,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="StkTotal"
                         android:textSize="10dp" />
 
@@ -372,6 +384,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Segmentac"
                         android:textSize="10dp" />
 
@@ -409,6 +422,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Usuario Id"
                         android:textSize="10dp" />
 
@@ -444,6 +458,7 @@
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="Familia Id"
                         android:textSize="10dp" />
 
@@ -494,7 +509,7 @@
                         android:textColor="#ffffff" />
 
                     <Button
-                        android:id="@+id/btVolverProduc"
+                        android:id="@+id/btnVolverProduc"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_weight="1"
