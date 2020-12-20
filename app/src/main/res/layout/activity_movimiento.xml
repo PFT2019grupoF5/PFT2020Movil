@@ -1,195 +1,337 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MovimientoActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtMovimientoId"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="ID"
-            android:textSize="10dp" />
+            android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/edtMovimientoId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:textSize="10dp"
-            />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtMovimientoFecha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Fecha"
-            android:textSize="10dp"
-            android:layout_marginTop="5dp"
-            />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/edtMovimientoFecha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:textSize="10dp"
-            />
+                    <TextView
+                        android:id="@+id/textViewM01"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="*"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtMovimientoCantidad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Cantidad"
-            android:textSize="10dp" />
+                    <TextView
+                        android:id="@+id/txtMovimientoId"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="ID Movi."
+                        android:textColor="@android:color/black"
+                        android:textSize="20dp" />
 
-        <EditText
-            android:id="@+id/edtMovimientoCantidad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:textSize="10dp"
-            />
+                    <EditText
+                        android:id="@+id/edtMovimientoId"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+                </LinearLayout>
 
-        <TextView
-            android:id="@+id/txtMovimientoDescripcion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Descripcion"
-            android:textSize="10dp"
-            android:layout_marginTop="5dp"
-            />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/edtMovimientoDescripcion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            />
+                    <TextView
+                        android:id="@+id/textViewM02"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="*"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtMovimientoCosto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Costo"
-            android:textSize="10dp"
-            android:layout_marginTop="5dp"
-            />
+                    <TextView
+                        android:id="@+id/txtMovimientoFecha"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Fecha" />
 
-        <EditText
-            android:id="@+id/edtMovimientoCosto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:textSize="10dp"
-            />
+                    <EditText
+                        android:id="@+id/edtMovimientoFecha"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="date" />
+                </LinearLayout>
 
-        <TextView
-            android:id="@+id/txtMovimientoTipoMov"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tipo Mov"
-            android:textSize="10dp"
-            android:layout_marginTop="5dp"
-            />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/edtMovimientoTipoMov"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            />
+                    <TextView
+                        android:id="@+id/textViewM03"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="*"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/spinnerTipoMovimiento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/tipomovimiento_array"
-            android:prompt="@string/tipomovimiento_prompt" />
+                    <TextView
+                        android:id="@+id/txtMovimientoCantidad"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Cantidad"
+                        android:textSize="10dp" />
 
-        <TextView
-            android:id="@+id/txtMovimientoProductoId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Producto Id"
-            android:textSize="10dp"
-            android:layout_marginTop="5dp"
-            />
+                    <EditText
+                        android:id="@+id/edtMovimientoCantidad"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+                </LinearLayout>
 
-        <EditText
-            android:id="@+id/edtMovimientoProductoId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:textSize="10dp"
-            />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/spinnerProducto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/textViewM04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="*"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtMovimientoAlmacenamientoId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Almacenamiento Id"
-            android:textSize="10dp"
-            android:layout_marginTop="5dp"
-            />
+                    <TextView
+                        android:id="@+id/txtMovimientoDescripcion"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Descripcion"
+                        android:textSize="10dp" />
 
-        <EditText
-            android:id="@+id/edtMovimientoAlmacenamientoId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:textSize="10dp"
-            />
+                    <EditText
+                        android:id="@+id/edtMovimientoDescripcion"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp" />
+                </LinearLayout>
 
-        <Spinner
-            android:id="@+id/spinnerAlmacenamiento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:id="@+id/textViewM05"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="*"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnSave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:background="#32CD32"
-            android:textColor="#ffffff"
-            android:layout_marginBottom="5dp"
-            />
+                    <TextView
+                        android:id="@+id/txtMovimientoCosto"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Costo"
+                        android:textSize="10dp" />
 
-        <Button
-            android:id="@+id/btnDel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Delete"
-            android:background="#FF0000"
-            android:textColor="#ffffff"
-            />
+                    <EditText
+                        android:id="@+id/edtMovimientoCosto"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:textSize="25dp" />
+                </LinearLayout>
 
-        <Button
-            android:id="@+id/btVolverMovi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#2196F3"
-            android:text="Volver"
-            android:textColor="#ffffff" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:id="@+id/textViewM06"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="*"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtMovimientoTipoMov"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Tipo Mov"
+                        android:textSize="10dp" />
+
+                    <EditText
+                        android:id="@+id/edtMovimientoTipoMov"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content" />
+
+                    <Spinner
+                        android:id="@+id/spinnerTipoMovimiento"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:entries="@array/tipomovimiento_array"
+                        android:prompt="@string/tipomovimiento_prompt"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewM13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="*"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtMovimientoProductoId"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Producto Id"
+                        android:textSize="10dp" />
+
+                    <EditText
+                        android:id="@+id/edtMovimientoProductoId"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+
+                    <Spinner
+                        android:id="@+id/spinnerProducto"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewM14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="*"
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtMovimientoAlmacenamientoId"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Almacenamiento Id"
+                        android:textSize="10dp" />
+
+                    <EditText
+                        android:id="@+id/edtMovimientoAlmacenamientoId"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+
+                    <Spinner
+                        android:id="@+id/spinnerAlmacenamiento"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtProductoCamposREqueridos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="* indica campo mandatorio"
+                    android:textAlignment="center"
+                    android:textColor="#E91E63"
+                    android:textSize="12sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnSave"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:background="#32CD32"
+                        android:text="Save"
+                        android:textColor="#ffffff" />
+
+                    <Button
+                        android:id="@+id/btnDel"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:background="#FF0000"
+                        android:text="Delete"
+                        android:textColor="#ffffff" />
+
+                    <Button
+                        android:id="@+id/btVolverMovi"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:background="#2196F3"
+                        android:text="Volver"
+                        android:textColor="#ffffff" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
     </LinearLayout>
+</LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
