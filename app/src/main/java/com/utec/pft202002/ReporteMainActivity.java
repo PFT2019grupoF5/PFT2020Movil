@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.utec.pft202002.model.Pedido;
+import com.utec.pft202002.model.Producto;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.PedidoService;
 
@@ -44,6 +45,8 @@ public class ReporteMainActivity extends AppCompatActivity {
     EditText edtReporteFechaDesde;
     EditText edtReporteFechaHasta;
     Button btnGetReporteList;
+    Button   btnVolverRep;
+
     ListView listViewReporte;
 
     PedidoService PedidoService;
@@ -56,15 +59,23 @@ public class ReporteMainActivity extends AppCompatActivity {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-
         setTitle("Reporte Pedidos : " + dtf.format(now) );
+
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        //sdf.setTimeZone(TimeZone.getTimeZone("GMT-03:00"));
 
         edtReporteFechaDesde = (EditText) findViewById(R.id.edtReporteFechaDesde);
         edtReporteFechaHasta = (EditText) findViewById(R.id.edtReporteFechaHasta);
         btnGetReporteList = (Button) findViewById(R.id.btnGetReporteList);
+        btnVolverRep = (Button) findViewById(R.id.btnVolverRepdMain);
+
         listViewReporte = (ListView) findViewById(R.id.listViewReporte);
+        
         PedidoService = APIUtils.getPedidoService();
 
+        /*
         edtReporteFechaDesde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,43 +131,68 @@ public class ReporteMainActivity extends AppCompatActivity {
                 edtReporteFechaHasta.setText(fechaHasta);
             }
         };
+        
+         */
 
 
         btnGetReporteList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateFechas()){
-                    getReporteList();
+                DateValidator validator = new DateValidatorUsingDateFormat("yyyy-MM-dd");
+
+                if (!validator.isValid(edtReporteFechaDesde.getText().toString())) {
+                    edtReporteFechaDesde.requestFocus();
+                    edtReporteFechaDesde.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtReporteFechaDesde.getText().toString());
+                    System.out.println("EN EL IF ::: edtReporteFechaDesde: " + edtReporteFechaDesde);
+                } else if  (!validator.isValid(edtReporteFechaHasta.getText().toString())) {
+                    edtReporteFechaHasta.requestFocus();
+                    edtReporteFechaHasta.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtReporteFechaHasta.getText().toString());
+                    System.out.println("EN EL IF ::: edtReporteFechaHasta: " + edtReporteFechaHasta);
+                } else if (edtReporteFechaDesde.getText().toString().trim().equals("")) {
+                    edtReporteFechaDesde.requestFocus();
+                    edtReporteFechaDesde.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtReporteFechaHasta.getText().toString().trim().equals("")) {
+                    edtReporteFechaHasta.requestFocus();
+                    edtReporteFechaHasta.setError("Es necesario ingresar todo los datos requeridos");
+                }  else {
+                    if (validaFechasReporte()){
+                        getReporteList();
+                    }
                 }
+            }
+        });
+        
+        btnVolverRep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
     }
 
-    private boolean validateFechas(){
-        if(fechaDesde == null || fechaDesde.trim().length() == 0){
-            Toast.makeText(this, "Por favor ingrese la fecha inicial del reporte", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if(fechaHasta == null || fechaHasta.trim().length() == 0){
-            Toast.makeText(this, "Por favor ingrese la fecha final del reporte", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+    public boolean validaFechasReporte() {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date fechaDesde = null;
+        Date fechaHasta = null;
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
-            Date fDesde = dateFormat.parse(fechaDesde);
-            Date fHasta = dateFormat.parse(fechaHasta);
-            if(fDesde.after(fHasta)){
-                Toast.makeText(this, "Por favor ingrese la fecha inicial menor que la fecha final", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        } catch (ParseException ex) {
+            fechaDesde = sdf.parse(edtReporteFechaDesde.getText().toString());
+            fechaHasta = sdf.parse(edtReporteFechaHasta.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if ( fechaDesde.compareTo(fechaHasta) > 0 ) {
+            Toast.makeText(getBaseContext(), "La fecha desde (" + edtReporteFechaDesde.getText().toString() + ") no puede ser posterior a la fecha hasta (" + edtReporteFechaHasta.getText().toString() + ")", Toast.LENGTH_LONG).show();
+            return false;
         }
         return true;
     }
 
     public void getReporteList(){
-        Call<List<Pedido>> call = PedidoService.getPedidosEntreFechas(fechaDesde, fechaHasta);
+        Call<List<Pedido>> call = PedidoService.getPedidosEntreFechas(edtReporteFechaDesde.getText().toString(), edtReporteFechaHasta.getText().toString());
         call.enqueue(new Callback<List<Pedido>>() {
             @Override
             public void onResponse(Call<List<Pedido>> call, Response<List<Pedido>> response) {
