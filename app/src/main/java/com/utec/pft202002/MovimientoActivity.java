@@ -46,6 +46,7 @@ public class MovimientoActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListenerFecha;
     String fecha="";
 
+
     MovimientoService movimientoService;
     ProductoService productoService;
     AlmacenamientoService almacenamientoService;
@@ -68,6 +69,7 @@ public class MovimientoActivity extends AppCompatActivity {
     HashMap<String,Long> hashProductos;
     ArrayList<String> listaAlmacenamientos;
     HashMap<String,Long> hashAlmacenamientos;
+    Button btVolverMovi;
 
 
     @Override
@@ -93,6 +95,7 @@ public class MovimientoActivity extends AppCompatActivity {
 
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
+        btVolverMovi = (Button) findViewById(R.id.btVolverMovi);
 
         movimientoService = APIUtils.getMovimientoService();
         productoService = APIUtils.getProductoService();
@@ -287,6 +290,14 @@ public class MovimientoActivity extends AppCompatActivity {
 
             }
         });
+
+        btVolverMovi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
     }
 
@@ -527,5 +538,5 @@ public class MovimientoActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    
+
 }

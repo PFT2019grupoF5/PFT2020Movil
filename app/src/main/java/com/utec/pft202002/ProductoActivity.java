@@ -38,6 +38,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -74,10 +75,12 @@ public class ProductoActivity extends AppCompatActivity {
     Spinner spinnerFamilia;
     Button btnSave;
     Button btnDel;
+    Button btVolverProduc;
     ArrayList<String> listaUsuarios;
     HashMap<String, Long> hashUsuarios;
     ArrayList<String> listaFamilias;
     HashMap<String, Long> hashFamilias;
+
 
 
     @Override
@@ -109,6 +112,7 @@ public class ProductoActivity extends AppCompatActivity {
 
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
+        btVolverProduc = (Button) findViewById(R.id.btVolverProduc);
 
         productoService = APIUtils.getProductoService();
         usuarioService = APIUtils.getUsuarioService();
@@ -131,9 +135,10 @@ public class ProductoActivity extends AppCompatActivity {
         String productoUsuarioId = extras.getString("producto_usuarioid");
         String productoFamiliaId = extras.getString("producto_familiaid");
 
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        //sdf.setTimeZone(TimeZone.getTimeZone("GMT-03:00"));
 
         edtProductoId.setText(productoId);
         edtProductoNombre.setText(productoNombre);
@@ -266,14 +271,14 @@ public class ProductoActivity extends AppCompatActivity {
                     edtProductoPrecio.setError("Es necesario ingresar todo los datos requeridos");
                 } else if (!validator.isValid(edtProductoFelab.getText().toString())) {
                     edtProductoFelab.requestFocus();
-                    edtProductoFelab.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtProductoFelab.getText().toString() );
+                    edtProductoFelab.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtProductoFelab.getText().toString());
                     System.out.println("EN EL IF ::: edtProductoFelab: " + edtProductoFelab + "dateFelab: " + dateFelab);
                 } else if (edtProductoFelab.getText().toString().trim().equals("")) {
                     edtProductoFelab.requestFocus();
                     edtProductoFelab.setError("Es necesario ingresar todo los datos requeridos");
                 } else if (!validator.isValid(edtProductoFven.getText().toString())) {
                     edtProductoFven.requestFocus();
-                    edtProductoFven.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtProductoFven.getText().toString() );
+                    edtProductoFven.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtProductoFven.getText().toString());
                     System.out.println("EN EL IF ::: edtProductoFven: " + edtProductoFven + "dateFven: " + dateFven);
                 } else if (edtProductoFven.getText().toString().trim().equals("")) {
                     edtProductoFven.requestFocus();
@@ -390,8 +395,18 @@ public class ProductoActivity extends AppCompatActivity {
 
             }
         });
+        btVolverProduc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
+
+
+
+
 
     public void obtenerListasParaSpinnerUsuarios() {
 
@@ -449,8 +464,6 @@ public class ProductoActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
 
     public boolean validaAddProducto(Producto producto) {

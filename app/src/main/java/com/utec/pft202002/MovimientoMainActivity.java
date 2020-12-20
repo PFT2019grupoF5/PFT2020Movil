@@ -25,6 +25,8 @@ public class MovimientoMainActivity extends AppCompatActivity {
     Button btnAddMovimiento;
     Button btnGetMovimientosList;
     ListView listViewMovimientos;
+    Button btVolverMovMain;
+
 
     MovimientoService movimientoService;
     List<Movimiento> list = new ArrayList<Movimiento>();
@@ -40,6 +42,7 @@ public class MovimientoMainActivity extends AppCompatActivity {
         btnGetMovimientosList = (Button) findViewById(R.id.btnGetMovimientosList);
         listViewMovimientos = (ListView) findViewById(R.id.listViewMovimientos);
         movimientoService = APIUtils.getMovimientoService();
+        btVolverMovMain = (Button) findViewById(R.id.btVolverMovMain);
 
         btnGetMovimientosList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +62,12 @@ public class MovimientoMainActivity extends AppCompatActivity {
                 intent.putExtra("movimiento_productoid", "");
                 intent.putExtra("movimiento_almacenamientoid", "");
                 startActivity(intent);
+            }
+        });
+        btVolverMovMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

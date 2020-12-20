@@ -25,9 +25,11 @@ public class ProductoMainActivity extends AppCompatActivity {
     Button btnAddProducto;
     Button btnGetProductosList;
     ListView listViewProductos;
+    Button btVolverProdMain;
 
     ProductoService productoService;
     List<Producto> list = new ArrayList<Producto>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class ProductoMainActivity extends AppCompatActivity {
         btnGetProductosList = (Button) findViewById(R.id.btnGetProductosList);
         listViewProductos = (ListView) findViewById(R.id.listViewProductos);
         productoService = APIUtils.getProductoService();
+        btVolverProdMain = (Button) findViewById(R.id.btVolverProdMain);
 
         btnGetProductosList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +71,13 @@ public class ProductoMainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btVolverProdMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     public void getProductosList(){

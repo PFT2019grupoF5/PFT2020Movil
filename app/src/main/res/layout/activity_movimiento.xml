@@ -181,6 +181,15 @@
             android:textColor="#ffffff"
             />
 
+        <Button
+            android:id="@+id/btVolverMovi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#2196F3"
+            android:text="Volver"
+            android:textColor="#ffffff" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

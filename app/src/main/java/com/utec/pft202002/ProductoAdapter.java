@@ -16,6 +16,7 @@ import com.utec.pft202002.model.Producto;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 
 public class ProductoAdapter extends ArrayAdapter<Producto> {
@@ -49,8 +50,10 @@ public class ProductoAdapter extends ArrayAdapter<Producto> {
         TextView txtProductoUsuarioId = (TextView) rowView.findViewById(R.id.txtProductoUsuarioId);
         TextView txtProductoFamiliaId = (TextView) rowView.findViewById(R.id.txtProductoFamiliaId);
 
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        //sdf.setTimeZone(TimeZone.getTimeZone("GMT-03:00"));
 
         txtProductoId.setText(String.format("#ID: %d", productos.get(pos).getId()));
         txtProductoNombre.setText(String.format("Nombre: %s", productos.get(pos).getNombre()));
@@ -61,6 +64,7 @@ public class ProductoAdapter extends ArrayAdapter<Producto> {
         txtProductoFelab.setText(String.format("Felab: %s", Sfelab));
         Date fven = new Date(Long.parseLong(productos.get(pos).getFven()));
         String Sfven = sdf.format(fven);
+
         txtProductoFven.setText(String.format("Fven: %s", Sfven));
         txtProductoPeso.setText(String.format("Peso: %f", productos.get(pos).getPeso()));
         txtProductoVolumen.setText(String.format("Volumen: %f", productos.get(pos).getVolumen()));
@@ -96,5 +100,5 @@ public class ProductoAdapter extends ArrayAdapter<Producto> {
 
         return rowView;
     }
-    
+
 }
