@@ -113,6 +113,9 @@ public class MovimientoActivity extends AppCompatActivity {
 
         //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        //sdf.setTimeZone(TimeZone.getTimeZone("GMT-03:00"));
 
         edtMovimientoId.setText(movimientoId);
 

@@ -135,8 +135,8 @@ public class ProductoActivity extends AppCompatActivity {
         String productoUsuarioId = extras.getString("producto_usuarioid");
         String productoFamiliaId = extras.getString("producto_familiaid");
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         //sdf.setTimeZone(TimeZone.getTimeZone("GMT-03:00"));
 
