@@ -5,7 +5,8 @@ public class APIUtils {
     private APIUtils(){
     }
 
-    public static final String API_URL = "http://192.168.0.132:8080/PFT2020WEB/rest/";
+    //public static final String API_URL = "http://192.168.0.132:8080/PFT2020WEB/rest/";
+    public static final String API_URL = "http://192.168.0.132:8100/PFT2020WEB/rest/";
 
     public static AlmacenamientoService getAlmacenamientoService(){
         return RetrofitClient.getClient(API_URL).create(AlmacenamientoService.class);
