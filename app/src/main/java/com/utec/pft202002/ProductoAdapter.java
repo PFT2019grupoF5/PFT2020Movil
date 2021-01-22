@@ -14,9 +14,11 @@ import androidx.annotation.NonNull;
 import com.utec.pft202002.model.Producto;
 
 import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 import java.util.TimeZone;
+import java.util.List;
 
 
 public class ProductoAdapter extends ArrayAdapter<Producto> {
@@ -50,22 +52,19 @@ public class ProductoAdapter extends ArrayAdapter<Producto> {
         TextView txtProductoUsuarioId = (TextView) rowView.findViewById(R.id.txtProductoUsuarioId);
         TextView txtProductoFamiliaId = (TextView) rowView.findViewById(R.id.txtProductoFamiliaId);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        //sdf.setTimeZone(TimeZone.getTimeZone("GMT-03:00"));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
         txtProductoId.setText(String.format("#ID: %d", productos.get(pos).getId()));
         txtProductoNombre.setText(String.format("Nombre: %s", productos.get(pos).getNombre()));
         txtProductoLote.setText(String.format("Lote: %s", productos.get(pos).getLote()));
         txtProductoPrecio.setText(String.format("Precio: %f", productos.get(pos).getPrecio()));
-        Date felab = new Date(Long.parseLong(productos.get(pos).getFelab()));
-        String Sfelab = sdf.format(felab);
-        txtProductoFelab.setText(String.format("Felab: %s", Sfelab));
-        Date fven = new Date(Long.parseLong(productos.get(pos).getFven()));
-        String Sfven = sdf.format(fven);
 
-        txtProductoFven.setText(String.format("Fven: %s", Sfven));
+        Timestamp tFelab = new Timestamp(Long.parseLong(productos.get(pos).getFelab()));
+        txtProductoFelab.setText(sdf.format(new Date(tFelab.getTime())));
+        Timestamp tFven = new Timestamp(Long.parseLong(productos.get(pos).getFven()));
+        txtProductoFven.setText(sdf.format(new Date(tFven.getTime())));
+
         txtProductoPeso.setText(String.format("Peso: %f", productos.get(pos).getPeso()));
         txtProductoVolumen.setText(String.format("Volumen: %f", productos.get(pos).getVolumen()));
         txtProductoEstiba.setText(String.format("Estiba: %d", productos.get(pos).getEstiba()));
@@ -76,6 +75,7 @@ public class ProductoAdapter extends ArrayAdapter<Producto> {
         txtProductoFamiliaId.setText(String.format("Familia Id: %d", productos.get(pos).getFamilia().getId()));
 
         rowView.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 //start Activity Producto Form

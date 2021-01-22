@@ -32,6 +32,7 @@ import com.utec.pft202002.remote.UsuarioService;
 import com.utec.pft202002.remote.ProductoService;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -125,8 +126,13 @@ public class ProductoActivity extends AppCompatActivity {
         String productoNombre = extras.getString("producto_nombre");
         String productoLote = extras.getString("producto_lote");
         String productoPrecio = extras.getString("producto_precio");
+
         String productoFelab = extras.getString("producto_felab");
+        Log.i("String productoFelab = extras.getString :", productoFelab);
+
         String productoFven = extras.getString("producto_fven");
+        Log.i("String productoFven = extras.getString :", productoFven);
+
         String productoPeso = extras.getString("producto_peso");
         String productoVolumen = extras.getString("producto_volumen");
         String productoEstiba = extras.getString("producto_estiba");
@@ -136,36 +142,36 @@ public class ProductoActivity extends AppCompatActivity {
         String productoUsuarioId = extras.getString("producto_usuarioid");
         String productoFamiliaId = extras.getString("producto_familiaid");
 
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        //sdf.setTimeZone(TimeZone.getTimeZone("GMT-03:00"));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
         edtProductoId.setText(productoId);
         edtProductoNombre.setText(productoNombre);
         edtProductoLote.setText(productoLote);
         edtProductoPrecio.setText(productoPrecio);
 
-        Date hoy = new Date();
-        long NproductoFelab = hoy.getTime();
-        try {
-            NproductoFelab = Long.parseLong(productoFelab);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
-        }
-        final Date felab = new Date(NproductoFelab);
-        String Sfelab = sdf.format(felab);
-        edtProductoFelab.setText(String.format("%s", Sfelab));
+/*
+        Timestamp tFelab = new Timestamp(Long.parseLong(productoFelab));
+        edtProductoFelab.setText(sdf.format(new Date(tFelab.getTime())));
+        Timestamp tFven = new Timestamp(Long.parseLong(productoFven));
+        edtProductoFven.setText(sdf.format(new Date(tFven.getTime())));
+*/
 
-        long NproductoFven = hoy.getTime();
-        try {
-            NproductoFven = Long.parseLong(productoFven);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
+        Date finalFelab = new Date();
+        Date finalFven = new Date();
+
+        if (productoId != null) {
+                Timestamp tFelab = new Timestamp(Long.parseLong(productoFelab));
+                finalFelab = new Date(tFelab.getTime());
+                edtProductoFelab.setText(sdf.format(new Date(tFelab.getTime())));
+                Timestamp tFven = new Timestamp(Long.parseLong(productoFven));
+                finalFven = new Date(tFven.getTime());
+                edtProductoFven.setText(sdf.format(new Date(tFven.getTime())));
+        } else {
+            edtProductoFelab.setText(sdf.format(finalFelab));
+            edtProductoFven.setText(sdf.format(finalFven));
         }
-        final Date fven = new Date(NproductoFven);
-        String Sfven = sdf.format(fven);
-        edtProductoFven.setText(String.format("%s", Sfven));
+
 
         edtProductoPeso.setText(productoPeso);
         edtProductoVolumen.setText(productoVolumen);
@@ -176,12 +182,14 @@ public class ProductoActivity extends AppCompatActivity {
         edtProductoUsuarioId.setText(productoUsuarioId);
         edtProductoFamiliaId.setText(productoFamiliaId);
 
-/*
+
+        Date finalFelab1 = finalFelab;
         edtProductoFelab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
-                cal.setTime(felab);
+                cal.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+                cal.setTime(finalFelab1);
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -197,11 +205,13 @@ public class ProductoActivity extends AppCompatActivity {
             }
         });
 
+        Date finalFven1 = finalFven;
         edtProductoFven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
-                cal.setTime(fven);
+                cal.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+                cal.setTime(finalFven1);
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -221,7 +231,8 @@ public class ProductoActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 // +1 because January is zero
                 month = month + 1;
-                dateFelab = year + "-" + month + "-" + dayOfMonth;
+                dateFelab = dayOfMonth + "/" + month + "/" + year;
+                Log.i("datapicker dateFelab :", dateFelab);
                 edtProductoFelab.setText(dateFelab);
             }
         };
@@ -231,11 +242,11 @@ public class ProductoActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 // +1 because January is zero
                 month = month + 1;
-                dateFven = year + "-" + month + "-" + dayOfMonth;
+                dateFven = dayOfMonth + "/" + month + "/" + year;
                 edtProductoFven.setText(dateFven);
             }
         };
-*/
+
         obtenerListasParaSpinnerUsuarios();
         obtenerListasParaSpinnerFamilias();
 
@@ -255,7 +266,8 @@ public class ProductoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                DateValidator validator = new DateValidatorUsingDateFormat("yyyy-MM-dd");
+                //DateValidator validator = new DateValidatorUsingDateFormat("yyyy-MM-dd");
+                DateValidator validator = new DateValidatorUsingDateFormat("dd/MM/yyyy");
 
                 if (edtProductoNombre.getText().toString().trim().equals("")) {
                     edtProductoNombre.requestFocus();
@@ -314,14 +326,12 @@ public class ProductoActivity extends AppCompatActivity {
 
                     try {
                         u.setFelab(edtProductoFelab.getText().toString());
-                        Log.i("edtProductoFelab.getText().toString() :", edtProductoFelab.getText().toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                     try {
                         u.setFven(edtProductoFven.getText().toString());
-                        Log.i("edtProductoFven.getText().toString() :", edtProductoFven.getText().toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -354,12 +364,38 @@ public class ProductoActivity extends AppCompatActivity {
                     if (productoId != null && productoId.trim().length() > 0) {
                         //update producto
                         if (validaUpdateProducto(u)) {
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+                            try {
+                                u.setFelab(Long.toString(sdf.parse(edtProductoFelab.getText().toString()).getTime()));
+                                Log.i("u.setFelab(... :", u.getFelab());
+                                u.setFven(Long.toString(sdf.parse(edtProductoFven.getText().toString()).getTime()));
+                                Log.i("u.setFven(... :", u.getFven());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
                             updateProducto(Long.parseLong(productoId), u);
                             finish();
                         }
                     } else {
                         //add producto
                         if (validaAddProducto(u)) {
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+                            try {
+                                u.setFelab(Long.toString(sdf.parse(edtProductoFelab.getText().toString()).getTime()));
+                                Log.i("u.setFelab(... :", u.getFelab());
+                                u.setFven(Long.toString(sdf.parse(edtProductoFven.getText().toString()).getTime()));
+                                Log.i("u.setFven(... :", u.getFven());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
                             addProducto(u);
                             finish();
                         }
@@ -476,14 +512,17 @@ public class ProductoActivity extends AppCompatActivity {
             Producto productoEnBD = productoService.getByNombreProducto(nombreProductoAbuscar).execute().body();
             boolean productoyaexiste = (productoEnBD != null);
             if (productoyaexiste) {
-                Toast.makeText(getBaseContext(), "Prodcuto ya existe, por favor revise sus datos.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Producto ya existe, por favor revise sus datos.", Toast.LENGTH_LONG).show();
                 return false;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
         Date fechaElab = null;
         Date fechaVen = null;
@@ -504,7 +543,10 @@ public class ProductoActivity extends AppCompatActivity {
 
     public boolean validaUpdateProducto(Producto producto) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
         Date fechaElab = null;
         Date fechaVen = null;
