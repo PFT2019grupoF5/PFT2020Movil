@@ -220,7 +220,6 @@ public class ProductoActivity extends AppCompatActivity {
                 // +1 because January is zero
                 month = month + 1;
                 dateFelab = dayOfMonth + "/" + month + "/" + year;
-                Log.i("datapicker dateFelab :", dateFelab);
                 edtProductoFelab.setText(dateFelab);
             }
         };
@@ -254,7 +253,6 @@ public class ProductoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //DateValidator validator = new DateValidatorUsingDateFormat("yyyy-MM-dd");
                 DateValidator validator = new DateValidatorUsingDateFormat("dd/MM/yyyy");
 
                 if (edtProductoNombre.getText().toString().trim().equals("")) {
@@ -272,14 +270,14 @@ public class ProductoActivity extends AppCompatActivity {
                     edtProductoPrecio.setError("Es necesario ingresar todo los datos requeridos");
                 } else if (!validator.isValid(edtProductoFelab.getText().toString())) {
                     edtProductoFelab.requestFocus();
-                    edtProductoFelab.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtProductoFelab.getText().toString());
+                    edtProductoFelab.setError("Pf ingrese fecha válida en formato dd/MM/yyyy : " + edtProductoFelab.getText().toString());
                     System.out.println("EN EL IF ::: edtProductoFelab: " + edtProductoFelab + "dateFelab: " + dateFelab);
                 } else if (edtProductoFelab.getText().toString().trim().equals("")) {
                     edtProductoFelab.requestFocus();
                     edtProductoFelab.setError("Es necesario ingresar todo los datos requeridos");
                 } else if (!validator.isValid(edtProductoFven.getText().toString())) {
                     edtProductoFven.requestFocus();
-                    edtProductoFven.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtProductoFven.getText().toString());
+                    edtProductoFven.setError("Pf ingrese fecha válida en formato dd/MM/yyyy : " + edtProductoFven.getText().toString());
                     System.out.println("EN EL IF ::: edtProductoFven: " + edtProductoFven + "dateFven: " + dateFven);
                 } else if (edtProductoFven.getText().toString().trim().equals("")) {
                     edtProductoFven.requestFocus();
@@ -354,13 +352,10 @@ public class ProductoActivity extends AppCompatActivity {
                         if (validaUpdateProducto(u)) {
 
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                             sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
                             try {
                                 u.setFelab(Long.toString(sdf.parse(edtProductoFelab.getText().toString()).getTime()));
-                                Log.i("u.setFelab(... :", u.getFelab());
                                 u.setFven(Long.toString(sdf.parse(edtProductoFven.getText().toString()).getTime()));
-                                Log.i("u.setFven(... :", u.getFven());
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
@@ -373,13 +368,10 @@ public class ProductoActivity extends AppCompatActivity {
                         if (validaAddProducto(u)) {
 
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                             sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
                             try {
                                 u.setFelab(Long.toString(sdf.parse(edtProductoFelab.getText().toString()).getTime()));
-                                Log.i("u.setFelab(... :", u.getFelab());
                                 u.setFven(Long.toString(sdf.parse(edtProductoFven.getText().toString()).getTime()));
-                                Log.i("u.setFven(... :", u.getFven());
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
@@ -508,8 +500,6 @@ public class ProductoActivity extends AppCompatActivity {
         }
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
         Date fechaElab = null;
@@ -521,7 +511,7 @@ public class ProductoActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //producto.getFelab().compareTo(producto.getFven()) > 0
+
         if ( fechaElab.compareTo(fechaVen) > 0 ) {
             Toast.makeText(getBaseContext(), "La fecha de Fabricacion (" + producto.getFelab() + ") no puede ser posterior a la de Vencimiento (" + producto.getFven() + ")", Toast.LENGTH_LONG).show();
             return false;
@@ -532,8 +522,6 @@ public class ProductoActivity extends AppCompatActivity {
     public boolean validaUpdateProducto(Producto producto) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
         Date fechaElab = null;
@@ -545,7 +533,6 @@ public class ProductoActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //producto.getFelab().compareTo(producto.getFven()) > 0
         if ( fechaElab.compareTo(fechaVen) > 0 ) {
             Toast.makeText(getBaseContext(), "La fecha de Fabricacion (" + producto.getFelab() + ") no puede ser posterior a la de Vencimiento (" + producto.getFven() + ")", Toast.LENGTH_LONG).show();
             return false;

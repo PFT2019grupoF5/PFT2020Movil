@@ -252,15 +252,15 @@ public class PedidoActivity extends AppCompatActivity {
 
                 if (!validator.isValid(edtPedidoFecha.getText().toString())) {
                     edtPedidoFecha.requestFocus();
-                    edtPedidoFecha.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtPedidoFecha.getText().toString());
+                    edtPedidoFecha.setError("Pf ingrese fecha válida en formato dd/MM/yyyy : " + edtPedidoFecha.getText().toString());
                     System.out.println("EN EL IF ::: edtPedidoFecha: " + edtPedidoFecha);
                 } else if  (!validator.isValid(edtPedidoPedFecEstim.getText().toString())) {
                     edtPedidoPedFecEstim.requestFocus();
-                    edtPedidoPedFecEstim.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtPedidoPedFecEstim.getText().toString());
+                    edtPedidoPedFecEstim.setError("Pf ingrese fecha válida en formato dd/MM/yyyy : " + edtPedidoPedFecEstim.getText().toString());
                     System.out.println("EN EL IF ::: edtPedidoFecha: " + edtPedidoPedFecEstim);
                 } else if (!validator.isValid(edtPedidoPedRecFecha.getText().toString())) {
                     edtPedidoPedRecFecha.requestFocus();
-                    edtPedidoPedRecFecha.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtPedidoPedRecFecha.getText().toString());
+                    edtPedidoPedRecFecha.setError("Pf ingrese fecha válida en formato dd/MM/yyyy : " + edtPedidoPedRecFecha.getText().toString());
                     System.out.println("EN EL IF ::: edtPedidoFecha: " + edtPedidoPedRecFecha);
                 } else if   (edtPedidoPedRecCodigo.getText().toString().trim().equals("")) {
                     edtPedidoPedRecCodigo.requestFocus();

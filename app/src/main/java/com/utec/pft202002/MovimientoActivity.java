@@ -30,12 +30,15 @@ import com.utec.pft202002.remote.AlmacenamientoService;
 import com.utec.pft202002.remote.ProductoService;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,7 +47,7 @@ import retrofit2.Response;
 public class MovimientoActivity extends AppCompatActivity {
 
     private DatePickerDialog.OnDateSetListener mDateSetListenerFecha;
-    String fecha="";
+    String datefecha="";
 
     MovimientoService movimientoService;
     ProductoService productoService;
@@ -110,23 +113,23 @@ public class MovimientoActivity extends AppCompatActivity {
         String movimientoProductoId = extras.getString("movimiento_productoid");
         String movimientoAlmacenamientoId = extras.getString("movimiento_almacenamientoid");
 
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        //sdf.setTimeZone(TimeZone.getTimeZone("GMT-03:00"));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+
 
         edtMovimientoId.setText(movimientoId);
+        Date finalFecha = new Date();
 
-        Date hoy = new Date();
-        long NmovimientoFecha =  hoy.getTime();;
-        try {
-            NmovimientoFecha = Long.parseLong(movimientoFecha);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
+        if (movimientoId != null) {
+            Timestamp tFecha = new Timestamp(Long.parseLong(movimientoFecha));
+            finalFecha = new Date(tFecha.getTime());
+            edtMovimientoFecha.setText(sdf.format(new Date(tFecha.getTime())));
+
+        } else {
+            edtMovimientoFecha.setText(sdf.format(finalFecha));
+
         }
-        final Date fecha2 = new Date(NmovimientoFecha);
-        String Sfecha2 = sdf.format(fecha2);
-        edtMovimientoFecha.setText(String.format("%s", Sfecha2));
 
         edtMovimientoCantidad.setText(movimientoCantidad);
         edtMovimientoDescripcion.setText(movimientoDescripcion);
@@ -134,12 +137,14 @@ public class MovimientoActivity extends AppCompatActivity {
         edtMovimientoTipoMov.setText(movimientoTipoMov);
         edtMovimientoProductoId.setText(movimientoProductoId);
         edtMovimientoAlmacenamientoId.setText(movimientoAlmacenamientoId);
-/*
+
+        final Date finalFecha1 = finalFecha;
         edtMovimientoFecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
-                cal.setTime(fecha2);
+                cal.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+                cal.setTime(finalFecha1);
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -148,9 +153,10 @@ public class MovimientoActivity extends AppCompatActivity {
                         MovimientoActivity.this,
                         android.R.style.Theme_Light,
                         mDateSetListenerFecha,
-                        year,month,day);
+                        year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
+
             }
         });
 
@@ -159,11 +165,14 @@ public class MovimientoActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 // +1 because January is zero
                 month = month + 1;
-                fecha = year + "-" + month + "-" + dayOfMonth;
-                edtMovimientoFecha.setText(fecha);
+                datefecha = dayOfMonth + "/" + month + "/" + year;
+                edtMovimientoFecha.setText(datefecha);
             }
         };
-*/
+
+
+
+
         obtenerListasParaSpinnerProductos();
         obtenerListasParaSpinnerAlmacenamientos();
 
@@ -191,11 +200,11 @@ public class MovimientoActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DateValidator validator = new DateValidatorUsingDateFormat("yyyy-MM-dd");
+                DateValidator validator = new DateValidatorUsingDateFormat("dd/MM/yyyy");
 
                 if (!validator.isValid(edtMovimientoFecha.getText().toString())) {
                     edtMovimientoFecha.requestFocus();
-                    edtMovimientoFecha.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtMovimientoFecha.getText().toString());
+                    edtMovimientoFecha.setError("Pf ingrese fecha válida en formato dd/MM/yyyy : " + edtMovimientoFecha.getText().toString());
                     System.out.println("EN EL IF ::: edtMovimientoFecha: " + edtMovimientoFecha);
                 } else if  (edtMovimientoCantidad.getText().toString().trim().equals("")) {
                     edtMovimientoCantidad.requestFocus();
@@ -218,7 +227,6 @@ public class MovimientoActivity extends AppCompatActivity {
 
                     try {
                         u.setFecha(edtMovimientoFecha.getText().toString());
-                        Log.i("edtMovimientoFecha.getText().toString() :", edtMovimientoFecha.getText().toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -249,12 +257,27 @@ public class MovimientoActivity extends AppCompatActivity {
                     if (movimientoId != null && movimientoId.trim().length() > 0) {
                         //update movimiento
                         if (validaUpdateMovimiento(u)) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+                            try{
+                                u.setFecha(Long.toString(sdf.parse(edtMovimientoFecha.getText().toString()).getTime()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
                             updateMovimiento(Long.parseLong(movimientoId), u);
                             finish();
                         }
                     } else {
                         //add movimiento
                         if (validaAddMovimiento(u)) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+                            try {
+                                u.setFecha(Long.toString(sdf.parse(edtMovimientoFecha.getText().toString()).getTime()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
                             addMovimiento(u);
                             finish();
                         }
@@ -372,6 +395,16 @@ public class MovimientoActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+
+        Date fecha = null;
+        try {
+            fecha = sdf.parse(movimiento.getFecha());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         return true;
     }
 
@@ -379,6 +412,16 @@ public class MovimientoActivity extends AppCompatActivity {
         //Por requerimiento RF007 no se permite modificar Movimientos de tipo Perdida
         if (movimiento.getTipoMov() == tipoMovimiento.valueOf("P")) {
             return false;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+
+        Date fecha = null;
+        try {
+            fecha = sdf.parse(movimiento.getFecha());
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return true;
     }

@@ -13,9 +13,11 @@ import androidx.annotation.NonNull;
 
 import com.utec.pft202002.model.Movimiento;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 
 public class MovimientoAdapter extends ArrayAdapter<Movimiento> {
@@ -43,14 +45,13 @@ public class MovimientoAdapter extends ArrayAdapter<Movimiento> {
         TextView txtMovimientoProductoId = (TextView) rowView.findViewById(R.id.txtMovimientoProductoId);
         TextView txtMovimientoAlmacenamientoId = (TextView) rowView.findViewById(R.id.txtMovimientoAlmacenamientoId);
 
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
-        txtMovimientoId.setText(String.format("#ID: %d", movimientos.get(pos).getId()));
+        Timestamp tFelab = new Timestamp(Long.parseLong(movimientos.get(pos).getFecha()));
+        txtMovimientoFecha.setText(sdf.format(new Date(tFelab.getTime())));
 
-        Date fecha = new Date(Long.parseLong(movimientos.get(pos).getFecha()));
-        String Sfecha = sdf.format(fecha);
-        txtMovimientoFecha.setText(String.format("Fecha: %s", Sfecha));
 
         txtMovimientoCantidad.setText(String.format("Cantidad: %d", movimientos.get(pos).getCantidad()));
         txtMovimientoDescripcion.setText(String.format("Descripcion: %s", movimientos.get(pos).getDescripcion()));
