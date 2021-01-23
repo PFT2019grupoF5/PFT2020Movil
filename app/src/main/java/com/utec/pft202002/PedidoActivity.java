@@ -21,22 +21,22 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.utec.pft202002.Enum.estadoPedido;
-import com.utec.pft202002.Enum.tipoMovimiento;
-import com.utec.pft202002.model.Movimiento;
 import com.utec.pft202002.model.Pedido;
-import com.utec.pft202002.model.Producto;
 import com.utec.pft202002.model.Usuario;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.PedidoService;
 import com.utec.pft202002.remote.UsuarioService;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -107,55 +107,40 @@ public class PedidoActivity extends AppCompatActivity {
         String pedidoPedRecComentario = extras.getString("pedido_pedreccomentario");
         String pedidoUsuarioId = extras.getString("pedido_usuarioid");
 
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        //sdf.setTimeZone(TimeZone.getTimeZone("GMT-03:00"));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
         edtPedidoId.setText(pedidoId);
         edtPedidoPedEstado.setText(pedidoPedEstado);
 
-        Date hoy = new Date();
-        long NpedidoPedFecEstim = hoy.getTime();
-        try {
-            NpedidoPedFecEstim = Long.parseLong(pedidoPedFecEstim);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
+        Date PedFecEstim = new Date();
+        Date Fecha = new Date();
+        Date PedRecFecha = new Date();
+
+        if (pedidoId != null) {
+            Timestamp tPedFecEstim = new Timestamp(Long.parseLong(pedidoPedFecEstim));
+            PedFecEstim = new Date(tPedFecEstim.getTime());
+            edtPedidoPedFecEstim.setText(sdf.format(new Date(tPedFecEstim.getTime())));
+            Timestamp tFecha  = new Timestamp(Long.parseLong(pedidoFecha));
+            Fecha = new Date(tFecha.getTime());
+            edtPedidoFecha.setText(sdf.format(new Date(tFecha.getTime())));
+            Timestamp tPedRecFecha  = new Timestamp(Long.parseLong(pedidoPedRecFecha));
+            PedRecFecha = new Date(tPedRecFecha.getTime());
+            edtPedidoPedRecFecha.setText(sdf.format(new Date(tPedRecFecha.getTime())));
+        } else {
+            edtPedidoPedFecEstim.setText(sdf.format(PedFecEstim));
+            edtPedidoFecha.setText(sdf.format(Fecha));
+            edtPedidoPedRecFecha.setText(sdf.format(PedRecFecha));
         }
-        final Date pedFecEstim = new Date(NpedidoPedFecEstim);
-        String SpedFecEstim = sdf.format(pedFecEstim);
-        edtPedidoPedFecEstim.setText(String.format("%s", SpedFecEstim));
 
-        long NpedidoFecha = hoy.getTime();
-        try {
-            NpedidoFecha = Long.parseLong(pedidoFecha);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
-        }
-        final Date fecha = new Date(NpedidoFecha);
-        String Sfecha = sdf.format(fecha);
-        edtPedidoFecha.setText(String.format("%s", Sfecha));
 
-        edtPedidoPedRecCodigo.setText(pedidoPedRecCodigo);
-
-        long NpedidoPedRecFecha = hoy.getTime();;
-        try {
-            NpedidoPedRecFecha = Long.parseLong(pedidoPedRecFecha);
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
-        }
-        final Date pedRecFecha = new Date(NpedidoPedRecFecha);
-        String SpedRecFecha = sdf.format(pedRecFecha);
-        edtPedidoPedRecFecha.setText(String.format("%s", SpedRecFecha));
-
-        edtPedidoPedRecComentario.setText(pedidoPedRecComentario);
-        edtPedidoUsuarioId.setText(pedidoUsuarioId);
-/*
+        final Date PedFecEstim1 = PedFecEstim;
         edtPedidoPedFecEstim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
-                cal.setTime(pedFecEstim);
+                cal.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+                cal.setTime(PedFecEstim1);
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -164,17 +149,19 @@ public class PedidoActivity extends AppCompatActivity {
                         PedidoActivity.this,
                         android.R.style.Theme_Light,
                         mDateSetListenerFecEstim,
-                        year,month,day);
+                        year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });
 
+        final Date Fecha1 = Fecha;
         edtPedidoFecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
-                cal.setTime(fecha);
+                cal.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+                cal.setTime(Fecha1);
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -183,17 +170,19 @@ public class PedidoActivity extends AppCompatActivity {
                         PedidoActivity.this,
                         android.R.style.Theme_Light,
                         mDateSetListenerFecha,
-                        year,month,day);
+                        year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });
 
-        edtPedidoPedRecFecha.setOnClickListener(new View.OnClickListener() {
+        final Date PedRecFecha1 = PedRecFecha;
+        edtPedidoFecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
-                cal.setTime(pedRecFecha);
+                cal.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+                cal.setTime(PedRecFecha1);
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -202,7 +191,7 @@ public class PedidoActivity extends AppCompatActivity {
                         PedidoActivity.this,
                         android.R.style.Theme_Light,
                         mDateSetListenerRecFecha,
-                        year,month,day);
+                        year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -213,17 +202,18 @@ public class PedidoActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 // +1 because January is zero
                 month = month + 1;
-                dateFecEstim = year + "-" + month + "-" + dayOfMonth;
+                dateFecEstim = dayOfMonth + "/" + month + "/" + year;
                 edtPedidoPedFecEstim.setText(dateFecEstim);
             }
         };
+
 
         mDateSetListenerFecha = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 // +1 because January is zero
                 month = month + 1;
-                dateFecha = year + "-" + month + "-" + dayOfMonth;
+                dateFecha = dayOfMonth + "/" + month + "/" + year;
                 edtPedidoFecha.setText(dateFecha);
             }
         };
@@ -233,11 +223,17 @@ public class PedidoActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 // +1 because January is zero
                 month = month + 1;
-                dateRecFecha = year + "-" + month + "-" + dayOfMonth;
+                dateRecFecha = dayOfMonth + "/" + month + "/" + year;
                 edtPedidoPedRecFecha.setText(dateRecFecha);
             }
         };
-*/
+
+        edtPedidoPedRecCodigo.setText(pedidoPedRecCodigo);
+
+
+        edtPedidoPedRecComentario.setText(pedidoPedRecComentario);
+        edtPedidoUsuarioId.setText(pedidoUsuarioId);
+
         obtenerListasParaSpinnerUsuarios();
 
         if(pedidoId != null && pedidoId.trim().length() > 0 ){
@@ -252,7 +248,7 @@ public class PedidoActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DateValidator validator = new DateValidatorUsingDateFormat("yyyy-MM-dd");
+                DateValidator validator = new DateValidatorUsingDateFormat("dd/MM/yyyy");
 
                 if (!validator.isValid(edtPedidoFecha.getText().toString())) {
                     edtPedidoFecha.requestFocus();
@@ -287,21 +283,18 @@ public class PedidoActivity extends AppCompatActivity {
 
                     try {
                         u.setPedfecestim(edtPedidoPedFecEstim.getText().toString());
-                        Log.i("edtPedidoPedFecEstim.getText().toString():", edtPedidoPedFecEstim.getText().toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                     try {
                         u.setFecha(edtPedidoFecha.getText().toString());
-                        Log.i("edtPedidoFecha.getText().toString():", edtPedidoFecha.getText().toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                     try {
                         u.setPedrecfecha(edtPedidoPedRecFecha.getText().toString());
-                        Log.i("edtPedidoPedRecFecha.getText().toString():", edtPedidoPedRecFecha.getText().toString());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -319,14 +312,37 @@ public class PedidoActivity extends AppCompatActivity {
                     if (pedidoId != null && pedidoId.trim().length() > 0) {
                         //update pedido
                         if (validaUpdatePedido(u)) {
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+
+                            try {
+                                u.setPedfecestim(Long.toString(sdf.parse(edtPedidoPedFecEstim.getText().toString()).getTime()));
+                                u.setFecha(Long.toString(sdf.parse(edtPedidoFecha.getText().toString()).getTime()));
+                                u.setPedrecfecha(Long.toString(sdf.parse(edtPedidoPedRecFecha.getText().toString()).getTime()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
                             updatePedido(Long.parseLong(pedidoId), u);
                             finish();
+
                         }
                     } else {
                         //add pedido
                         if (validaAddPedido(u)) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+
+                            try {
+                                u.setPedfecestim(Long.toString(sdf.parse(edtPedidoPedFecEstim.getText().toString()).getTime()));
+                                u.setFecha(Long.toString(sdf.parse(edtPedidoFecha.getText().toString()).getTime()));
+                                u.setPedrecfecha(Long.toString(sdf.parse(edtPedidoPedRecFecha.getText().toString()).getTime()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
                             addPedido(u);
-                        finish();
+                            finish();
                         }
                     }
                 }
