@@ -126,13 +126,8 @@ public class ProductoActivity extends AppCompatActivity {
         String productoNombre = extras.getString("producto_nombre");
         String productoLote = extras.getString("producto_lote");
         String productoPrecio = extras.getString("producto_precio");
-
         String productoFelab = extras.getString("producto_felab");
-        Log.i("String productoFelab = extras.getString :", productoFelab);
-
         String productoFven = extras.getString("producto_fven");
-        Log.i("String productoFven = extras.getString :", productoFven);
-
         String productoPeso = extras.getString("producto_peso");
         String productoVolumen = extras.getString("producto_volumen");
         String productoEstiba = extras.getString("producto_estiba");
@@ -149,13 +144,6 @@ public class ProductoActivity extends AppCompatActivity {
         edtProductoNombre.setText(productoNombre);
         edtProductoLote.setText(productoLote);
         edtProductoPrecio.setText(productoPrecio);
-
-/*
-        Timestamp tFelab = new Timestamp(Long.parseLong(productoFelab));
-        edtProductoFelab.setText(sdf.format(new Date(tFelab.getTime())));
-        Timestamp tFven = new Timestamp(Long.parseLong(productoFven));
-        edtProductoFven.setText(sdf.format(new Date(tFven.getTime())));
-*/
 
         Date finalFelab = new Date();
         Date finalFven = new Date();

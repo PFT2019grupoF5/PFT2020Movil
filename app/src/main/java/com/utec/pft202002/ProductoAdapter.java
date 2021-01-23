@@ -59,12 +59,10 @@ public class ProductoAdapter extends ArrayAdapter<Producto> {
         txtProductoNombre.setText(String.format("Nombre: %s", productos.get(pos).getNombre()));
         txtProductoLote.setText(String.format("Lote: %s", productos.get(pos).getLote()));
         txtProductoPrecio.setText(String.format("Precio: %f", productos.get(pos).getPrecio()));
-
         Timestamp tFelab = new Timestamp(Long.parseLong(productos.get(pos).getFelab()));
         txtProductoFelab.setText(sdf.format(new Date(tFelab.getTime())));
         Timestamp tFven = new Timestamp(Long.parseLong(productos.get(pos).getFven()));
         txtProductoFven.setText(sdf.format(new Date(tFven.getTime())));
-
         txtProductoPeso.setText(String.format("Peso: %f", productos.get(pos).getPeso()));
         txtProductoVolumen.setText(String.format("Volumen: %f", productos.get(pos).getVolumen()));
         txtProductoEstiba.setText(String.format("Estiba: %d", productos.get(pos).getEstiba()));
