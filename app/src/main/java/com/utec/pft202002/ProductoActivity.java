@@ -171,7 +171,7 @@ public class ProductoActivity extends AppCompatActivity {
         edtProductoFamiliaId.setText(productoFamiliaId);
 
 
-        Date finalFelab1 = finalFelab;
+        final Date finalFelab1 = finalFelab;
         edtProductoFelab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -193,7 +193,7 @@ public class ProductoActivity extends AppCompatActivity {
             }
         });
 
-        Date finalFven1 = finalFven;
+        final Date finalFven1 = finalFven;
         edtProductoFven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
