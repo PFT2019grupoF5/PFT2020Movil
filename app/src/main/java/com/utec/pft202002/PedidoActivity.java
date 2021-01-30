@@ -73,7 +73,6 @@ public class PedidoActivity extends AppCompatActivity {
     ArrayList<String> listaUsuarios;
     HashMap<String,Long> hashUsuarios;
     ArrayList<String> listaRenglonesDelPedido;
-    HashMap<String,Long> hashRenglonesDelPedido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -266,15 +265,12 @@ public class PedidoActivity extends AppCompatActivity {
                 if (!validator.isValid(edtPedidoFecha.getText().toString())) {
                     edtPedidoFecha.requestFocus();
                     edtPedidoFecha.setError("Pf ingrese fecha válida en formato dd/MM/yyyy : " + edtPedidoFecha.getText().toString());
-                    System.out.println("EN EL IF ::: edtPedidoFecha: " + edtPedidoFecha);
                 } else if  (!validator.isValid(edtPedidoPedFecEstim.getText().toString())) {
                     edtPedidoPedFecEstim.requestFocus();
                     edtPedidoPedFecEstim.setError("Pf ingrese fecha válida en formato dd/MM/yyyy : " + edtPedidoPedFecEstim.getText().toString());
-                    System.out.println("EN EL IF ::: edtPedidoFecha: " + edtPedidoPedFecEstim);
                 } else if (!validator.isValid(edtPedidoPedRecFecha.getText().toString())) {
                     edtPedidoPedRecFecha.requestFocus();
                     edtPedidoPedRecFecha.setError("Pf ingrese fecha válida en formato dd/MM/yyyy : " + edtPedidoPedRecFecha.getText().toString());
-                    System.out.println("EN EL IF ::: edtPedidoFecha: " + edtPedidoPedRecFecha);
                 } else if   (edtPedidoPedRecCodigo.getText().toString().trim().equals("")) {
                     edtPedidoPedRecCodigo.requestFocus();
                     edtPedidoPedRecCodigo.setError("Es necesario ingresar todo los datos requeridos");
@@ -430,21 +426,20 @@ public class PedidoActivity extends AppCompatActivity {
         });
     }
 
-    public void obtenerListaParaSpinnerProductosDelPedido(Long idPedido){
+    public void obtenerListaParaSpinnerProductosDelPedido(Long idPed){
 
-        Call<List<RenglonPedido>> call = renglonPedidoService.getRenglonesDelPedido(idPedido);
+        Log.i("idPed: ", idPed.toString());
+
+        Call<List<RenglonPedido>> call = renglonPedidoService.getRenglonesDelPedido(idPed);
         call.enqueue(new Callback<List<RenglonPedido>>() {
             @Override
             public void onResponse(Call<List<RenglonPedido>> call, Response<List<RenglonPedido>> response) {
                 if(response.isSuccessful()){
                     List<RenglonPedido> renglonesDelPedidoList = response.body();
-
                     listaRenglonesDelPedido = new ArrayList<>();
-                    hashRenglonesDelPedido = new HashMap<String,Long>();
-
+                    listaRenglonesDelPedido.add("---Productos incluídos en el pedido---");
                     for (int i=0;i<renglonesDelPedidoList.size();i++){
-                        hashUsuarios.put(renglonesDelPedidoList.get(i).getId()+" "+renglonesDelPedidoList.get(i).getProducto().getId()+" "+renglonesDelPedidoList.get(i).getProducto().getNombre()+" "+renglonesDelPedidoList.get(i).getRencant(),renglonesDelPedidoList.get(i).getId());
-                        listaUsuarios.add(renglonesDelPedidoList.get(i).getId()+" "+renglonesDelPedidoList.get(i).getProducto().getId()+" "+renglonesDelPedidoList.get(i).getProducto().getNombre()+" "+renglonesDelPedidoList.get(i).getRencant());
+                        listaRenglonesDelPedido.add(renglonesDelPedidoList.get(i).getProducto().getId()+":["+renglonesDelPedidoList.get(i).getProducto().getNombre()+"] cant: "+renglonesDelPedidoList.get(i).getRencant());
                     }
                     ArrayAdapter<String> adapterSpinnerRenglonesDelPedido = new ArrayAdapter<String>(PedidoActivity.this, android.R.layout.simple_spinner_item, listaRenglonesDelPedido);
                     spinnerRenglonesDelPedido.setAdapter(adapterSpinnerRenglonesDelPedido);

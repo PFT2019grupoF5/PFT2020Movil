@@ -14,8 +14,10 @@ import androidx.annotation.NonNull;
 import com.utec.pft202002.model.Pedido;
 
 import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 
 public class ReporteAdapter extends ArrayAdapter<Pedido> {
@@ -32,7 +34,6 @@ public class ReporteAdapter extends ArrayAdapter<Pedido> {
     @Override
     public View getView(final int pos, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View rowView = inflater.inflate(R.layout.list_reporte, parent, false);
         View rowView = inflater.inflate(R.layout.list_reporte, parent, false);
 
         TextView txtPedidoId = (TextView) rowView.findViewById(R.id.txtPedidoId);
@@ -44,26 +45,18 @@ public class ReporteAdapter extends ArrayAdapter<Pedido> {
         TextView txtPedidoComentario = (TextView) rowView.findViewById(R.id.txtPedidoRecComentario);
         TextView txtPedidoUsuarioId = (TextView) rowView.findViewById(R.id.txtPedidoUsuarioId);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
         txtPedidoId.setText(String.format("#ID: %d", pedidos.get(pos).getId()));
-
         txtPedidoPedEstado.setText(String.format("PedEstado: %s", pedidos.get(pos).getPedestado()));
-
-        Date pedfecestim = new Date(Long.parseLong(pedidos.get(pos).getPedfecestim()));
-        String Spedfecestim = sdf.format(pedfecestim);
-        txtPedidoPedFecEstim.setText(String.format("PedFecEstim: %s", Spedfecestim));
-
-        Date fecha= new Date(Long.parseLong(pedidos.get(pos).getFecha()));
-        String Sfecha = sdf.format(fecha);
-        txtPedidoFecha.setText(String.format("Fecha: %s", Sfecha));
-
+        Timestamp tPedFecEstim = new Timestamp(Long.parseLong(pedidos.get(pos).getPedfecestim()));
+        txtPedidoPedFecEstim.setText(sdf.format(new Date(tPedFecEstim.getTime())));
+        Timestamp tFecha = new Timestamp(Long.parseLong(pedidos.get(pos).getFecha()));
+        txtPedidoFecha.setText(sdf.format(new Date(tFecha.getTime())));
         txtPedidoPedRecCodigo.setText(String.format("PedRecCodigo: %d", pedidos.get(pos).getPedreccodigo()));
-
-        Date pedrecfecha= new Date(Long.parseLong(pedidos.get(pos).getPedrecfecha()));
-        String Spedrecfecha = sdf.format(pedrecfecha);
-        txtPedidoPedRecFecha.setText(String.format("PedRecFecha: %s", Spedrecfecha));
-
+        Timestamp tPedRecFecha = new Timestamp(Long.parseLong(pedidos.get(pos).getPedrecfecha()));
+        txtPedidoPedRecFecha.setText(sdf.format(new Date(tPedRecFecha.getTime())));
         txtPedidoComentario.setText(String.format("Comentario: %s", pedidos.get(pos).getPedreccomentario()));
         txtPedidoUsuarioId.setText(String.format("Usuario Id: %d", pedidos.get(pos).getUsuario().getId()));
 

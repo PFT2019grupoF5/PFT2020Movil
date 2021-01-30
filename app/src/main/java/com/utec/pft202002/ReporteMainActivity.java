@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,13 +39,12 @@ import retrofit2.Response;
 public class ReporteMainActivity extends AppCompatActivity {
 
     private DatePickerDialog.OnDateSetListener mDateSetListenerFechaDesde;
-    String fechaDesde="";
     private DatePickerDialog.OnDateSetListener mDateSetListenerFechaHasta;
-    String fechaHasta="";
+    String fechaDesde="", fechaHasta="";
 
     EditText edtReporteFechaDesde;
     EditText edtReporteFechaHasta;
-    Button btnGetReporteList;
+    Button   btnGetReporteList;
     Button   btnVolverRep;
 
     ListView listViewReporte;
@@ -61,10 +61,8 @@ public class ReporteMainActivity extends AppCompatActivity {
         LocalDateTime now = LocalDateTime.now();
         setTitle("Reporte Pedidos : " + dtf.format(now) );
 
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        //sdf.setTimeZone(TimeZone.getTimeZone("GMT-03:00"));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
         edtReporteFechaDesde = (EditText) findViewById(R.id.edtReporteFechaDesde);
         edtReporteFechaHasta = (EditText) findViewById(R.id.edtReporteFechaHasta);
@@ -75,11 +73,14 @@ public class ReporteMainActivity extends AppCompatActivity {
         
         PedidoService = APIUtils.getPedidoService();
 
-        /*
+        Date ReporteFechaDesde = new Date();
+        Date ReporteFechaHasta = new Date();
+
         edtReporteFechaDesde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
+                cal.setTimeZone(TimeZone.getTimeZone("GMT-3"));
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -108,6 +109,7 @@ public class ReporteMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
+                cal.setTimeZone(TimeZone.getTimeZone("GMT-3"));
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -132,7 +134,6 @@ public class ReporteMainActivity extends AppCompatActivity {
             }
         };
         
-         */
 
 
         btnGetReporteList.setOnClickListener(new View.OnClickListener() {
@@ -143,11 +144,9 @@ public class ReporteMainActivity extends AppCompatActivity {
                 if (!validator.isValid(edtReporteFechaDesde.getText().toString())) {
                     edtReporteFechaDesde.requestFocus();
                     edtReporteFechaDesde.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtReporteFechaDesde.getText().toString());
-                    System.out.println("EN EL IF ::: edtReporteFechaDesde: " + edtReporteFechaDesde);
                 } else if  (!validator.isValid(edtReporteFechaHasta.getText().toString())) {
                     edtReporteFechaHasta.requestFocus();
                     edtReporteFechaHasta.setError("Pf ingrese fecha válida en formato yyyy-MM-dd : " + edtReporteFechaHasta.getText().toString());
-                    System.out.println("EN EL IF ::: edtReporteFechaHasta: " + edtReporteFechaHasta);
                 } else if (edtReporteFechaDesde.getText().toString().trim().equals("")) {
                     edtReporteFechaDesde.requestFocus();
                     edtReporteFechaDesde.setError("Es necesario ingresar todo los datos requeridos");
@@ -174,6 +173,7 @@ public class ReporteMainActivity extends AppCompatActivity {
     public boolean validaFechasReporte() {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
         Date fechaDesde = null;
         Date fechaHasta = null;
@@ -192,6 +192,7 @@ public class ReporteMainActivity extends AppCompatActivity {
     }
 
     public void getReporteList(){
+
         Call<List<Pedido>> call = PedidoService.getPedidosEntreFechas(edtReporteFechaDesde.getText().toString(), edtReporteFechaHasta.getText().toString());
         call.enqueue(new Callback<List<Pedido>>() {
             @Override
