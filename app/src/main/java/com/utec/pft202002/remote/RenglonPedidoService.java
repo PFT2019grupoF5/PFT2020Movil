@@ -20,6 +20,9 @@ public interface RenglonPedidoService {
     @GET("renglonPedidos/getById/{id}")
     Call<RenglonPedido> getByIdRenglonPedido(@Path("id") Long id);
 
+    @GET("renglonPedidos/getRenglonesDelPedido/{id}")
+    Call<List<RenglonPedido>> getRenglonesDelPedido(@Path("id") Long id);
+
     @POST("renglonPedidos/add/")
     Call<RenglonPedido> addRenglonPedido(@Body RenglonPedido renglonPedido);
 

@@ -22,9 +22,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.utec.pft202002.Enum.estadoPedido;
 import com.utec.pft202002.model.Pedido;
+import com.utec.pft202002.model.RenglonPedido;
 import com.utec.pft202002.model.Usuario;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.PedidoService;
+import com.utec.pft202002.remote.RenglonPedidoService;
 import com.utec.pft202002.remote.UsuarioService;
 
 import java.io.IOException;
@@ -51,6 +53,7 @@ public class PedidoActivity extends AppCompatActivity {
 
     PedidoService pedidoService;
     UsuarioService usuarioService;
+    RenglonPedidoService renglonPedidoService;
 
     EditText edtPedidoId;
     EditText edtPedidoPedEstado;
@@ -63,11 +66,14 @@ public class PedidoActivity extends AppCompatActivity {
     TextView txtPedidoId;
     Spinner  spinnerEstadoPedido;
     Spinner  spinnerUsuario;
+    Spinner  spinnerRenglonesDelPedido;
     Button   btnSave;
     Button   btnDel;
     Button   btnVolverPed;
     ArrayList<String> listaUsuarios;
     HashMap<String,Long> hashUsuarios;
+    ArrayList<String> listaRenglonesDelPedido;
+    HashMap<String,Long> hashRenglonesDelPedido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +94,7 @@ public class PedidoActivity extends AppCompatActivity {
         edtPedidoUsuarioId = (EditText) findViewById(R.id.edtPedidoUsuarioId);
         spinnerEstadoPedido = (Spinner) findViewById(R.id.spinnerEstadoPedido);
         spinnerUsuario = (Spinner) findViewById(R.id.spinnerUsuario);
+        spinnerRenglonesDelPedido = (Spinner) findViewById(R.id.spinnerRenglonesDelPedido);
 
         btnSave = (Button) findViewById(R.id.btnSavePed);
         btnDel = (Button) findViewById(R.id.btnDelPed);
@@ -96,6 +103,7 @@ public class PedidoActivity extends AppCompatActivity {
 
         pedidoService = APIUtils.getPedidoService();
         usuarioService = APIUtils.getUsuarioService();
+        renglonPedidoService = APIUtils.getRenglonPedidoService();
 
         Bundle extras = getIntent().getExtras();
         final String pedidoId = extras.getString("pedido_id");
@@ -127,6 +135,10 @@ public class PedidoActivity extends AppCompatActivity {
             Timestamp tPedRecFecha  = new Timestamp(Long.parseLong(pedidoPedRecFecha));
             PedRecFecha = new Date(tPedRecFecha.getTime());
             edtPedidoPedRecFecha.setText(sdf.format(new Date(tPedRecFecha.getTime())));
+
+            Long pedidoIdLong = Long.parseLong(pedidoId);
+            obtenerListaParaSpinnerProductosDelPedido(pedidoIdLong);
+
         } else {
             edtPedidoPedFecEstim.setText(sdf.format(PedFecEstim));
             edtPedidoFecha.setText(sdf.format(Fecha));
@@ -241,6 +253,7 @@ public class PedidoActivity extends AppCompatActivity {
         } else {
             txtPedidoId.setVisibility(View.INVISIBLE);
             edtPedidoId.setVisibility(View.INVISIBLE);
+            spinnerRenglonesDelPedido.setVisibility(View.INVISIBLE);
             btnDel.setVisibility(View.INVISIBLE);
         }
 
@@ -416,6 +429,35 @@ public class PedidoActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void obtenerListaParaSpinnerProductosDelPedido(Long idPedido){
+
+        Call<List<RenglonPedido>> call = renglonPedidoService.getRenglonesDelPedido(idPedido);
+        call.enqueue(new Callback<List<RenglonPedido>>() {
+            @Override
+            public void onResponse(Call<List<RenglonPedido>> call, Response<List<RenglonPedido>> response) {
+                if(response.isSuccessful()){
+                    List<RenglonPedido> renglonesDelPedidoList = response.body();
+
+                    listaRenglonesDelPedido = new ArrayList<>();
+                    hashRenglonesDelPedido = new HashMap<String,Long>();
+
+                    for (int i=0;i<renglonesDelPedidoList.size();i++){
+                        hashUsuarios.put(renglonesDelPedidoList.get(i).getId()+" "+renglonesDelPedidoList.get(i).getProducto().getId()+" "+renglonesDelPedidoList.get(i).getProducto().getNombre()+" "+renglonesDelPedidoList.get(i).getRencant(),renglonesDelPedidoList.get(i).getId());
+                        listaUsuarios.add(renglonesDelPedidoList.get(i).getId()+" "+renglonesDelPedidoList.get(i).getProducto().getId()+" "+renglonesDelPedidoList.get(i).getProducto().getNombre()+" "+renglonesDelPedidoList.get(i).getRencant());
+                    }
+                    ArrayAdapter<String> adapterSpinnerRenglonesDelPedido = new ArrayAdapter<String>(PedidoActivity.this, android.R.layout.simple_spinner_item, listaRenglonesDelPedido);
+                    spinnerRenglonesDelPedido.setAdapter(adapterSpinnerRenglonesDelPedido);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<RenglonPedido>> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
+    }
+
+
 
     public boolean validaAddPedido(Pedido pedido) {
         return true;

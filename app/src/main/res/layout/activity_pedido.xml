@@ -282,6 +282,13 @@
                         android:layout_height="match_parent" />
                 </LinearLayout>
 
+                <Spinner
+                        android:id="@+id/spinnerRenglonesDelPedido"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                />
+
                 <TextView
                     android:id="@+id/txtPediCamposRequeridos"
                     android:layout_width="match_parent"
