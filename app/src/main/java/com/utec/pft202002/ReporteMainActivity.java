@@ -70,7 +70,7 @@ public class ReporteMainActivity extends AppCompatActivity {
         btnVolverRep = (Button) findViewById(R.id.btnVolverRepdMain);
 
         listViewReporte = (ListView) findViewById(R.id.listViewReporte);
-        
+
         PedidoService = APIUtils.getPedidoService();
 
         Date ReporteFechaDesde = new Date();
@@ -200,6 +200,7 @@ public class ReporteMainActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     list = response.body();
                     listViewReporte.setAdapter(new ReporteAdapter(ReporteMainActivity.this, R.layout.list_reporte, list));
+                    //listViewReporte.setAdapter(new ReporteAdapter(ReporteMainActivity.this, R.layout.list_reporte_tabla, list));
                 }
             }
 

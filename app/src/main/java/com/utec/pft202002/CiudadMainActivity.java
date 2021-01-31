@@ -34,7 +34,7 @@ public class CiudadMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ciudad_main);
 
-        setTitle("Retrofit 2 CRUD Ciudad");
+        setTitle("CRUD Ciudades");
 
         btnAddCiudad = (Button) findViewById(R.id.btnAddCiudad);
         btnGetCiudadesList = (Button) findViewById(R.id.btnGetCiudadesList);

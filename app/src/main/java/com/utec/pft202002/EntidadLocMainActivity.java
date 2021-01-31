@@ -34,7 +34,7 @@ public class EntidadLocMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entidadloc_main);
 
-        setTitle("Retrofit 2 CRUD EntidadLoc");
+        setTitle("CRUD Locales");
 
         btnAddEntidadLoc = (Button) findViewById(R.id.btnAddEntidadLoc);
         btnGetEntidadesLocList = (Button) findViewById(R.id.btnGetEntidadesLocList);

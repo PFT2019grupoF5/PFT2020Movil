@@ -34,7 +34,7 @@ public class FamiliaMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_familia_main);
 
-        setTitle("Retrofit 2 CRUD Familia");
+        setTitle("CRUD Familias");
 
         btnAddFamilia = (Button) findViewById(R.id.btnAddFamilia);
         btnGetFamiliasList = (Button) findViewById(R.id.btnGetFamiliasList);

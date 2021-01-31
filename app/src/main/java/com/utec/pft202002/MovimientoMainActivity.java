@@ -35,7 +35,7 @@ public class MovimientoMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movimiento_main);
 
-        setTitle("Retrofit 2 CRUD Movimiento");
+        setTitle("CRUD Movimientos");
 
         btnAddMovimiento = (Button) findViewById(R.id.btnAddMovimiento);
         btnGetMovimientosList = (Button) findViewById(R.id.btnGetMovimientosList);

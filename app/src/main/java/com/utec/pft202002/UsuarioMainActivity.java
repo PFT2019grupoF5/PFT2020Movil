@@ -34,7 +34,7 @@ public class UsuarioMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_main);
 
-        setTitle("Retrofit 2 CRUD Usuario");
+        setTitle("CRUD Usuarios");
 
         btnAddUsuario = (Button) findViewById(R.id.btnAddUsuario);
         btnGetUsuariosList = (Button) findViewById(R.id.btnGetUsuariosList);

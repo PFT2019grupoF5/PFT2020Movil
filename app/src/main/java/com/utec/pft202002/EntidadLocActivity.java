@@ -57,7 +57,7 @@ public class EntidadLocActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entidadloc);
 
-        setTitle("EntidadesLoc");
+        setTitle("Locales");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         txtEntidadLocId = (TextView) findViewById(R.id.txtEntidadLocId);

@@ -35,7 +35,7 @@ public class PedidoMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedido_main);
 
-        setTitle("Retrofit 2 CRUD Pedido");
+        setTitle("CRUD Pedidos");
 
         btnAddPedido = (Button) findViewById(R.id.btnAddPedido);
         btnGetPedidosList = (Button) findViewById(R.id.btnGetPedidosList);

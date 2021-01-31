@@ -36,7 +36,7 @@ public class ProductoMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_producto_main);
 
-        setTitle("Retrofit 2 CRUD Producto");
+        setTitle("CRUD Productos");
 
         btnAddProducto = (Button) findViewById(R.id.btnAddProducto);
         btnGetProductosList = (Button) findViewById(R.id.btnGetProductosList);

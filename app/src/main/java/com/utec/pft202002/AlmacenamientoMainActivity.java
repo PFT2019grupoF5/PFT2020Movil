@@ -34,7 +34,7 @@ public class AlmacenamientoMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_almacenamiento_main);
 
-        setTitle("Retrofit 2 CRUD Almacenamiento");
+        setTitle("CRUD Almacenamientos");
 
         btnAddAlmacenamiento = (Button) findViewById(R.id.btnAddAlmacenamiento);
         btnGetAlmacenamientosList = (Button) findViewById(R.id.btnGetAlmacenamientosList);
