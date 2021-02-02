@@ -122,13 +122,24 @@
             android:textColor="#5E3C3C" />
 
         <Button
-            android:id="@+id/btnReporte"
+            android:id="@+id/btnReportev1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:background="#4CAF50"
-            android:onClick="menuReporte"
-            android:text="Reporte Pedidos"
+            android:onClick="menuReportev1"
+            android:text="Reporte Pedidos v1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/btnReportev2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="#009688"
+            android:onClick="menuReportev2"
+            android:text="Reporte Pedidos v2"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="#ffffff" />
 

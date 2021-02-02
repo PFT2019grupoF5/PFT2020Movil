@@ -397,9 +397,6 @@ public class ProductoActivity extends AppCompatActivity {
                                 if (validaDeleteProducto(Long.parseLong(productoId))) {
                                     deleteProducto(Long.parseLong(productoId));
                                     finish();
-
-                                    //Intent intent = new Intent(ProductoActivity.this, ProductoMainActivity.class);
-                                    //startActivity(intent);
                                 }
 
                             }

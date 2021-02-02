@@ -29,6 +29,7 @@
         <activity android:name=".UsuarioActivity" />
         <activity android:name=".UsuarioMainActivity" />
         <activity android:name=".ReporteMainActivity" />
+        <activity android:name=".Reporte2MainActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

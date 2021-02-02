@@ -1,7 +1,6 @@
 package com.utec.pft202002;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -20,7 +18,6 @@ import java.text.SimpleDateFormat;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.utec.pft202002.model.Pedido;
-import com.utec.pft202002.model.Producto;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.PedidoService;
 
@@ -49,7 +46,7 @@ public class ReporteMainActivity extends AppCompatActivity {
 
     ListView listViewReporte;
 
-    PedidoService PedidoService;
+    PedidoService pedidoService;
     List<Pedido> list = new ArrayList<Pedido>();
 
     @Override
@@ -59,7 +56,7 @@ public class ReporteMainActivity extends AppCompatActivity {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        setTitle("Reporte Pedidos : " + dtf.format(now) );
+        setTitle("Reporte Pedidos: " + dtf.format(now) );
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
@@ -71,10 +68,8 @@ public class ReporteMainActivity extends AppCompatActivity {
 
         listViewReporte = (ListView) findViewById(R.id.listViewReporte);
 
-        PedidoService = APIUtils.getPedidoService();
+        pedidoService = APIUtils.getPedidoService();
 
-        Date ReporteFechaDesde = new Date();
-        Date ReporteFechaHasta = new Date();
 
         edtReporteFechaDesde.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,7 +188,7 @@ public class ReporteMainActivity extends AppCompatActivity {
 
     public void getReporteList(){
 
-        Call<List<Pedido>> call = PedidoService.getPedidosEntreFechas(edtReporteFechaDesde.getText().toString(), edtReporteFechaHasta.getText().toString());
+        Call<List<Pedido>> call = pedidoService.getPedidosEntreFechas(edtReporteFechaDesde.getText().toString(), edtReporteFechaHasta.getText().toString());
         call.enqueue(new Callback<List<Pedido>>() {
             @Override
             public void onResponse(Call<List<Pedido>> call, Response<List<Pedido>> response) {

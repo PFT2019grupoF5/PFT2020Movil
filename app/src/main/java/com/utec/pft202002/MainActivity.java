@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     TextView txtBienvenido, txtNomAccesoPerfilID;
-    Button btnAlmacenamientos, btnCiudades, btnLocalesEnt, btnFamilias, btnMovimientos, btnPedidos, btnProductos, btnUsuarios, btnReporte, btnLogout;
+    Button btnAlmacenamientos, btnCiudades, btnLocalesEnt, btnFamilias, btnMovimientos, btnPedidos, btnProductos, btnUsuarios, btnReportev1, btnReportev2, btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
         btnPedidos = (Button) findViewById(R.id.btnPedidos);
         btnProductos = (Button) findViewById(R.id.btnProductos);
         btnUsuarios = (Button) findViewById(R.id.btnUsuarios);
-        btnReporte = (Button) findViewById(R.id.btnReporte);
+        btnReportev1 = (Button) findViewById(R.id.btnReportev1);
+        btnReportev2 = (Button) findViewById(R.id.btnReportev2);
         btnLogout = (Button) findViewById(R.id.btnLogout);
 
         Bundle extras = getIntent().getExtras();
@@ -60,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
                 btnPedidos.setVisibility(View.VISIBLE); // Si
                 btnProductos.setVisibility(View.INVISIBLE);
                 btnUsuarios.setVisibility(View.INVISIBLE);
-                btnReporte.setVisibility(View.VISIBLE); // Si
+                btnReportev1.setVisibility(View.VISIBLE); // Si
+                btnReportev2.setVisibility(View.VISIBLE); // Si
                 btnLogout.setVisibility(View.VISIBLE); // Si
                 break;
             case "SUPERVISOR": // Perfil Supervisor
@@ -72,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
                 btnPedidos.setVisibility(View.VISIBLE);
                 btnProductos.setVisibility(View.VISIBLE);
                 btnUsuarios.setVisibility(View.INVISIBLE);  // Solo admin ve
-                btnReporte.setVisibility(View.VISIBLE); // Si
+                btnReportev1.setVisibility(View.VISIBLE); // Si
+                btnReportev2.setVisibility(View.VISIBLE); // Si
                 btnLogout.setVisibility(View.VISIBLE); // Si
                 break;
             default:  // "1" Perfil Administrador -- muestro todos los botones
@@ -113,8 +116,12 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, UsuarioMainActivity.class);
             startActivity(intent);
         }
-        public void menuReporte (View view){
+        public void menuReportev1(View view){
             Intent intent = new Intent(this, ReporteMainActivity.class);
+            startActivity(intent);
+        }
+        public void menuReportev2 (View view){
+            Intent intent = new Intent(this, Reporte2MainActivity.class);
             startActivity(intent);
         }
         public void menuLogout (View view){

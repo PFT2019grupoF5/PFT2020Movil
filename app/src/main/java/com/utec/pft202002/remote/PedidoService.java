@@ -1,6 +1,7 @@
 package com.utec.pft202002.remote;
 
 import com.utec.pft202002.model.Pedido;
+import com.utec.pft202002.model.RenglonReporte;
 
 import java.util.List;
 
@@ -19,6 +20,9 @@ public interface PedidoService {
 
     @GET("pedidos/getPedidosEntreFechas/{fechaDesde}/{fechaHasta}")
     Call<List<Pedido>> getPedidosEntreFechas(@Path("fechaDesde") String fechaDesde, @Path("fechaHasta") String fechaHasta);
+
+    @GET("pedidos/getReporteEntreFechas/{fechaDesde}/{fechaHasta}")
+    Call<List<RenglonReporte>> getReporteEntreFechas(@Path("fechaDesde") String fechaDesde, @Path("fechaHasta") String fechaHasta);
 
     @GET("pedidos/getById/{id}")
     Call<Pedido> getByIdPedido(@Path("id") Long id);
