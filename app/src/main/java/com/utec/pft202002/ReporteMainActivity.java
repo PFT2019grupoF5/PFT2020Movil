@@ -176,6 +176,7 @@ public class ReporteMainActivity extends AppCompatActivity {
             fechaDesde = sdf.parse(edtReporteFechaDesde.getText().toString());
             fechaHasta = sdf.parse(edtReporteFechaHasta.getText().toString());
         } catch (ParseException e) {
+            Toast.makeText(ReporteMainActivity.this, "*** No se pudo parsear fecha", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 
@@ -201,6 +202,7 @@ public class ReporteMainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Pedido>> call, Throwable t) {
+                Toast.makeText(ReporteMainActivity.this, "*** No se pudo obtener Lista de Pedidos", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

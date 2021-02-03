@@ -1,7 +1,6 @@
 package com.utec.pft202002;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -185,6 +184,7 @@ public class Reporte2MainActivity extends AppCompatActivity {
             fechaDesde = sdf.parse(edtReporte2FechaDesde.getText().toString());
             fechaHasta = sdf.parse(edtReporte2FechaHasta.getText().toString());
         } catch (ParseException e) {
+            Toast.makeText(Reporte2MainActivity.this, "*** No se pudo parsear fecha", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 
@@ -225,6 +225,7 @@ public class Reporte2MainActivity extends AppCompatActivity {
                             }
                             @Override
                             public void onFailure(Call<List<RenglonPedido>> call2, Throwable t) {
+                                Toast.makeText(Reporte2MainActivity.this, "*** No se pudo obtener Lista de Renglones del Pedido", Toast.LENGTH_SHORT).show();
                                 Log.e("ERROR: ", t.getMessage());
                             }
                         });
@@ -237,6 +238,7 @@ public class Reporte2MainActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<Pedido>> call, Throwable t) {
+                Toast.makeText(Reporte2MainActivity.this, "*** No se pudo obtener Lista de Pedidos", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

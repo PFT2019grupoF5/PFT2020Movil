@@ -287,27 +287,10 @@ public class PedidoActivity extends AppCompatActivity {
 
                     edtPedidoPedEstado.setText((spinnerEstadoPedido.getSelectedItem().toString()));
                     u.setPedestado(estadoPedido.valueOf(edtPedidoPedEstado.getText().toString()));
-
                     u.setPedreccomentario(edtPedidoPedRecComentario.getText().toString());
-
-                    try {
-                        u.setPedfecestim(edtPedidoPedFecEstim.getText().toString());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    try {
-                        u.setFecha(edtPedidoFecha.getText().toString());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    try {
-                        u.setPedrecfecha(edtPedidoPedRecFecha.getText().toString());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
+                    u.setPedfecestim(edtPedidoPedFecEstim.getText().toString());
+                    u.setFecha(edtPedidoFecha.getText().toString());
+                    u.setPedrecfecha(edtPedidoPedRecFecha.getText().toString());
                     u.setPedreccodigo(Integer.parseInt(edtPedidoPedRecCodigo.getText().toString()));
 
                     edtPedidoUsuarioId.setText(Long.toString(hashUsuarios.get(spinnerUsuario.getSelectedItem().toString())));
@@ -315,6 +298,7 @@ public class PedidoActivity extends AppCompatActivity {
                     try {
                         u.setUsuario(usuarioService.getByIdUsuario(usuarioId).execute().body());
                     } catch (IOException e) {
+                        Toast.makeText(PedidoActivity.this, "*** No se pudo obtener Usuario por Id", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
 
@@ -330,6 +314,7 @@ public class PedidoActivity extends AppCompatActivity {
                                 u.setFecha(Long.toString(sdf.parse(edtPedidoFecha.getText().toString()).getTime()));
                                 u.setPedrecfecha(Long.toString(sdf.parse(edtPedidoPedRecFecha.getText().toString()).getTime()));
                             } catch (ParseException e) {
+                                Toast.makeText(PedidoActivity.this, "*** No se pudo parsear fecha", Toast.LENGTH_SHORT).show();
                                 e.printStackTrace();
                             }
 
@@ -348,6 +333,7 @@ public class PedidoActivity extends AppCompatActivity {
                                 u.setFecha(Long.toString(sdf.parse(edtPedidoFecha.getText().toString()).getTime()));
                                 u.setPedrecfecha(Long.toString(sdf.parse(edtPedidoPedRecFecha.getText().toString()).getTime()));
                             } catch (ParseException e) {
+                                Toast.makeText(PedidoActivity.this, "*** No se pudo parsear fecha", Toast.LENGTH_SHORT).show();
                                 e.printStackTrace();
                             }
                             addPedido(u);
@@ -371,9 +357,6 @@ public class PedidoActivity extends AppCompatActivity {
                                 if (validaDeletePedido(Long.parseLong(pedidoId))) {
                                     deletePedido(Long.parseLong(pedidoId));
                                     finish();
-
-                                    //Intent intent = new Intent(PedidoActivity.this, PedidoMainActivity.class);
-                                    //startActivity(intent);
                                 }
 
                             }
@@ -421,14 +404,13 @@ public class PedidoActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<Usuario>> call, Throwable t) {
+                Toast.makeText(PedidoActivity.this, "*** No se pudo obtener Lista de Usuarios", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
     }
 
     public void obtenerListaParaSpinnerProductosDelPedido(Long idPed){
-
-        Log.i("idPed: ", idPed.toString());
 
         Call<List<RenglonPedido>> call = renglonPedidoService.getRenglonesDelPedido(idPed);
         call.enqueue(new Callback<List<RenglonPedido>>() {
@@ -447,6 +429,7 @@ public class PedidoActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<RenglonPedido>> call, Throwable t) {
+                Toast.makeText(PedidoActivity.this, "*** No se pudo obtener Lista de Renglones del Pedido", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -480,6 +463,7 @@ public class PedidoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Pedido> call, Throwable t) {
+                Toast.makeText(PedidoActivity.this, "*** Error al crear Pedido", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -497,6 +481,7 @@ public class PedidoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Pedido> call, Throwable t) {
+                Toast.makeText(PedidoActivity.this, "*** Error al modificar Pedido", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -516,6 +501,7 @@ public class PedidoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Pedido> call, Throwable t) {
+                Toast.makeText(PedidoActivity.this, "*** Error al borrar Pedido", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -533,6 +519,7 @@ public class PedidoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Pedido> call, Throwable t) {
+                Toast.makeText(PedidoActivity.this, "*** No se pudo encontrar Pedido por ID", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

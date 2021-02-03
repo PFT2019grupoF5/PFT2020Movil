@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -71,6 +72,7 @@ public class CiudadMainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Ciudad>> call, Throwable t) {
+                Toast.makeText(CiudadMainActivity.this, "*** No se pudo obtener lista de Ciudades", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

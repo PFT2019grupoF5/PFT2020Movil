@@ -165,6 +165,7 @@ public class UsuarioActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
+                Toast.makeText(UsuarioActivity.this, "*** Error al crear Usuario", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -183,6 +184,7 @@ public class UsuarioActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
+                Toast.makeText(UsuarioActivity.this, "*** Error al modificar Usuario", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -202,6 +204,7 @@ public class UsuarioActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
+                Toast.makeText(UsuarioActivity.this, "*** Error al borrar Usuario", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -220,6 +223,7 @@ public class UsuarioActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
+                Toast.makeText(UsuarioActivity.this, "*** No se pudo encontrar Usuario por ID", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

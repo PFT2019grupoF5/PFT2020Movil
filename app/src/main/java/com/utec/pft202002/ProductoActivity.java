@@ -309,19 +309,8 @@ public class ProductoActivity extends AppCompatActivity {
                     u.setNombre(edtProductoNombre.getText().toString());
                     u.setLote(edtProductoLote.getText().toString());
                     u.setPrecio(Double.parseDouble(edtProductoPrecio.getText().toString()));
-
-                    try {
-                        u.setFelab(edtProductoFelab.getText().toString());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    try {
-                        u.setFven(edtProductoFven.getText().toString());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
+                    u.setFelab(edtProductoFelab.getText().toString());
+                    u.setFven(edtProductoFven.getText().toString());
                     u.setPeso(Double.parseDouble(edtProductoPeso.getText().toString()));
                     u.setVolumen(Double.parseDouble(edtProductoVolumen.getText().toString()));
                     u.setEstiba(Integer.parseInt(edtProductoEstiba.getText().toString()));
@@ -336,6 +325,7 @@ public class ProductoActivity extends AppCompatActivity {
                     try {
                         u.setUsuario(usuarioService.getByIdUsuario(usuarioId).execute().body());
                     } catch (IOException e) {
+                        Toast.makeText(ProductoActivity.this, "*** No se pudo obtener Usuario por Id", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
 
@@ -344,35 +334,35 @@ public class ProductoActivity extends AppCompatActivity {
                     try {
                         u.setFamilia(familiaService.getByIdFamilia(familiaId).execute().body());
                     } catch (IOException e) {
+                        Toast.makeText(ProductoActivity.this, "*** No se pudo obtener Familia por Id", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
 
                     if (productoId != null && productoId.trim().length() > 0) {
                         //update producto
                         if (validaUpdateProducto(u)) {
-
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                             sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
                             try {
                                 u.setFelab(Long.toString(sdf.parse(edtProductoFelab.getText().toString()).getTime()));
                                 u.setFven(Long.toString(sdf.parse(edtProductoFven.getText().toString()).getTime()));
                             } catch (ParseException e) {
+                                Toast.makeText(ProductoActivity.this, "*** No se pudo parsear fecha", Toast.LENGTH_SHORT).show();
                                 e.printStackTrace();
                             }
-
                             updateProducto(Long.parseLong(productoId), u);
                             finish();
                         }
                     } else {
                         //add producto
                         if (validaAddProducto(u)) {
-
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                             sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
                             try {
                                 u.setFelab(Long.toString(sdf.parse(edtProductoFelab.getText().toString()).getTime()));
                                 u.setFven(Long.toString(sdf.parse(edtProductoFven.getText().toString()).getTime()));
                             } catch (ParseException e) {
+                                Toast.makeText(ProductoActivity.this, "*** No se pudo parsear fecha", Toast.LENGTH_SHORT).show();
                                 e.printStackTrace();
                             }
 
@@ -448,6 +438,7 @@ public class ProductoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Usuario>> call, Throwable t) {
+                Toast.makeText(ProductoActivity.this, "*** No se pudo obtener Lista de Usuarios", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -477,6 +468,7 @@ public class ProductoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Familia>> call, Throwable t) {
+                Toast.makeText(ProductoActivity.this, "*** No se pudo obtener Lista de Familias", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -493,6 +485,7 @@ public class ProductoActivity extends AppCompatActivity {
                 return false;
             }
         } catch (IOException e) {
+            Toast.makeText(ProductoActivity.this, "*** No se pudo obtener Producto por Nombre", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 
@@ -505,6 +498,7 @@ public class ProductoActivity extends AppCompatActivity {
             fechaElab = sdf.parse(producto.getFelab());
             fechaVen = sdf.parse(producto.getFven());
         } catch (ParseException e) {
+            Toast.makeText(ProductoActivity.this, "*** No se pudo parsear fecha", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 
@@ -527,6 +521,7 @@ public class ProductoActivity extends AppCompatActivity {
             fechaElab = sdf.parse(producto.getFelab());
             fechaVen = sdf.parse(producto.getFven());
         } catch (ParseException e) {
+            Toast.makeText(ProductoActivity.this, "*** No se pudo parsear fecha", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 
@@ -545,7 +540,9 @@ public class ProductoActivity extends AppCompatActivity {
                 return false;
             }
         } catch (IOException e) {
+            Toast.makeText(ProductoActivity.this, "*** No se pudo obtener Producto por Id", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+            return false;
         }
         return true;
     }
@@ -562,6 +559,7 @@ public class ProductoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Producto> call, Throwable t) {
+                Toast.makeText(ProductoActivity.this, "*** Error al crear Producto", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -579,6 +577,7 @@ public class ProductoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Producto> call, Throwable t) {
+                Toast.makeText(ProductoActivity.this, "*** Error al modificar Producto", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -598,6 +597,7 @@ public class ProductoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Producto> call, Throwable t) {
+                Toast.makeText(ProductoActivity.this, "*** Error al borrar Producto", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -615,6 +615,7 @@ public class ProductoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Producto> call, Throwable t) {
+                Toast.makeText(ProductoActivity.this, "*** No se pudo encontrar Producto por ID", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

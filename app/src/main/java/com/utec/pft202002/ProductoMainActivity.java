@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -41,8 +42,9 @@ public class ProductoMainActivity extends AppCompatActivity {
         btnAddProducto = (Button) findViewById(R.id.btnAddProducto);
         btnGetProductosList = (Button) findViewById(R.id.btnGetProductosList);
         listViewProductos = (ListView) findViewById(R.id.listViewProductos);
-        productoService = APIUtils.getProductoService();
         btVolverProdMain = (Button) findViewById(R.id.btVolverProdMain);
+
+        productoService = APIUtils.getProductoService();
 
         btnGetProductosList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +95,7 @@ public class ProductoMainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Producto>> call, Throwable t) {
+                Toast.makeText(ProductoMainActivity.this, "*** No se pudo obtener lista de Productos", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

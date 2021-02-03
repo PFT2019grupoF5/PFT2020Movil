@@ -127,7 +127,9 @@ public class EntidadLocActivity extends AppCompatActivity {
                     try {
                         u.setCiudad(ciudadService.getByIdCiudad(ciudadId).execute().body());
                     } catch (IOException e) {
+                        Toast.makeText(getBaseContext(), "*** No se pudo obtener Ciudad por Id", Toast.LENGTH_LONG).show();
                         e.printStackTrace();
+                        finish();
                     }
 
                     if (entidadLocId != null && entidadLocId.trim().length() > 0) {
@@ -194,6 +196,7 @@ public class EntidadLocActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<Ciudad>> call, Throwable t) {
+                Toast.makeText(EntidadLocActivity.this, "*** No se pudo obtener Lista de Ciudades", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -212,6 +215,7 @@ public class EntidadLocActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<EntidadLoc> call, Throwable t) {
+                Toast.makeText(EntidadLocActivity.this, "*** Error al crear EntidadLoc", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -229,6 +233,7 @@ public class EntidadLocActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<EntidadLoc> call, Throwable t) {
+                Toast.makeText(EntidadLocActivity.this, "*** Error al modificar EntidadLoc", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -248,6 +253,7 @@ public class EntidadLocActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<EntidadLoc> call, Throwable t) {
+                Toast.makeText(EntidadLocActivity.this, "*** Error al borrar EntidadLoc", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -265,6 +271,7 @@ public class EntidadLocActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<EntidadLoc> call, Throwable t) {
+                Toast.makeText(EntidadLocActivity.this, "*** No se pudo encontrar EntidadLoc por ID", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

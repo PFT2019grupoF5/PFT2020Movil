@@ -118,6 +118,7 @@ public class AlmacenamientoActivity extends AppCompatActivity {
                 try {
                     u.setEntidadLoc(entidadLocService.getByIdEntidadLoc(entidadLocId).execute().body());
                 } catch (IOException e) {
+                    Toast.makeText(AlmacenamientoActivity.this, "*** No se pudo obtener Local por Id", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
 
@@ -182,6 +183,7 @@ public class AlmacenamientoActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<EntidadLoc>> call, Throwable t) {
+                Toast.makeText(AlmacenamientoActivity.this, "*** No se pudo obtener Lista de Locales", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -200,6 +202,7 @@ public class AlmacenamientoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Almacenamiento> call, Throwable t) {
+                Toast.makeText(AlmacenamientoActivity.this, "*** Error al crear Almacenamiento", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -217,6 +220,7 @@ public class AlmacenamientoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Almacenamiento> call, Throwable t) {
+                Toast.makeText(AlmacenamientoActivity.this, "*** Error al modificar Almacenamiento", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -236,6 +240,7 @@ public class AlmacenamientoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Almacenamiento> call, Throwable t) {
+                Toast.makeText(AlmacenamientoActivity.this, "*** Error al borrar Almacenamiento", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -253,6 +258,7 @@ public class AlmacenamientoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Almacenamiento> call, Throwable t) {
+                Toast.makeText(AlmacenamientoActivity.this, "*** No se pudo encontrar Almacenamiento por ID", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

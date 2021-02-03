@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -73,6 +74,7 @@ public class FamiliaMainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Familia>> call, Throwable t) {
+                Toast.makeText(FamiliaMainActivity.this, "*** No se pudo obtener lista de  Familias", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

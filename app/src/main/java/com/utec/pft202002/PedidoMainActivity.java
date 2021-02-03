@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -87,6 +88,7 @@ public class PedidoMainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Pedido>> call, Throwable t) {
+                Toast.makeText(PedidoMainActivity.this, "*** No se pudo obtener lista de Pedidos", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

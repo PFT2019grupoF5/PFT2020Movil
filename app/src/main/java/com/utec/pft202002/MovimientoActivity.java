@@ -225,12 +225,7 @@ public class MovimientoActivity extends AppCompatActivity {
 
                     Movimiento u = new Movimiento();
 
-                    try {
-                        u.setFecha(edtMovimientoFecha.getText().toString());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
+                    u.setFecha(edtMovimientoFecha.getText().toString());
                     u.setCantidad(Integer.parseInt(edtMovimientoCantidad.getText().toString()));
                     u.setDescripcion(edtMovimientoDescripcion.getText().toString());
                     u.setCosto(Double.parseDouble(edtMovimientoCosto.getText().toString()));
@@ -243,6 +238,7 @@ public class MovimientoActivity extends AppCompatActivity {
                     try {
                         u.setProducto(productoService.getByIdProducto(productoId).execute().body());
                     } catch (IOException e) {
+                        Toast.makeText(MovimientoActivity.this, "*** No se pudo obtener Producto por Id", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
 
@@ -251,6 +247,7 @@ public class MovimientoActivity extends AppCompatActivity {
                     try {
                         u.setAlmacenamiento(almacenamientoService.getByIdAlmacenamiento(almacenamientoId).execute().body());
                     } catch (IOException e) {
+                        Toast.makeText(MovimientoActivity.this, "*** No se pudo obtener Almacenamiento por Id", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
 
@@ -262,6 +259,7 @@ public class MovimientoActivity extends AppCompatActivity {
                             try{
                                 u.setFecha(Long.toString(sdf.parse(edtMovimientoFecha.getText().toString()).getTime()));
                             } catch (ParseException e) {
+                                Toast.makeText(MovimientoActivity.this, "*** No se pudo parsear fecha", Toast.LENGTH_SHORT).show();
                                 e.printStackTrace();
                             }
                             updateMovimiento(Long.parseLong(movimientoId), u);
@@ -275,6 +273,7 @@ public class MovimientoActivity extends AppCompatActivity {
                             try {
                                 u.setFecha(Long.toString(sdf.parse(edtMovimientoFecha.getText().toString()).getTime()));
                             } catch (ParseException e) {
+                                Toast.makeText(MovimientoActivity.this, "*** No se pudo parsear fecha", Toast.LENGTH_SHORT).show();
                                 e.printStackTrace();
                             }
 
@@ -299,9 +298,6 @@ public class MovimientoActivity extends AppCompatActivity {
                                 if (validaDeleteMovimiento(Long.parseLong(movimientoId))) {
                                     deleteMovimiento(Long.parseLong(movimientoId));
                                     finish();
-
-                                    //Intent intent = new Intent(MovimientoActivity.this, MovimientoMainActivity.class);
-                                    //startActivity(intent);
                                 }
 
                             }
@@ -350,6 +346,7 @@ public class MovimientoActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<Producto>> call, Throwable t) {
+                Toast.makeText(MovimientoActivity.this, "*** No se pudo obtener Lista de Productos", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -377,6 +374,7 @@ public class MovimientoActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<Almacenamiento>> call, Throwable t) {
+                Toast.makeText(MovimientoActivity.this, "*** No se pudo obtener Lista de Almacenamientos", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -392,7 +390,9 @@ public class MovimientoActivity extends AppCompatActivity {
                     return false;
                 }
             } catch (IOException e) {
+                Toast.makeText(MovimientoActivity.this, "*** No se pudo obtener Producto por Id", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
+                return false;
             }
         }
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -402,6 +402,7 @@ public class MovimientoActivity extends AppCompatActivity {
         try {
             fecha = sdf.parse(movimiento.getFecha());
         } catch (ParseException e) {
+            Toast.makeText(MovimientoActivity.this, "*** No se pudo parsear fecha", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 
@@ -421,6 +422,7 @@ public class MovimientoActivity extends AppCompatActivity {
         try {
             fecha = sdf.parse(movimiento.getFecha());
         } catch (ParseException e) {
+            Toast.makeText(MovimientoActivity.this, "*** No se pudo parsear fecha", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
         return true;
@@ -441,7 +443,9 @@ public class MovimientoActivity extends AppCompatActivity {
                             return false;
                         }
                     } catch (IOException e) {
+                        Toast.makeText(MovimientoActivity.this, "*** No se pudo obtener Almacenamiento por Id", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
+                        return false;
                     }
                 }
             } else {
@@ -449,7 +453,9 @@ public class MovimientoActivity extends AppCompatActivity {
                 return false;
             }
         } catch (IOException e) {
+            Toast.makeText(MovimientoActivity.this, "*** No se pudo obtener Movimiento por Id", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+            return false;
         }
         return true;
     }
@@ -476,7 +482,9 @@ public class MovimientoActivity extends AppCompatActivity {
                 Almacenamiento almacenamientoActualizadoEnBD = almacenamientoService.updateAlmacenamiento(idAlmacenamientoAsociadoAlMovimiento, almacenamientoEnBD).execute().body();
                 Producto productoActualizadoEnBD = productoService.updateProducto(idProductoAsociadoAlMovimiento, productoEnBD).execute().body();
             } catch (IOException e) {
+                Toast.makeText(MovimientoActivity.this, "*** Error al modificar Almacenamiento o Producto del Movimiento. Verifique datos en BD.", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
+                finish();
             }
         }
         Call<Movimiento> call = movimientoService.addMovimiento(movimiento);
@@ -490,6 +498,7 @@ public class MovimientoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Movimiento> call, Throwable t) {
+                Toast.makeText(MovimientoActivity.this, "*** Error al crear Movimiento", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -507,6 +516,7 @@ public class MovimientoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Movimiento> call, Throwable t) {
+                Toast.makeText(MovimientoActivity.this, "*** Error al modificar Movimiento", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -531,14 +541,19 @@ public class MovimientoActivity extends AppCompatActivity {
                         Almacenamiento almacenamientoActualizadoEnBD = almacenamientoService.updateAlmacenamiento(idAlmacenamientoAsociadoAlMovimiento, almacenamientoEnBD).execute().body();
                         Producto productoActualizadoEnBD = productoService.updateProducto(idProductoAsociadoAlMovimiento, productoEnBD).execute().body();
                     } catch (IOException e) {
+                        Toast.makeText(MovimientoActivity.this, "*** Error al modificar Almacenamiento o Producto del Movimiento. Verifique datos en BD.", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
+                        finish();
                     }
                 }
             } else {
                 Toast.makeText(getBaseContext(), "No se encontró Movimiento", Toast.LENGTH_LONG).show();
+                finish();
             }
         } catch (IOException e) {
+            Toast.makeText(MovimientoActivity.this, "*** Error no se encontró Movimiento por Id", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+            finish();
         }
         Call<Movimiento> call = movimientoService.deleteMovimiento(idMovimiento);
         call.enqueue(new Callback<Movimiento>() {
@@ -553,6 +568,7 @@ public class MovimientoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Movimiento> call, Throwable t) {
+                Toast.makeText(MovimientoActivity.this, "*** Error al borrar el Movimiento", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -570,6 +586,7 @@ public class MovimientoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Movimiento> call, Throwable t) {
+                Toast.makeText(MovimientoActivity.this, "*** No se pudo encontrar Movimiento por ID", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

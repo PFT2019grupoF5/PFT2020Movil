@@ -128,6 +128,7 @@ public class FamiliaActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Familia> call, Throwable t) {
+                Toast.makeText(FamiliaActivity.this, "*** Error al crear Familia", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -145,6 +146,7 @@ public class FamiliaActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Familia> call, Throwable t) {
+                Toast.makeText(FamiliaActivity.this, "*** Error al modificar Familia", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -164,6 +166,7 @@ public class FamiliaActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Familia> call, Throwable t) {
+                Toast.makeText(FamiliaActivity.this, "*** Error al borrar Familia", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -181,6 +184,7 @@ public class FamiliaActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Familia> call, Throwable t) {
+                Toast.makeText(FamiliaActivity.this, "*** No se pudo encontrar Familia por ID", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

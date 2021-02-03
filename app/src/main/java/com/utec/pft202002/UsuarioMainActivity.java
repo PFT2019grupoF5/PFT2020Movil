@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -76,6 +77,7 @@ public class UsuarioMainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Usuario>> call, Throwable t) {
+                Toast.makeText(UsuarioMainActivity.this, "*** No se pudo obtener lista de Usuarios", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

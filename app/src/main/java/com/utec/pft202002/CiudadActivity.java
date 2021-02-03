@@ -119,6 +119,7 @@ public class CiudadActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Ciudad> call, Throwable t) {
+                Toast.makeText(CiudadActivity.this, "*** Error al crear Ciudad", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -136,6 +137,7 @@ public class CiudadActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Ciudad> call, Throwable t) {
+                Toast.makeText(CiudadActivity.this, "*** Error al modificar Ciudad", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -155,6 +157,7 @@ public class CiudadActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Ciudad> call, Throwable t) {
+                Toast.makeText(CiudadActivity.this, "*** Error al borrar Ciudad", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -172,6 +175,7 @@ public class CiudadActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Ciudad> call, Throwable t) {
+                Toast.makeText(CiudadActivity.this, "*** No se encontró Ciudad por Id", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

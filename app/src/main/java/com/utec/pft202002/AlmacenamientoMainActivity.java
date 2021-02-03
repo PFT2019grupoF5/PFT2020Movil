@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -76,6 +77,7 @@ public class AlmacenamientoMainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Almacenamiento>> call, Throwable t) {
+                Toast.makeText(AlmacenamientoMainActivity.this, "*** No se pudo obtener lista de  Almacenamientos", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
