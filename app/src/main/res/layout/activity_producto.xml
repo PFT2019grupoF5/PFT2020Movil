@@ -143,7 +143,8 @@
                         android:id="@+id/edtProductoPrecio"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:inputType="number" />
+                        android:digits="0123456789."
+                        android:inputType="numberDecimal" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -237,7 +238,8 @@
                         android:id="@+id/edtProductoPeso"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:inputType="number" />
+                        android:digits="0123456789."
+                        android:inputType="numberDecimal" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -268,7 +270,8 @@
                         android:id="@+id/edtProductoVolumen"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:inputType="number" />
+                        android:digits="0123456789."
+                        android:inputType="numberDecimal" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -330,7 +333,8 @@
                         android:id="@+id/edtProductoStkMin"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:inputType="number" />
+                        android:digits="0123456789."
+                        android:inputType="numberDecimal" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -361,7 +365,8 @@
                         android:id="@+id/edtProductoStkTotal"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:inputType="number" />
+                        android:digits="0123456789."
+                        android:inputType="numberDecimal" />
                 </LinearLayout>
 
                 <LinearLayout

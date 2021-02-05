@@ -265,6 +265,10 @@ public class ProductoActivity extends AppCompatActivity {
                 } else if (edtProductoLote.getText().toString().trim().equals("")) {
                     edtProductoLote.requestFocus();
                     edtProductoLote.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtProductoLote.getText().toString().length() > 10) {
+                    System.out.println("edtProductoLote : " + edtProductoLote.toString());
+                    edtProductoLote.requestFocus();
+                    edtProductoLote.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
                 } else if (edtProductoPrecio.getText().toString().trim().equals("")) {
                     edtProductoPrecio.requestFocus();
                     edtProductoPrecio.setError("Es necesario ingresar todo los datos requeridos");
