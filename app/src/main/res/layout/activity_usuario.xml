@@ -41,6 +41,7 @@
             android:id="@+id/edtUsuarioNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPersonName"
             />
 
         <TextView
@@ -56,6 +57,7 @@
             android:id="@+id/edtUsuarioApellido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPersonName"
             />
 
         <TextView
@@ -84,9 +86,9 @@
 
         <EditText
             android:id="@+id/edtUsuarioContrasena"
-            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             />
 
         <TextView
@@ -102,6 +104,7 @@
             android:id="@+id/edtUsuarioCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
             />
 
         <TextView

@@ -47,6 +47,7 @@ public class AlmacenamientoActivity extends AppCompatActivity {
     Spinner  spinnerEntidadLoc;
     Button   btnSave;
     Button   btnDel;
+    Button   btnVolverAlmac;
     ArrayList<String> listaEntidadesLoc;
     HashMap<String,Long> hashEntidadesLoc;
 
@@ -70,6 +71,7 @@ public class AlmacenamientoActivity extends AppCompatActivity {
 
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
+        btnVolverAlmac = (Button) findViewById(R.id.btnVolverAlmac);
 
         almacenamientoService = APIUtils.getAlmacenamientoService();
         entidadLocService = APIUtils.getEntidadLocService();
@@ -158,6 +160,14 @@ public class AlmacenamientoActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+
+        btnVolverAlmac.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
     }
 

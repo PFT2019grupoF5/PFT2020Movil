@@ -26,6 +26,8 @@ public class AlmacenamientoMainActivity extends AppCompatActivity {
     Button btnAddAlmacenamiento;
     Button btnGetAlmacenamientosList;
     ListView listViewAlmacenamientos;
+    Button btnVolverAlmacMain;
+
 
     AlmacenamientoService almacenamientoService;
     List<Almacenamiento> list = new ArrayList<Almacenamiento>();
@@ -39,6 +41,7 @@ public class AlmacenamientoMainActivity extends AppCompatActivity {
 
         btnAddAlmacenamiento = (Button) findViewById(R.id.btnAddAlmacenamiento);
         btnGetAlmacenamientosList = (Button) findViewById(R.id.btnGetAlmacenamientosList);
+        btnVolverAlmacMain = (Button) findViewById(R.id.btVolverAlmacMain);
         listViewAlmacenamientos = (ListView) findViewById(R.id.listViewAlmacenamientos);
         almacenamientoService = APIUtils.getAlmacenamientoService();
 
@@ -62,6 +65,14 @@ public class AlmacenamientoMainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnVolverAlmacMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     public void getAlmacenamientosList(){
