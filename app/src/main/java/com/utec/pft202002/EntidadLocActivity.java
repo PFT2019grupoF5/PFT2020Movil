@@ -114,15 +114,15 @@ public class EntidadLocActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Por favor seleccione la Ciudad. Gracias", Toast.LENGTH_LONG).show();
                 } else {
 
-                    edtEntidadLocTipoLoc.setText((spinnerTipoLoc.getSelectedItem().toString()));
-                    edtEntidadLocCiudadId.setText(Long.toString(hashCiudades.get(spinnerCiudad.getSelectedItem().toString())));
-
                     EntidadLoc u = new EntidadLoc();
                     u.setCodigo(Integer.parseInt(edtEntidadLocCodigo.getText().toString()));
                     u.setNombre(edtEntidadLocNombre.getText().toString());
                     u.setDireccion(edtEntidadLocDireccion.getText().toString());
+
+                    edtEntidadLocTipoLoc.setText((spinnerTipoLoc.getSelectedItem().toString()));
                     u.setTipoLoc(tipoLoc.valueOf(edtEntidadLocTipoLoc.getText().toString()));
 
+                    edtEntidadLocCiudadId.setText(Long.toString(hashCiudades.get(spinnerCiudad.getSelectedItem().toString())));
                     Long ciudadId = Long.parseLong(edtEntidadLocCiudadId.getText().toString());
                     try {
                         u.setCiudad(ciudadService.getByIdCiudad(ciudadId).execute().body());
@@ -135,9 +135,11 @@ public class EntidadLocActivity extends AppCompatActivity {
                     if (entidadLocId != null && entidadLocId.trim().length() > 0) {
                         //update entidadLoc
                         updateEntidadLoc(Long.parseLong(entidadLocId), u);
+                        finish();
                     } else {
                         //add entidadLoc
                         addEntidadLoc(u);
+                        finish();
                     }
                 }
             }
@@ -184,11 +186,11 @@ public class EntidadLocActivity extends AppCompatActivity {
                     List<Ciudad> ciudadesList = response.body();
 
                     listaCiudades = new ArrayList<>();
-                    hashCiudades = new HashMap<String,Long>();
+                    hashCiudades = new HashMap<String, Long>();
                     listaCiudades.add("---Por favor seleccione Ciudad---");
-                    for (int i=0;i<ciudadesList.size();i++){
-                        hashCiudades.put(ciudadesList.get(i).getNombre(),ciudadesList.get(i).getId());
-                        listaCiudades.add(ciudadesList.get(i).getNombre());
+                    for (int i=0; i < ciudadesList.size(); i++) {
+                        hashCiudades.put(ciudadesList.get(i).getId() + " " +ciudadesList.get(i).getNombre(),ciudadesList.get(i).getId());
+                        listaCiudades.add(ciudadesList.get(i).getId() + " " +ciudadesList.get(i).getNombre());
                     }
                     ArrayAdapter<String> adapterSpinnerCiudades = new ArrayAdapter<String>(EntidadLocActivity.this, android.R.layout.simple_spinner_item, listaCiudades);
                     spinnerCiudad.setAdapter(adapterSpinnerCiudades);
@@ -221,8 +223,8 @@ public class EntidadLocActivity extends AppCompatActivity {
         });
     }
 
-    public void updateEntidadLoc(Long id, EntidadLoc u){
-        Call<EntidadLoc> call = entidadLocService.updateEntidadLoc(id, u);
+    public void updateEntidadLoc(Long id, EntidadLoc entidadLoc){
+        Call<EntidadLoc> call = entidadLocService.updateEntidadLoc(id, entidadLoc);
         call.enqueue(new Callback<EntidadLoc>() {
             @Override
             public void onResponse(Call<EntidadLoc> call, Response<EntidadLoc> response) {

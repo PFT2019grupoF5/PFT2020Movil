@@ -275,14 +275,12 @@ public class ProductoActivity extends AppCompatActivity {
                 } else if (!validator.isValid(edtProductoFelab.getText().toString())) {
                     edtProductoFelab.requestFocus();
                     edtProductoFelab.setError("Pf ingrese fecha válida en formato dd/MM/yyyy : " + edtProductoFelab.getText().toString());
-                    System.out.println("EN EL IF ::: edtProductoFelab: " + edtProductoFelab + "dateFelab: " + dateFelab);
                 } else if (edtProductoFelab.getText().toString().trim().equals("")) {
                     edtProductoFelab.requestFocus();
                     edtProductoFelab.setError("Es necesario ingresar todo los datos requeridos");
                 } else if (!validator.isValid(edtProductoFven.getText().toString())) {
                     edtProductoFven.requestFocus();
                     edtProductoFven.setError("Pf ingrese fecha válida en formato dd/MM/yyyy : " + edtProductoFven.getText().toString());
-                    System.out.println("EN EL IF ::: edtProductoFven: " + edtProductoFven + "dateFven: " + dateFven);
                 } else if (edtProductoFven.getText().toString().trim().equals("")) {
                     edtProductoFven.requestFocus();
                     edtProductoFven.setError("Es necesario ingresar todo los datos requeridos");

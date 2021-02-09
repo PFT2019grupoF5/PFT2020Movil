@@ -100,6 +100,7 @@ public class AlmacenamientoActivity extends AppCompatActivity {
         } else {
             txtAlmacenamientoId.setVisibility(View.INVISIBLE);
             edtAlmacenamientoId.setVisibility(View.INVISIBLE);
+            edtAlmacenamientoEntidadLocId.setVisibility(View.INVISIBLE);
             btnDel.setVisibility(View.INVISIBLE);
         }
 
@@ -107,29 +108,53 @@ public class AlmacenamientoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                edtAlmacenamientoEntidadLocId.setText(Long.toString(hashEntidadesLoc.get(spinnerEntidadLoc.getSelectedItem().toString())));
-
-                Almacenamiento u = new Almacenamiento();
-                u.setNombre(edtAlmacenamientoNombre.getText().toString());
-                u.setCostoop(Double.parseDouble(edtAlmacenamientoCostoOp.getText().toString()));
-                u.setCapestiba(Double.parseDouble(edtAlmacenamientoCapEstiba.getText().toString()));
-                u.setCappeso(Double.parseDouble(edtAlmacenamientoCapPeso.getText().toString()));
-                u.setVolumen(Integer.parseInt(edtAlmacenamientoVolumen.getText().toString()));
-
-                Long entidadLocId = Long.parseLong(edtAlmacenamientoEntidadLocId.getText().toString());
-                try {
-                    u.setEntidadLoc(entidadLocService.getByIdEntidadLoc(entidadLocId).execute().body());
-                } catch (IOException e) {
-                    Toast.makeText(AlmacenamientoActivity.this, "*** No se pudo obtener Local por Id", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
-
-                if(almacenamientoId != null && almacenamientoId.trim().length() > 0){
-                    //update almacenamiento
-                    updateAlmacenamiento(Long.parseLong(almacenamientoId), u);
+                if (edtAlmacenamientoNombre.getText().toString().trim().equals("")) {
+                    edtAlmacenamientoNombre.requestFocus();
+                    edtAlmacenamientoNombre.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtAlmacenamientoNombre.getText().toString().length() > 250) {
+                    edtAlmacenamientoNombre.requestFocus();
+                    edtAlmacenamientoNombre.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
+                } else if (edtAlmacenamientoCostoOp.getText().toString().trim().equals("")) {
+                    edtAlmacenamientoCostoOp.requestFocus();
+                    edtAlmacenamientoCostoOp.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtAlmacenamientoCapEstiba.getText().toString().trim().equals("")) {
+                    edtAlmacenamientoCapEstiba.requestFocus();
+                    edtAlmacenamientoCapEstiba.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtAlmacenamientoCapPeso.getText().toString().trim().equals("")) {
+                    edtAlmacenamientoCapPeso.requestFocus();
+                    edtAlmacenamientoCapPeso.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtAlmacenamientoVolumen.getText().toString().trim().equals("")) {
+                    edtAlmacenamientoVolumen.requestFocus();
+                    edtAlmacenamientoVolumen.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (spinnerEntidadLoc.getSelectedItem().toString().equals("---Por favor seleccione EntidadLoc---")) {
+                    Toast.makeText(getBaseContext(), "Por favor seleccione el Local. Gracias", Toast.LENGTH_LONG).show();
                 } else {
-                    //add almacenamiento
-                    addAlmacenamiento(u);
+
+                    Almacenamiento u = new Almacenamiento();
+                    u.setNombre(edtAlmacenamientoNombre.getText().toString());
+                    u.setCostoop(Double.parseDouble(edtAlmacenamientoCostoOp.getText().toString()));
+                    u.setCapestiba(Double.parseDouble(edtAlmacenamientoCapEstiba.getText().toString()));
+                    u.setCappeso(Double.parseDouble(edtAlmacenamientoCapPeso.getText().toString()));
+                    u.setVolumen(Integer.parseInt(edtAlmacenamientoVolumen.getText().toString()));
+
+                    edtAlmacenamientoEntidadLocId.setText(Long.toString(hashEntidadesLoc.get(spinnerEntidadLoc.getSelectedItem().toString())));
+                    Long entidadLocId = Long.parseLong(edtAlmacenamientoEntidadLocId.getText().toString());
+                    try {
+                        u.setEntidadLoc(entidadLocService.getByIdEntidadLoc(entidadLocId).execute().body());
+                    } catch (IOException e) {
+                        Toast.makeText(AlmacenamientoActivity.this, "*** No se pudo obtener Local por Id", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+
+                    if(almacenamientoId != null && almacenamientoId.trim().length() > 0){
+                        //update almacenamiento
+                        updateAlmacenamiento(Long.parseLong(almacenamientoId), u);
+                        finish();
+                    } else {
+                        //add almacenamiento
+                        addAlmacenamiento(u);
+                        finish();
+                    }
                 }
             }
         });
@@ -145,8 +170,7 @@ public class AlmacenamientoActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 deleteAlmacenamiento(Long.parseLong(almacenamientoId));
-                                Intent intent = new Intent(AlmacenamientoActivity.this, AlmacenamientoMainActivity.class);
-                                startActivity(intent);
+                                finish();
 
                             }
                         }).
@@ -184,8 +208,8 @@ public class AlmacenamientoActivity extends AppCompatActivity {
                     hashEntidadesLoc = new HashMap<String,Long>();
                     listaEntidadesLoc.add("---Por favor seleccione EntidadLoc---");
                     for (int i=0;i<entidadesLocList.size();i++){
-                        hashEntidadesLoc.put(entidadesLocList.get(i).getNombre(),entidadesLocList.get(i).getId());
-                        listaEntidadesLoc.add(entidadesLocList.get(i).getNombre());
+                        hashEntidadesLoc.put(entidadesLocList.get(i).getId() + " " +entidadesLocList.get(i).getNombre(),entidadesLocList.get(i).getId());
+                        listaEntidadesLoc.add(entidadesLocList.get(i).getId() + " " +entidadesLocList.get(i).getNombre());
                     }
                     ArrayAdapter<String> adapterSpinnerEntidadesLoc = new ArrayAdapter<String>(AlmacenamientoActivity.this, android.R.layout.simple_spinner_item, listaEntidadesLoc);
                     spinnerEntidadLoc.setAdapter(adapterSpinnerEntidadesLoc);
@@ -218,8 +242,8 @@ public class AlmacenamientoActivity extends AppCompatActivity {
         });
     }
 
-    public void updateAlmacenamiento(Long id, Almacenamiento u){
-        Call<Almacenamiento> call = almacenamientoService.updateAlmacenamiento(id, u);
+    public void updateAlmacenamiento(Long id, Almacenamiento almacenamiento){
+        Call<Almacenamiento> call = almacenamientoService.updateAlmacenamiento(id, almacenamiento);
         call.enqueue(new Callback<Almacenamiento>() {
             @Override
             public void onResponse(Call<Almacenamiento> call, Response<Almacenamiento> response) {
