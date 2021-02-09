@@ -25,6 +25,7 @@ public class CiudadMainActivity extends AppCompatActivity {
 
     Button btnAddCiudad;
     Button btnGetCiudadesList;
+    Button btVolverCiudMain;
     ListView listViewCiudades;
 
     CiudadService ciudadService;
@@ -39,6 +40,7 @@ public class CiudadMainActivity extends AppCompatActivity {
 
         btnAddCiudad = (Button) findViewById(R.id.btnAddCiudad);
         btnGetCiudadesList = (Button) findViewById(R.id.btnGetCiudadesList);
+        btVolverCiudMain = (Button) findViewById(R.id.btVolverCiudMain);
         listViewCiudades = (ListView) findViewById(R.id.listViewCiudades);
         ciudadService = APIUtils.getCiudadService();
 
@@ -55,6 +57,12 @@ public class CiudadMainActivity extends AppCompatActivity {
                 Intent intent = new Intent(CiudadMainActivity.this, CiudadActivity.class);
                 intent.putExtra("ciudad_nombre", "");
                 startActivity(intent);
+            }
+        });
+        btVolverCiudMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

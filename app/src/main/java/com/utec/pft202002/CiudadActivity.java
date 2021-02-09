@@ -29,6 +29,7 @@ public class CiudadActivity extends AppCompatActivity {
     EditText edtCiudadNombre;
     Button btnSave;
     Button btnDel;
+    Button btnVolverCiud;
     TextView txtCiudadId;
 
     @Override
@@ -44,6 +45,7 @@ public class CiudadActivity extends AppCompatActivity {
         edtCiudadNombre = (EditText) findViewById(R.id.edtCiudadNombre);
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
+        btnVolverCiud = (Button) findViewById(R.id.btnVolverCiud);
 
         ciudadService = APIUtils.getCiudadService();
 
@@ -65,14 +67,26 @@ public class CiudadActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Ciudad u = new Ciudad();
-                u.setNombre(edtCiudadNombre.getText().toString());
-                if(ciudadId != null && ciudadId.trim().length() > 0){
-                    //update ciudad
-                    updateCiudad(Long.parseLong(ciudadId), u);
-                } else {
-                    //add ciudad
-                    addCiudad(u);
+
+                if (edtCiudadNombre.getText().toString().trim().equals("")) {
+                    edtCiudadNombre.requestFocus();
+                    edtCiudadNombre.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtCiudadNombre.getText().toString().length() > 50) {
+                    System.out.println("edtProductoNombre : " + edtCiudadNombre.toString());
+                    edtCiudadNombre.requestFocus();
+                    edtCiudadNombre.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
+                }else {
+                    Ciudad u = new Ciudad();
+                    u.setNombre(edtCiudadNombre.getText().toString());
+                    if (ciudadId != null && ciudadId.trim().length() > 0) {
+                        //update ciudad
+                        updateCiudad(Long.parseLong(ciudadId), u);
+                        finish();
+                    } else {
+                        //add ciudad
+                        addCiudad(u);
+                        finish();
+                    }
                 }
             }
         });
@@ -88,8 +102,7 @@ public class CiudadActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 deleteCiudad(Long.parseLong(ciudadId));
-                                Intent intent = new Intent(CiudadActivity.this, CiudadMainActivity.class);
-                                startActivity(intent);
+                                finish();
 
                             }
                         }).
@@ -102,6 +115,13 @@ public class CiudadActivity extends AppCompatActivity {
                 AlertDialog alertDialog=builder.create();
                 alertDialog.show();
 
+            }
+        });
+
+        btnVolverCiud.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
