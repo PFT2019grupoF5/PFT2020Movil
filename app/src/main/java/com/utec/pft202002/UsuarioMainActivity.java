@@ -25,6 +25,7 @@ public class UsuarioMainActivity extends AppCompatActivity {
 
     Button btnAddUsuario;
     Button btnGetUsuariosList;
+    Button btnVolverUsuMain;
     ListView listViewUsuarios;
 
     UsuarioService usuarioService;
@@ -39,6 +40,7 @@ public class UsuarioMainActivity extends AppCompatActivity {
 
         btnAddUsuario = (Button) findViewById(R.id.btnAddUsuario);
         btnGetUsuariosList = (Button) findViewById(R.id.btnGetUsuariosList);
+        btnVolverUsuMain = (Button) findViewById(R.id.btnVolverUsuMain);
         listViewUsuarios = (ListView) findViewById(R.id.listViewUsuarios);
         usuarioService = APIUtils.getUsuarioService();
 
@@ -60,6 +62,12 @@ public class UsuarioMainActivity extends AppCompatActivity {
                 intent.putExtra("usuario_correo", "");
                 intent.putExtra("usuario_tipoperfil", "");
                 startActivity(intent);
+            }
+        });
+        btnVolverUsuMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

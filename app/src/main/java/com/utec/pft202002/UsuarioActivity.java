@@ -39,6 +39,7 @@ public class UsuarioActivity extends AppCompatActivity {
     Spinner  spinnerTipoPerfil;
     Button   btnSave;
     Button   btnDel;
+    Button   btnVolverUsu;
 
 
     @Override
@@ -62,6 +63,7 @@ public class UsuarioActivity extends AppCompatActivity {
 
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
+        btnVolverUsu = (Button) findViewById(R.id.btnVolverUsu);
 
         usuarioService = APIUtils.getUsuarioService();
 
@@ -146,6 +148,12 @@ public class UsuarioActivity extends AppCompatActivity {
                 AlertDialog alertDialog=builder.create();
                 alertDialog.show();
 
+            }
+        });
+        btnVolverUsu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
