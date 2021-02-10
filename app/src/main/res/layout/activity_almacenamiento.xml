@@ -242,6 +242,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="number" />
 
+
                     <Spinner
                         android:id="@+id/spinnerEntidadLoc"
                         android:layout_width="200dp"
