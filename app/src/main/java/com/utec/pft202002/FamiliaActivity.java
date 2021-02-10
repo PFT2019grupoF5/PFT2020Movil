@@ -31,6 +31,7 @@ public class FamiliaActivity extends AppCompatActivity {
     EditText edtFamiliaIncompat;
     Button btnSave;
     Button btnDel;
+    Button btnVolverFami;
     TextView txtFamiliaId;
 
     @Override
@@ -48,6 +49,7 @@ public class FamiliaActivity extends AppCompatActivity {
         edtFamiliaIncompat = (EditText) findViewById(R.id.edtFamiliaIncompat);
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
+        btnVolverFami = (Button)  findViewById(R.id.btnVolverFami);
 
         familiaService = APIUtils.getFamiliaService();
 
@@ -73,16 +75,28 @@ public class FamiliaActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Familia u = new Familia();
-                u.setNombre(edtFamiliaNombre.getText().toString());
-                u.setDescrip(edtFamiliaDescrip.getText().toString());
-                u.setIncompat(edtFamiliaIncompat.getText().toString());
-                if(familiaId != null && familiaId.trim().length() > 0){
-                    //update familia
-                    updateFamilia(Long.parseLong(familiaId), u);
+
+                if (edtFamiliaNombre.getText().toString().trim().equals("")) {
+                    edtFamiliaNombre.requestFocus();
+                    edtFamiliaNombre.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtFamiliaNombre.getText().toString().length() > 50) {
+                    System.out.println("edtFamiliaNombre : " + edtFamiliaNombre.toString());
+                    edtFamiliaNombre.requestFocus();
+                    edtFamiliaNombre.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
                 } else {
-                    //add familia
-                    addFamilia(u);
+                    Familia u = new Familia();
+                    u.setNombre(edtFamiliaNombre.getText().toString());
+                    u.setDescrip(edtFamiliaDescrip.getText().toString());
+                    u.setIncompat(edtFamiliaIncompat.getText().toString());
+                    if (familiaId != null && familiaId.trim().length() > 0) {
+                        //update familia
+                        updateFamilia(Long.parseLong(familiaId), u);
+                        finish();
+                    } else {
+                        //add familia
+                        addFamilia(u);
+                        finish();
+                    }
                 }
             }
         });
@@ -111,6 +125,13 @@ public class FamiliaActivity extends AppCompatActivity {
                         });
                 AlertDialog alertDialog=builder.create();
                 alertDialog.show();
+            }
+        });
+
+        btnVolverFami.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

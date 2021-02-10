@@ -25,6 +25,7 @@ public class FamiliaMainActivity extends AppCompatActivity {
 
     Button btnAddFamilia;
     Button btnGetFamiliasList;
+    Button btnVolverFamiMain;
     ListView listViewFamilias;
 
     FamiliaService familiaService;
@@ -39,6 +40,7 @@ public class FamiliaMainActivity extends AppCompatActivity {
 
         btnAddFamilia = (Button) findViewById(R.id.btnAddFamilia);
         btnGetFamiliasList = (Button) findViewById(R.id.btnGetFamiliasList);
+        btnVolverFamiMain = (Button) findViewById(R.id.btnVolverFamiMain);
         listViewFamilias = (ListView) findViewById(R.id.listViewFamilias);
         familiaService = APIUtils.getFamiliaService();
 
@@ -57,6 +59,12 @@ public class FamiliaMainActivity extends AppCompatActivity {
                 intent.putExtra("familia_descrip", "");
                 intent.putExtra("familia_incompat", "");
                 startActivity(intent);
+            }
+        });
+        btnVolverFamiMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
