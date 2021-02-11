@@ -174,9 +174,9 @@
 
                 <EditText
                     android:id="@+id/edtEntidadLocTipoLoc"
+                    android:textSize="9dp"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content" />
-                    />
 
                 <Spinner
                     android:id="@+id/spinnerTipoLoc"
