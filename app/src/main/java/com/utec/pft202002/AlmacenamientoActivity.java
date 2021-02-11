@@ -2,7 +2,6 @@ package com.utec.pft202002;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -213,7 +212,10 @@ public class AlmacenamientoActivity extends AppCompatActivity {
                     }
                     ArrayAdapter<String> adapterSpinnerEntidadesLoc = new ArrayAdapter<String>(AlmacenamientoActivity.this, android.R.layout.simple_spinner_item, listaEntidadesLoc);
                     spinnerEntidadLoc.setAdapter(adapterSpinnerEntidadesLoc);
+                } else  {
+                    Toast.makeText(AlmacenamientoActivity.this, "getEntidadesLoc: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
+
             }
             @Override
             public void onFailure(Call<List<EntidadLoc>> call, Throwable t) {
@@ -231,6 +233,8 @@ public class AlmacenamientoActivity extends AppCompatActivity {
             public void onResponse(Call<Almacenamiento> call, Response<Almacenamiento> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(AlmacenamientoActivity.this, "Almacenamiento creado ok!", Toast.LENGTH_SHORT).show();
+                } else  {
+                    Toast.makeText(AlmacenamientoActivity.this, "No fue posible agregar el Almacenamiento. Verifique los datos ingresados.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -249,6 +253,8 @@ public class AlmacenamientoActivity extends AppCompatActivity {
             public void onResponse(Call<Almacenamiento> call, Response<Almacenamiento> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(AlmacenamientoActivity.this, "Almacenamiento modificado ok!", Toast.LENGTH_SHORT).show();
+                } else  {
+                    Toast.makeText(AlmacenamientoActivity.this, "No fue posible modificar el Almacenamiento. Verifique los datos ingresados.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -287,6 +293,8 @@ public class AlmacenamientoActivity extends AppCompatActivity {
             public void onResponse(Call<Almacenamiento> call, Response<Almacenamiento> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(AlmacenamientoActivity.this, "Almacenamiento encontrado ok!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AlmacenamientoActivity.this, "No fue posible obtener el Almacenamiento por Id.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -308,5 +316,5 @@ public class AlmacenamientoActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    
+
 }

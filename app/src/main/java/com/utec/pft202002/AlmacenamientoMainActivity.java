@@ -25,8 +25,8 @@ public class AlmacenamientoMainActivity extends AppCompatActivity {
 
     Button btnAddAlmacenamiento;
     Button btnGetAlmacenamientosList;
-    ListView listViewAlmacenamientos;
     Button btnVolverAlmacMain;
+    ListView listViewAlmacenamientos;
 
 
     AlmacenamientoService almacenamientoService;
@@ -83,6 +83,8 @@ public class AlmacenamientoMainActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     list = response.body();
                     listViewAlmacenamientos.setAdapter(new AlmacenamientoAdapter(AlmacenamientoMainActivity.this, R.layout.list_almacenamiento, list));
+                } else  {
+                    Toast.makeText(AlmacenamientoMainActivity.this, "getAlmacenamientos: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
             }
 

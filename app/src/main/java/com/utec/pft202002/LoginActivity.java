@@ -91,12 +91,14 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(LoginActivity.this, "Usuario o Contraseña no Válidas, por favor revise los datos ingresados.", Toast.LENGTH_SHORT).show();
                     }
+                } else  {
+                    Toast.makeText(LoginActivity.this, "Login: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Error en respuesta de usuarioService.login", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Error en respuesta de usuarioService.login", Toast.LENGTH_LONG).show();
                 Log.e("ERROR: ", t.getMessage());
 
             }
