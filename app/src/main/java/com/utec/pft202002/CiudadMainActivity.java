@@ -75,6 +75,8 @@ public class CiudadMainActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     list = response.body();
                     listViewCiudades.setAdapter(new CiudadAdapter(CiudadMainActivity.this, R.layout.list_ciudad, list));
+                } else  {
+                    Toast.makeText(CiudadMainActivity.this, "getCiudades: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -90,6 +90,8 @@ public class ProductoMainActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     list = response.body();
                     listViewProductos.setAdapter(new ProductoAdapter(ProductoMainActivity.this, R.layout.list_producto, list));
+                } else  {
+                    Toast.makeText(ProductoMainActivity.this, "getProductos: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
             }
 

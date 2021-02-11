@@ -25,12 +25,13 @@ import retrofit2.Response;
 public class CiudadActivity extends AppCompatActivity {
 
     CiudadService ciudadService;
+
     EditText edtCiudadId;
     EditText edtCiudadNombre;
+    TextView txtCiudadId;
     Button btnSave;
     Button btnDel;
     Button btnVolverCiud;
-    TextView txtCiudadId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,7 @@ public class CiudadActivity extends AppCompatActivity {
                     edtCiudadNombre.requestFocus();
                     edtCiudadNombre.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
                 }else {
+
                     Ciudad u = new Ciudad();
                     u.setNombre(edtCiudadNombre.getText().toString());
                     if (ciudadId != null && ciudadId.trim().length() > 0) {
@@ -134,6 +136,8 @@ public class CiudadActivity extends AppCompatActivity {
             public void onResponse(Call<Ciudad> call, Response<Ciudad> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(CiudadActivity.this, "Ciudad creada ok!", Toast.LENGTH_SHORT).show();
+                } else  {
+                    Toast.makeText(CiudadActivity.this, "No fue posible agregar la Ciudad. Verifique los datos ingresados.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -152,6 +156,8 @@ public class CiudadActivity extends AppCompatActivity {
             public void onResponse(Call<Ciudad> call, Response<Ciudad> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(CiudadActivity.this, "Ciudad modificada ok!", Toast.LENGTH_SHORT).show();
+                } else  {
+                    Toast.makeText(CiudadActivity.this, "No fue posible modificar la Ciudad. Verifique los datos ingresados.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -190,6 +196,8 @@ public class CiudadActivity extends AppCompatActivity {
             public void onResponse(Call<Ciudad> call, Response<Ciudad> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(CiudadActivity.this, "Ciudad encontrada ok!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(CiudadActivity.this, "No fue posible obtener la Ciudad por Id.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -211,5 +219,5 @@ public class CiudadActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    
+
 }
