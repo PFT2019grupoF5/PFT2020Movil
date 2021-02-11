@@ -25,6 +25,7 @@ public class EntidadLocMainActivity extends AppCompatActivity {
 
     Button btnAddEntidadLoc;
     Button btnGetEntidadesLocList;
+    Button btnVolverEntLocMain;
     ListView listViewEntidadesLoc;
 
     EntidadLocService entidadLocService;
@@ -39,6 +40,7 @@ public class EntidadLocMainActivity extends AppCompatActivity {
 
         btnAddEntidadLoc = (Button) findViewById(R.id.btnAddEntidadLoc);
         btnGetEntidadesLocList = (Button) findViewById(R.id.btnGetEntidadesLocList);
+        btnVolverEntLocMain = (Button) findViewById(R.id.btnVolverEntLocMain);
         listViewEntidadesLoc = (ListView) findViewById(R.id.listViewEntidadesLoc);
         entidadLocService = APIUtils.getEntidadLocService();
 
@@ -61,6 +63,14 @@ public class EntidadLocMainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnVolverEntLocMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     public void getEntidadesLocList(){
@@ -71,6 +81,8 @@ public class EntidadLocMainActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     list = response.body();
                     listViewEntidadesLoc.setAdapter(new EntidadLocAdapter(EntidadLocMainActivity.this, R.layout.list_entidadloc, list));
+                } else  {
+                    Toast.makeText(EntidadLocMainActivity.this, "getEntidadesLoc: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
             }
 

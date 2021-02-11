@@ -2,7 +2,6 @@ package com.utec.pft202002;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -48,6 +47,7 @@ public class EntidadLocActivity extends AppCompatActivity {
     Spinner  spinnerCiudad;
     Button   btnSave;
     Button   btnDel;
+    Button   btnVolverEntLoc;
     ArrayList<String> listaCiudades;
     HashMap<String,Long> hashCiudades;
 
@@ -72,6 +72,7 @@ public class EntidadLocActivity extends AppCompatActivity {
 
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDel = (Button) findViewById(R.id.btnDel);
+        btnVolverEntLoc = (Button) findViewById(R.id.btnVolverEntLoc);
 
         entidadLocService = APIUtils.getEntidadLocService();
         ciudadService = APIUtils.getCiudadService();
@@ -98,6 +99,7 @@ public class EntidadLocActivity extends AppCompatActivity {
         } else {
             txtEntidadLocId.setVisibility(View.INVISIBLE);
             edtEntidadLocId.setVisibility(View.INVISIBLE);
+            edtEntidadLocCiudadId.setVisibility(View.INVISIBLE);
             btnDel.setVisibility(View.INVISIBLE);
         }
 
@@ -106,8 +108,21 @@ public class EntidadLocActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                if (edtEntidadLocCodigo.getText().toString().trim().equals("") || edtEntidadLocNombre.getText().toString().trim().equals("") || edtEntidadLocDireccion.getText().toString().trim().equals("") ) {
-                    Toast.makeText(getBaseContext(), "Es necesario ingresar todo los datos requeridos", Toast.LENGTH_LONG).show();
+                if (edtEntidadLocNombre.getText().toString().trim().equals("")) {
+                    edtEntidadLocNombre.requestFocus();
+                    edtEntidadLocNombre.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtEntidadLocNombre.getText().toString().length() > 50) {
+                    edtEntidadLocNombre.requestFocus();
+                    edtEntidadLocNombre.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
+                } else if (edtEntidadLocCodigo.getText().toString().trim().equals("")) {
+                    edtEntidadLocCodigo.requestFocus();
+                    edtEntidadLocCodigo.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtEntidadLocDireccion.getText().toString().trim().equals("")) {
+                    edtEntidadLocDireccion.requestFocus();
+                    edtEntidadLocDireccion.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtEntidadLocDireccion.getText().toString().length() > 50) {
+                    edtEntidadLocDireccion.requestFocus();
+                    edtEntidadLocDireccion.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
                 } else if (spinnerTipoLoc.getSelectedItem().toString().equals("---Por favor seleccione Tipo de Local---")) {
                     Toast.makeText(getBaseContext(), "Por favor seleccione un Tipo de Local. Gracias", Toast.LENGTH_LONG).show();
                 } else if (spinnerCiudad.getSelectedItem().toString().equals("---Por favor seleccione Ciudad---")) {
@@ -129,7 +144,6 @@ public class EntidadLocActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         Toast.makeText(getBaseContext(), "*** No se pudo obtener Ciudad por Id", Toast.LENGTH_LONG).show();
                         e.printStackTrace();
-                        finish();
                     }
 
                     if (entidadLocId != null && entidadLocId.trim().length() > 0) {
@@ -156,8 +170,7 @@ public class EntidadLocActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 deleteEntidadLoc(Long.parseLong(entidadLocId));
-                                Intent intent = new Intent(EntidadLocActivity.this, EntidadLocMainActivity.class);
-                                startActivity(intent);
+                                finish();
 
                             }
                         }).
@@ -170,6 +183,13 @@ public class EntidadLocActivity extends AppCompatActivity {
                 AlertDialog alertDialog=builder.create();
                 alertDialog.show();
 
+            }
+        });
+
+        btnVolverEntLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -194,6 +214,8 @@ public class EntidadLocActivity extends AppCompatActivity {
                     }
                     ArrayAdapter<String> adapterSpinnerCiudades = new ArrayAdapter<String>(EntidadLocActivity.this, android.R.layout.simple_spinner_item, listaCiudades);
                     spinnerCiudad.setAdapter(adapterSpinnerCiudades);
+                } else  {
+                    Toast.makeText(EntidadLocActivity.this, "getCiudades: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -212,6 +234,8 @@ public class EntidadLocActivity extends AppCompatActivity {
             public void onResponse(Call<EntidadLoc> call, Response<EntidadLoc> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(EntidadLocActivity.this, "EntidadLoc creada ok!", Toast.LENGTH_SHORT).show();
+                } else  {
+                    Toast.makeText(EntidadLocActivity.this, "No fue posible agregar el Local. Verifique los datos ingresados.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -230,6 +254,8 @@ public class EntidadLocActivity extends AppCompatActivity {
             public void onResponse(Call<EntidadLoc> call, Response<EntidadLoc> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(EntidadLocActivity.this, "EntidadLoc modificada ok!", Toast.LENGTH_SHORT).show();
+                } else  {
+                    Toast.makeText(EntidadLocActivity.this, "No fue posible modificar el Local. Verifique los datos ingresados.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -268,6 +294,8 @@ public class EntidadLocActivity extends AppCompatActivity {
             public void onResponse(Call<EntidadLoc> call, Response<EntidadLoc> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(EntidadLocActivity.this, "EntidadLoc encontrada ok!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(EntidadLocActivity.this, "No fue posible obtener el Local por Id.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -290,5 +318,5 @@ public class EntidadLocActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    
+
 }
