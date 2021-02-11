@@ -208,9 +208,9 @@ public class Reporte2MainActivity extends AppCompatActivity {
                         Call<List<RenglonPedido>> call2 = renglonPedidoService.getRenglonesDelPedido(pedido.getId());
                         call2.enqueue(new Callback<List<RenglonPedido>>() {
                             @Override
-                            public void onResponse(Call<List<RenglonPedido>> call, Response<List<RenglonPedido>> response) {
-                                if(response.isSuccessful()){
-                                    listRenglonesPedido = response.body();
+                            public void onResponse(Call<List<RenglonPedido>> call2, Response<List<RenglonPedido>> response2) {
+                                if(response2.isSuccessful()){
+                                    listRenglonesPedido = response2.body();
                                     for (RenglonPedido renglonPedido : listRenglonesPedido) {
                                         RenglonReporte rr = new RenglonReporte();
                                         rr.setPedreccodigo(pedido.getPedreccodigo());
@@ -221,12 +221,16 @@ public class Reporte2MainActivity extends AppCompatActivity {
                                         rr.setRencant(renglonPedido.getRencant());
                                         listRenglonesReporte.add(rr);
                                     }
+                                } else  {
+                                    Toast.makeText(Reporte2MainActivity.this, "getRenglonesDelPedido: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
                             }
                             @Override
                             public void onFailure(Call<List<RenglonPedido>> call2, Throwable t) {
                                 Toast.makeText(Reporte2MainActivity.this, "*** No se pudo obtener Lista de Renglones del Pedido", Toast.LENGTH_SHORT).show();
                                 Log.e("ERROR: ", t.getMessage());
+                                finish();
                             }
                         });
                     }
@@ -234,6 +238,10 @@ public class Reporte2MainActivity extends AppCompatActivity {
                     ArrayAdapter<RenglonReporte> reporte2Adapter = new Reporte2Adapter(Reporte2MainActivity.this, R.layout.list_reporte2, listRenglonesReporte);
                     reporte2Adapter.notifyDataSetChanged();
                     listViewReporte2.setAdapter(reporte2Adapter);
+
+//                    listViewReporte2.setAdapter(new Reporte2Adapter(Reporte2MainActivity.this, R.layout.list_reporte2, listRenglonesReporte));
+                } else  {
+                    Toast.makeText(Reporte2MainActivity.this, "getPedidosEntreFechas: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
