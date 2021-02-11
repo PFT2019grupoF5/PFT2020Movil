@@ -107,7 +107,6 @@ public class EntidadLocActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 if (edtEntidadLocNombre.getText().toString().trim().equals("")) {
                     edtEntidadLocNombre.requestFocus();
                     edtEntidadLocNombre.setError("Es necesario ingresar todo los datos requeridos");
