@@ -83,6 +83,9 @@
                         android:id="@+id/edtFamiliaNombre"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
+                        android:hint="Máximo 50 caracteres."
+                        android:maxLength="50"
+                        android:textSize="10sp"
                         />
                 </LinearLayout>
 
@@ -115,6 +118,9 @@
                         android:id="@+id/edtFamiliaDescrip"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
+                        android:hint="Máximo 100 caracteres."
+                        android:maxLength="100"
+                        android:textSize="10sp"
                         />
 
                 </LinearLayout>
@@ -148,6 +154,9 @@
                         android:id="@+id/edtFamiliaIncompat"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
+                        android:hint="Máximo 60 caracteres."
+                        android:maxLength="60"
+                        android:textSize="10sp"
                         />
 
                 </LinearLayout>
