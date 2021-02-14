@@ -61,11 +61,13 @@ public class Reporte2MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reporte2_main);
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        setTitle("Reporte Pedidos: " + dtf.format(now) );
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date now = new Date();
+        setTitle("Reporte2 Pedidos: " + sdf.format(now) );
+
+        sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
         edtReporte2FechaDesde = (EditText) findViewById(R.id.edtReporte2FechaDesde);
