@@ -188,7 +188,7 @@ public class PedidoActivity extends AppCompatActivity {
         });
 
         final Date PedRecFecha1 = PedRecFecha;
-        edtPedidoFecha.setOnClickListener(new View.OnClickListener() {
+        edtPedidoPedRecFecha .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
@@ -240,8 +240,6 @@ public class PedidoActivity extends AppCompatActivity {
         };
 
         edtPedidoPedRecCodigo.setText(pedidoPedRecCodigo);
-
-
         edtPedidoPedRecComentario.setText(pedidoPedRecComentario);
         edtPedidoUsuarioId.setText(pedidoUsuarioId);
 
@@ -277,7 +275,10 @@ public class PedidoActivity extends AppCompatActivity {
                 } else if  (edtPedidoPedRecComentario.getText().toString().trim().equals("")) {
                     edtPedidoPedRecComentario.requestFocus();
                     edtPedidoPedRecComentario.setError("Es necesario ingresar todo los datos requeridos");
-                }else if  (spinnerEstadoPedido.getSelectedItem().toString().equals("---Por favor seleccione Estado del Pedido---")){
+                } else if (edtPedidoPedRecComentario.getText().toString().length() > 250) {
+                    edtPedidoPedRecComentario.requestFocus();
+                    edtPedidoPedRecComentario.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
+                } else if  (spinnerEstadoPedido.getSelectedItem().toString().equals("---Por favor seleccione Estado del Pedido---")){
                     Toast.makeText(getBaseContext(),"Por favor seleccione el Estado del Pedido. Gracias",Toast.LENGTH_LONG).show();
                 } else if (spinnerUsuario.getSelectedItem().toString().equals("---Por favor seleccione Usuario---")) {
                     Toast.makeText(getBaseContext(), "Por favor seleccione el Usuario. Gracias", Toast.LENGTH_LONG).show();
@@ -400,6 +401,8 @@ public class PedidoActivity extends AppCompatActivity {
                     }
                     ArrayAdapter<String> adapterSpinnerUsuarios = new ArrayAdapter<String>(PedidoActivity.this, android.R.layout.simple_spinner_item, listaUsuarios);
                     spinnerUsuario.setAdapter(adapterSpinnerUsuarios);
+                } else  {
+                    Toast.makeText(PedidoActivity.this, "getUsuarios: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -425,6 +428,8 @@ public class PedidoActivity extends AppCompatActivity {
                     }
                     ArrayAdapter<String> adapterSpinnerRenglonesDelPedido = new ArrayAdapter<String>(PedidoActivity.this, android.R.layout.simple_spinner_item, listaRenglonesDelPedido);
                     spinnerRenglonesDelPedido.setAdapter(adapterSpinnerRenglonesDelPedido);
+                } else  {
+                    Toast.makeText(PedidoActivity.this, "getRenglonesDelPedido: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -458,6 +463,8 @@ public class PedidoActivity extends AppCompatActivity {
             public void onResponse(Call<Pedido> call, Response<Pedido> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(PedidoActivity.this, "Pedido creado ok!", Toast.LENGTH_SHORT).show();
+                } else  {
+                    Toast.makeText(PedidoActivity.this, "No fue posible agregar el Pedido. Verifique los datos ingresados.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -476,6 +483,8 @@ public class PedidoActivity extends AppCompatActivity {
             public void onResponse(Call<Pedido> call, Response<Pedido> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(PedidoActivity.this, "Pedido modificado ok!", Toast.LENGTH_SHORT).show();
+                } else  {
+                    Toast.makeText(PedidoActivity.this, "No fue posible modificar el Pedido. Verifique los datos ingresados.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -514,6 +523,8 @@ public class PedidoActivity extends AppCompatActivity {
             public void onResponse(Call<Pedido> call, Response<Pedido> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(PedidoActivity.this, "Pedido encontrado ok!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(PedidoActivity.this, "No fue posible obtener el Pedido por Id.", Toast.LENGTH_SHORT).show();
                 }
             }
 

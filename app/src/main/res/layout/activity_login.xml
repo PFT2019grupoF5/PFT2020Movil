@@ -40,7 +40,9 @@
         <EditText
             android:id="@+id/edtUsuarioNomAcceso"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Ingrese userId. Máximo 50 caracteres."
+            android:maxLength="50" />
 
         <TextView
             android:id="@+id/txtUsuarioContrasena"
@@ -54,7 +56,9 @@
             android:id="@+id/edtUsuarioContrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:hint="Ingrese contraseña. Min 8 / Max 16 caracteres."
+            android:inputType="textPassword"
+            android:maxLength="16" />
 
         <Button
             android:id="@+id/btnLogin"

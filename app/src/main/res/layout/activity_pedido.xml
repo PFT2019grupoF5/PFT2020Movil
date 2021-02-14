@@ -242,7 +242,10 @@
                     <EditText
                         android:id="@+id/edtPedidoRecComentario"
                         android:layout_width="250dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:hint="Para Perdidas se sugiere: Extravío ProdX AlmY, Rotura, Cadena de Frío, Vencimiento, Empaque Defectuoso, Error Manipulación, ... Máximo 250 caracteres."
+                        android:maxLength="250"
+                        android:textSize="10sp" />
                 </LinearLayout>
 
                 <LinearLayout

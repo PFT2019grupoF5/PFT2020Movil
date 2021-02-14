@@ -25,14 +25,15 @@ import retrofit2.Response;
 public class FamiliaActivity extends AppCompatActivity {
 
     FamiliaService familiaService;
+
     EditText edtFamiliaId;
     EditText edtFamiliaNombre;
     EditText edtFamiliaDescrip;
     EditText edtFamiliaIncompat;
+    TextView txtFamiliaId;
     Button btnSave;
     Button btnDel;
     Button btnVolverFami;
-    TextView txtFamiliaId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +81,22 @@ public class FamiliaActivity extends AppCompatActivity {
                     edtFamiliaNombre.requestFocus();
                     edtFamiliaNombre.setError("Es necesario ingresar todo los datos requeridos");
                 } else if (edtFamiliaNombre.getText().toString().length() > 50) {
-                    System.out.println("edtFamiliaNombre : " + edtFamiliaNombre.toString());
                     edtFamiliaNombre.requestFocus();
                     edtFamiliaNombre.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
+                } else if (edtFamiliaDescrip.getText().toString().trim().equals("")) {
+                    edtFamiliaDescrip.requestFocus();
+                    edtFamiliaDescrip.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtFamiliaDescrip.getText().toString().length() > 100) {
+                    edtFamiliaDescrip.requestFocus();
+                    edtFamiliaDescrip.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
+                } else if (edtFamiliaIncompat.getText().toString().trim().equals("")) {
+                    edtFamiliaIncompat.requestFocus();
+                    edtFamiliaIncompat.setError("Es necesario ingresar todo los datos requeridos");
+                } else if (edtFamiliaIncompat.getText().toString().length() > 60) {
+                    edtFamiliaIncompat.requestFocus();
+                    edtFamiliaIncompat.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
                 } else {
+
                     Familia u = new Familia();
                     u.setNombre(edtFamiliaNombre.getText().toString());
                     u.setDescrip(edtFamiliaDescrip.getText().toString());
@@ -112,8 +125,7 @@ public class FamiliaActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 deleteFamilia(Long.parseLong(familiaId));
-                                Intent intent = new Intent(FamiliaActivity.this, FamiliaMainActivity.class);
-                                startActivity(intent);
+                                finish();
 
                             }
                         }).
@@ -144,6 +156,8 @@ public class FamiliaActivity extends AppCompatActivity {
             public void onResponse(Call<Familia> call, Response<Familia> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(FamiliaActivity.this, "Familia creada ok!", Toast.LENGTH_SHORT).show();
+                } else  {
+                    Toast.makeText(FamiliaActivity.this, "No fue posible agregar la Familia. Verifique los datos ingresados.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -162,6 +176,8 @@ public class FamiliaActivity extends AppCompatActivity {
             public void onResponse(Call<Familia> call, Response<Familia> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(FamiliaActivity.this, "Familia modificada ok!", Toast.LENGTH_SHORT).show();
+                } else  {
+                    Toast.makeText(FamiliaActivity.this, "No fue posible modificar la Familia. Verifique los datos ingresados.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -200,6 +216,8 @@ public class FamiliaActivity extends AppCompatActivity {
             public void onResponse(Call<Familia> call, Response<Familia> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(FamiliaActivity.this, "Familia encontrada ok!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(FamiliaActivity.this, "No fue posible obtener la Familia por Id.", Toast.LENGTH_SHORT).show();
                 }
             }
 

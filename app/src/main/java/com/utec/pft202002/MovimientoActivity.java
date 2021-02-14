@@ -205,10 +205,12 @@ public class MovimientoActivity extends AppCompatActivity {
                 if (!validator.isValid(edtMovimientoFecha.getText().toString())) {
                     edtMovimientoFecha.requestFocus();
                     edtMovimientoFecha.setError("Pf ingrese fecha válida en formato dd/MM/yyyy : " + edtMovimientoFecha.getText().toString());
-                    System.out.println("EN EL IF ::: edtMovimientoFecha: " + edtMovimientoFecha);
                 } else if  (edtMovimientoCantidad.getText().toString().trim().equals("")) {
                     edtMovimientoCantidad.requestFocus();
                     edtMovimientoCantidad.setError("Es necesario ingresar todo los datos requeridos");
+                } else if  (edtMovimientoDescripcion.getText().toString().trim().equals("")) {
+                    edtMovimientoDescripcion.requestFocus();
+                    edtMovimientoDescripcion.setError("Es necesario ingresar todo los datos requeridos");
                 } else if (edtMovimientoDescripcion.getText().toString().trim().length() > 250) {
                     edtMovimientoDescripcion.requestFocus();
                     edtMovimientoDescripcion.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
@@ -342,6 +344,8 @@ public class MovimientoActivity extends AppCompatActivity {
                     }
                     ArrayAdapter<String> adapterSpinnerProductos = new ArrayAdapter<String>(MovimientoActivity.this, android.R.layout.simple_spinner_item, listaProductos);
                     spinnerProducto.setAdapter(adapterSpinnerProductos);
+                } else  {
+                    Toast.makeText(MovimientoActivity.this, "getProductos: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -370,6 +374,8 @@ public class MovimientoActivity extends AppCompatActivity {
                     }
                     ArrayAdapter<String> adapterSpinnerAlmacenamientos = new ArrayAdapter<String>(MovimientoActivity.this, android.R.layout.simple_spinner_item, listaAlmacenamientos);
                     spinnerAlmacenamiento.setAdapter(adapterSpinnerAlmacenamientos);
+                } else  {
+                    Toast.makeText(MovimientoActivity.this, "getAlmacenamientos: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -404,6 +410,7 @@ public class MovimientoActivity extends AppCompatActivity {
         } catch (ParseException e) {
             Toast.makeText(MovimientoActivity.this, "*** No se pudo parsear fecha", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+            return false;
         }
 
         return true;
@@ -424,6 +431,7 @@ public class MovimientoActivity extends AppCompatActivity {
         } catch (ParseException e) {
             Toast.makeText(MovimientoActivity.this, "*** No se pudo parsear fecha", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+            return false;
         }
         return true;
     }
@@ -493,6 +501,8 @@ public class MovimientoActivity extends AppCompatActivity {
             public void onResponse(Call<Movimiento> call, Response<Movimiento> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(MovimientoActivity.this, "Movimiento creado ok!", Toast.LENGTH_SHORT).show();
+                } else  {
+                    Toast.makeText(MovimientoActivity.this, "No fue posible agregar el Movimiento. Verifique los datos ingresados.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -511,6 +521,8 @@ public class MovimientoActivity extends AppCompatActivity {
             public void onResponse(Call<Movimiento> call, Response<Movimiento> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(MovimientoActivity.this, "Movimiento modificado ok!", Toast.LENGTH_SHORT).show();
+                } else  {
+                    Toast.makeText(MovimientoActivity.this, "No fue posible modificar el Movimiento. Verifique los datos ingresados.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -581,6 +593,8 @@ public class MovimientoActivity extends AppCompatActivity {
             public void onResponse(Call<Movimiento> call, Response<Movimiento> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(MovimientoActivity.this, "Movimiento encontrado ok!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MovimientoActivity.this, "No fue posible obtener el Movimiento por Id.", Toast.LENGTH_SHORT).show();
                 }
             }
 

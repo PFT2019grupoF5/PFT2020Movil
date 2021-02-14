@@ -77,6 +77,8 @@ public class FamiliaMainActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     list = response.body();
                     listViewFamilias.setAdapter(new FamiliaAdapter(FamiliaMainActivity.this, R.layout.list_familia, list));
+                } else  {
+                    Toast.makeText(FamiliaMainActivity.this, "getFamilias: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
             }
 

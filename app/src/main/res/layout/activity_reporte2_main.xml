@@ -1,79 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".Reporte2MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtReporte2FechaDesde"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtReporte2FechaDesde"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Fecha Desde"
+                android:textSize="10dp" />
+
+            <EditText
+                android:id="@+id/edtReporte2FechaDesde"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:inputType="date"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/txtReporte2FechaHasta"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Fecha Hasta"
+                android:textSize="10dp" />
+
+            <EditText
+                android:id="@+id/edtReporte2FechaHasta"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:textSize="10dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fecha Desde"
-            android:textSize="10dp"
-            android:layout_marginTop="5dp"
-            />
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/edtReporte2FechaDesde"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:textSize="10dp"
-            />
+            <Button
+                android:id="@+id/btnGetReporte2List"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="#32CD32"
+                android:text="Get Reporte"
+                android:textColor="#ffffff" />
 
-        <TextView
-            android:id="@+id/txtReporte2FechaHasta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Fecha Hasta"
-            android:textSize="10dp"
-            android:layout_marginTop="5dp"
-            />
-
-        <EditText
-            android:id="@+id/edtReporte2FechaHasta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:textSize="10dp"
-            />
-
-        <Button
-            android:id="@+id/btnGetReporte2List"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Get Reporte"
-            android:background="#32CD32"
-            android:textColor="#ffffff"
-            android:layout_marginBottom="5dp"
-            />
-
-        <Button
-            android:id="@+id/btnVolverRep2Main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Volver"
-            android:background="#2196F3"
-            android:textColor="#ffffff"
-            android:layout_marginBottom="5dp"
-            />
+            <Button
+                android:id="@+id/btnVolverRep2Main"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="#2196F3"
+                android:text="Volver"
+                android:textColor="#ffffff" />
+        </LinearLayout>
 
         <ListView
             android:id="@+id/listViewReporte2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
         </ListView>
 
-
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -259,14 +259,12 @@ public class ProductoActivity extends AppCompatActivity {
                     edtProductoNombre.requestFocus();
                     edtProductoNombre.setError("Es necesario ingresar todo los datos requeridos");
                 } else if (edtProductoNombre.getText().toString().length() > 50) {
-                    System.out.println("edtProductoNombre : " + edtProductoNombre.toString());
                     edtProductoNombre.requestFocus();
                     edtProductoNombre.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
                 } else if (edtProductoLote.getText().toString().trim().equals("")) {
                     edtProductoLote.requestFocus();
                     edtProductoLote.setError("Es necesario ingresar todo los datos requeridos");
                 } else if (edtProductoLote.getText().toString().length() > 10) {
-                    System.out.println("edtProductoLote : " + edtProductoLote.toString());
                     edtProductoLote.requestFocus();
                     edtProductoLote.setError("Los datos ingresados superan el largo permitido. Por favor revise sus datos.");
                 } else if (edtProductoPrecio.getText().toString().trim().equals("")) {
@@ -435,6 +433,8 @@ public class ProductoActivity extends AppCompatActivity {
                     }
                     ArrayAdapter<String> adapterSpinnerUsuarios = new ArrayAdapter<String>(ProductoActivity.this, android.R.layout.simple_spinner_item, listaUsuarios);
                     spinnerUsuario.setAdapter(adapterSpinnerUsuarios);
+                } else  {
+                    Toast.makeText(ProductoActivity.this, "getUsuarios: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -465,6 +465,8 @@ public class ProductoActivity extends AppCompatActivity {
                     }
                     ArrayAdapter<String> adapterSpinnerFamilias = new ArrayAdapter<String>(ProductoActivity.this, android.R.layout.simple_spinner_item, listaFamilias);
                     spinnerFamilia.setAdapter(adapterSpinnerFamilias);
+                } else  {
+                    Toast.makeText(ProductoActivity.this, "getFamilias: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -489,6 +491,7 @@ public class ProductoActivity extends AppCompatActivity {
         } catch (IOException e) {
             Toast.makeText(ProductoActivity.this, "*** No se pudo obtener Producto por Nombre", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+            return false;
         }
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -502,6 +505,7 @@ public class ProductoActivity extends AppCompatActivity {
         } catch (ParseException e) {
             Toast.makeText(ProductoActivity.this, "*** No se pudo parsear fecha", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+            return false;
         }
 
 
@@ -525,6 +529,7 @@ public class ProductoActivity extends AppCompatActivity {
         } catch (ParseException e) {
             Toast.makeText(ProductoActivity.this, "*** No se pudo parsear fecha", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+            return false;
         }
 
         if ( fechaElab.compareTo(fechaVen) > 0 ) {
@@ -556,6 +561,8 @@ public class ProductoActivity extends AppCompatActivity {
             public void onResponse(Call<Producto> call, Response<Producto> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(ProductoActivity.this, "Producto creado ok!", Toast.LENGTH_LONG).show();
+                } else  {
+                    Toast.makeText(ProductoActivity.this, "No fue posible agregar el Producto. Verifique los datos ingresados.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -574,6 +581,8 @@ public class ProductoActivity extends AppCompatActivity {
             public void onResponse(Call<Producto> call, Response<Producto> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(ProductoActivity.this, "Producto modificado ok!", Toast.LENGTH_SHORT).show();
+                } else  {
+                    Toast.makeText(ProductoActivity.this, "No fue posible modificar el Producto. Verifique los datos ingresados.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -612,6 +621,8 @@ public class ProductoActivity extends AppCompatActivity {
             public void onResponse(Call<Producto> call, Response<Producto> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(ProductoActivity.this, "Producto encontrado ok!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ProductoActivity.this, "No fue posible obtener el Producto por Id.", Toast.LENGTH_SHORT).show();
                 }
             }
 

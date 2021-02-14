@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical" >
 
-        <TextView
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
             android:id="@+id/txtBienvenido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             android:background="#000000"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -32,12 +40,13 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#ffffff" />
 
+
         <Button
             android:id="@+id/btnAlmacenamientos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             android:background="#DD003F"
             android:onClick="menuAlmacenamientos"
             android:text="ALMACENAMIENTOS"
@@ -48,7 +57,7 @@
             android:id="@+id/btnCiudades"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="2dp"
             android:background="#FF9800"
             android:onClick="menuCiudades"
             android:text="CIUDADES"
@@ -59,7 +68,7 @@
             android:id="@+id/btnLocalesEnt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="2dp"
             android:background="#FFEB3B"
             android:onClick="menuLocalesEnt"
             android:text="LOCALES"
@@ -70,90 +79,98 @@
             android:id="@+id/btnFamilias"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="2dp"
             android:background="#4CAF50"
             android:onClick="menuFamilias"
             android:text="FAMILIAS"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#ffffff" />
 
-        <Button
-            android:id="@+id/btnMovimientos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:background="#03A9F4"
-            android:onClick="menuMovimientos"
-            android:text="MOVIMIENTOS"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#ffffff" />
+                <Button
+                    android:id="@+id/btnMovimientos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="#03A9F4"
+                    android:onClick="menuMovimientos"
+                    android:text="MOVIMIENTOS"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnPedidos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="2dp"
             android:background="#9C27B0"
             android:onClick="menuPedidos"
             android:text="PEDIDOS"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#ffffff" />
 
-        <Button
-            android:id="@+id/btnProductos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:background="#DD003F"
-            android:onClick="menuProductos"
-            android:text="PRODUCTOS"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#803E3E" />
+                <Button
+                    android:id="@+id/btnProductos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="#DD003F"
+                    android:onClick="menuProductos"
+                    android:text="PRODUCTOS"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnUsuarios"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="2dp"
             android:background="#FF9800"
             android:onClick="menuUsuarios"
             android:text="USUARIOS"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#5E3C3C" />
 
-        <Button
-            android:id="@+id/btnReportev1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:background="#4CAF50"
-            android:onClick="menuReportev1"
-            android:text="Reporte Pedidos v1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#ffffff" />
+                <Button
+                    android:id="@+id/btnReportev1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="#4CAF50"
+                    android:onClick="menuReportev1"
+                    android:text="Reporte Pedidos v1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnReportev2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:background="#009688"
-            android:onClick="menuReportev2"
-            android:text="Reporte Pedidos v2"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#ffffff" />
+                <Button
+                    android:id="@+id/btnReportev2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="#009688"
+                    android:onClick="menuReportev2"
+                    android:text="Reporte Pedidos v2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="2dp"
             android:background="#000000"
             android:onClick="menuLogout"
             android:text="Logout"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="#ffffff" />
 
+            </LinearLayout>
+
+        </ScrollView>
+
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

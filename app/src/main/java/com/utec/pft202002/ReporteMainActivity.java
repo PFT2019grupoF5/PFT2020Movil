@@ -54,11 +54,18 @@ public class ReporteMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reporte_main);
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+/*        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         setTitle("Reporte Pedidos: " + dtf.format(now) );
+*/
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
+
+        Date now = new Date();
+        setTitle("Reporte Pedidos: " + sdf.format(now) );
+
+        sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
         edtReporteFechaDesde = (EditText) findViewById(R.id.edtReporteFechaDesde);
@@ -197,6 +204,8 @@ public class ReporteMainActivity extends AppCompatActivity {
                     list = response.body();
                     listViewReporte.setAdapter(new ReporteAdapter(ReporteMainActivity.this, R.layout.list_reporte, list));
                     //listViewReporte.setAdapter(new ReporteAdapter(ReporteMainActivity.this, R.layout.list_reporte_tabla, list));
+                } else  {
+                    Toast.makeText(ReporteMainActivity.this, "getPedidosEntreFechas: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
             }
 
