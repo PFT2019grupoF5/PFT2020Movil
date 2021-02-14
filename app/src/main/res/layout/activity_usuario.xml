@@ -82,6 +82,8 @@
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
+                        android:hint="Máximo 50 caractares"
+                        android:textSize="10dp"
                         />
                   </LinearLayout>
 
@@ -114,6 +116,8 @@
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
+                        android:hint="Máximo 50 caractares"
+                        android:textSize="10dp"
                         />
                 </LinearLayout>
 
@@ -145,6 +149,8 @@
                         android:id="@+id/edtUsuarioNomAcceso"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
+                        android:hint="Máximo 50 caractares"
+                        android:textSize="10dp"
                         />
                 </LinearLayout>
 
@@ -176,6 +182,8 @@
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
+                        android:hint="Máximo 250 caractares"
+                        android:textSize="10dp"
                         />
                  </LinearLayout>
 
@@ -208,6 +216,8 @@
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
+                        android:hint="Máximo 50 caractares"
+                        android:textSize="10dp"
                         />
                  </LinearLayout>
 

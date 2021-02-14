@@ -81,7 +81,9 @@
                     <EditText
                         android:id="@+id/edtAlmacenamientoNombre"
                         android:layout_width="250dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:hint="Maximo 250 caracteres."
+                        android:textSize="10dp"/>
 
                 </LinearLayout>
 
@@ -114,7 +116,9 @@
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789."
-                        android:inputType="numberDecimal" />
+                        android:inputType="numberDecimal"
+                        android:hint="Sólo numero positivos."
+                        android:textSize="10dp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -146,7 +150,9 @@
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789."
-                        android:inputType="numberDecimal" />
+                        android:inputType="numberDecimal"
+                        android:hint="Sólo numero positivos."
+                        android:textSize="10dp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -162,7 +168,8 @@
                         android:text="*"
                         android:textColor="@android:color/holo_red_light"
                         android:textSize="25dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        />
 
                     <TextView
                         android:id="@+id/txtAlmacenamientoCapPeso"
@@ -178,7 +185,9 @@
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789."
-                        android:inputType="numberDecimal" />
+                        android:inputType="numberDecimal"
+                        android:hint="Sólo numero positivos."
+                        android:textSize="10dp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -209,7 +218,9 @@
                         android:id="@+id/edtAlmacenamientoVolumen"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:inputType="number" />
+                        android:inputType="number"
+                        android:hint="Sólo numero positivos."
+                        android:textSize="10dp"/>
                 </LinearLayout>
 
                 <LinearLayout
