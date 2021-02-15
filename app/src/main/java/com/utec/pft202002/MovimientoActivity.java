@@ -179,7 +179,7 @@ public class MovimientoActivity extends AppCompatActivity {
         if(movimientoId != null && movimientoId.trim().length() > 0 ){
             edtMovimientoId.setFocusable(false);
             //Por requerimiento RF007 no se permite modificar Movimientos de tipo Perdida
-            if (movimientoTipoMov==tipoMovimiento.valueOf("P").toString()) {
+            if (movimientoTipoMov.equals(tipoMovimiento.valueOf("P").toString())) {
                 edtMovimientoFecha.setFocusable(false);
                 edtMovimientoCantidad.setFocusable(false);
                 edtMovimientoDescripcion.setFocusable(false);
@@ -193,6 +193,9 @@ public class MovimientoActivity extends AppCompatActivity {
         } else {
             txtMovimientoId.setVisibility(View.INVISIBLE);
             edtMovimientoId.setVisibility(View.INVISIBLE);
+            edtMovimientoTipoMov.setVisibility(View.INVISIBLE);
+            edtMovimientoProductoId.setVisibility(View.INVISIBLE);
+            edtMovimientoAlmacenamientoId.setVisibility(View.INVISIBLE);
             btnDel.setVisibility(View.INVISIBLE);
         }
 
@@ -419,6 +422,7 @@ public class MovimientoActivity extends AppCompatActivity {
     public boolean validaUpdateMovimiento(Movimiento movimiento) {
         //Por requerimiento RF007 no se permite modificar Movimientos de tipo Perdida
         if (movimiento.getTipoMov() == tipoMovimiento.valueOf("P")) {
+            Toast.makeText(MovimientoActivity.this, "*** No se permite Modificar Movimiento de tipo Perdida", Toast.LENGTH_SHORT).show();
             return false;
         }
 

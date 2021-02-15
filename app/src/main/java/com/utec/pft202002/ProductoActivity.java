@@ -242,9 +242,16 @@ public class ProductoActivity extends AppCompatActivity {
             // No se permitira cambiar el Codigo o la Descripcion
             edtProductoId.setFocusable(false);
             edtProductoNombre.setFocusable(false);
+            edtProductoSegmentac.setFocusable(false);
+            edtProductoUsuarioId.setFocusable(false);
+            edtProductoFamiliaId.setFocusable(false);
+
         } else {
             txtProductoId.setVisibility(View.INVISIBLE);
             edtProductoId.setVisibility(View.INVISIBLE);
+            edtProductoSegmentac.setVisibility(View.INVISIBLE);
+            edtProductoUsuarioId.setVisibility(View.INVISIBLE);
+            edtProductoFamiliaId.setVisibility(View.INVISIBLE);
             btnDel.setVisibility(View.INVISIBLE);
         }
 

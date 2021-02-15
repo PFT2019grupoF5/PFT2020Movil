@@ -247,9 +247,11 @@ public class PedidoActivity extends AppCompatActivity {
 
         if(pedidoId != null && pedidoId.trim().length() > 0 ){
             edtPedidoId.setFocusable(false);
+            edtPedidoPedEstado.setFocusable(false);
         } else {
             txtPedidoId.setVisibility(View.INVISIBLE);
             edtPedidoId.setVisibility(View.INVISIBLE);
+            edtPedidoPedEstado.setVisibility(View.INVISIBLE);
             spinnerRenglonesDelPedido.setVisibility(View.INVISIBLE);
             btnDel.setVisibility(View.INVISIBLE);
         }

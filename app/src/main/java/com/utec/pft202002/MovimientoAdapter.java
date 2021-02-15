@@ -52,7 +52,7 @@ public class MovimientoAdapter extends ArrayAdapter<Movimiento> {
         Timestamp tFelab = new Timestamp(Long.parseLong(movimientos.get(pos).getFecha()));
         txtMovimientoFecha.setText(sdf.format(new Date(tFelab.getTime())));
 
-
+        txtMovimientoId.setText(String.format("#ID: %d", movimientos.get(pos).getId()));
         txtMovimientoCantidad.setText(String.format("Cantidad: %d", movimientos.get(pos).getCantidad()));
         txtMovimientoDescripcion.setText(String.format("Descripcion: %s", movimientos.get(pos).getDescripcion()));
         txtMovimientoCosto.setText(String.format("Costo: %f", movimientos.get(pos).getCosto()));

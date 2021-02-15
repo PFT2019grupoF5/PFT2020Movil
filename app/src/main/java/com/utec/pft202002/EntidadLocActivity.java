@@ -95,10 +95,13 @@ public class EntidadLocActivity extends AppCompatActivity {
         obtenerListasParaSpinnerCiudades();
 
         if(entidadLocId != null && entidadLocId.trim().length() > 0 ){
+            edtEntidadLocTipoLoc.setFocusable(false);
             edtEntidadLocId.setFocusable(false);
+            edtEntidadLocCiudadId.setFocusable(false);
         } else {
             txtEntidadLocId.setVisibility(View.INVISIBLE);
             edtEntidadLocId.setVisibility(View.INVISIBLE);
+            edtEntidadLocTipoLoc.setVisibility(View.INVISIBLE);
             edtEntidadLocCiudadId.setVisibility(View.INVISIBLE);
             btnDel.setVisibility(View.INVISIBLE);
         }

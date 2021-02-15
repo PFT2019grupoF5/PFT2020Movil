@@ -96,6 +96,7 @@ public class AlmacenamientoActivity extends AppCompatActivity {
 
         if(almacenamientoId != null && almacenamientoId.trim().length() > 0 ){
             edtAlmacenamientoId.setFocusable(false);
+            edtAlmacenamientoEntidadLocId.setFocusable(false);
         } else {
             txtAlmacenamientoId.setVisibility(View.INVISIBLE);
             edtAlmacenamientoId.setVisibility(View.INVISIBLE);

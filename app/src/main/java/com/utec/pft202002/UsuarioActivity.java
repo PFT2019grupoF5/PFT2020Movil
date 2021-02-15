@@ -86,9 +86,11 @@ public class UsuarioActivity extends AppCompatActivity {
 
         if(usuarioId != null && usuarioId.trim().length() > 0 ){
             edtUsuarioId.setFocusable(false);
+            edtUsuarioTipoPerfil.setFocusable(false);
         } else {
             txtUsuarioId.setVisibility(View.INVISIBLE);
             edtUsuarioId.setVisibility(View.INVISIBLE);
+            edtUsuarioTipoPerfil.setVisibility(View.INVISIBLE);
             btnDel.setVisibility(View.INVISIBLE);
         }
 
