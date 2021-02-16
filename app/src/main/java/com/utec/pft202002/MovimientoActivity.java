@@ -178,15 +178,17 @@ public class MovimientoActivity extends AppCompatActivity {
 
         if(movimientoId != null && movimientoId.trim().length() > 0 ){
             edtMovimientoId.setFocusable(false);
+
+            edtMovimientoTipoMov.setFocusable(false);
+            edtMovimientoProductoId.setFocusable(false);
+            edtMovimientoAlmacenamientoId.setFocusable(false);
+
             //Por requerimiento RF007 no se permite modificar Movimientos de tipo Perdida
             if (movimientoTipoMov.equals(tipoMovimiento.valueOf("P").toString())) {
                 edtMovimientoFecha.setFocusable(false);
                 edtMovimientoCantidad.setFocusable(false);
                 edtMovimientoDescripcion.setFocusable(false);
                 edtMovimientoCosto.setFocusable(false);
-                edtMovimientoTipoMov.setFocusable(false);
-                edtMovimientoProductoId.setFocusable(false);
-                edtMovimientoAlmacenamientoId.setFocusable(false);
                 btnSave.setVisibility(View.INVISIBLE);
             }
 
