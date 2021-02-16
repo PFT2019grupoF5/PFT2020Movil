@@ -52,12 +52,12 @@ public class ReporteAdapter extends ArrayAdapter<Pedido> {
         txtPedidoId.setText(String.format("#ID: %d", pedidos.get(pos).getId()));
         txtPedidoPedEstado.setText(String.format("PedEstado: %s", pedidos.get(pos).getPedestado()));
         Timestamp tPedFecEstim = new Timestamp(Long.parseLong(pedidos.get(pos).getPedfecestim()));
-        txtPedidoPedFecEstim.setText(sdf.format(new Date(tPedFecEstim.getTime())));
+        txtPedidoPedFecEstim.setText("PedFecEstim: " + sdf.format(new Date(tPedFecEstim.getTime())));
         Timestamp tFecha = new Timestamp(Long.parseLong(pedidos.get(pos).getFecha()));
-        txtPedidoFecha.setText(sdf.format(new Date(tFecha.getTime())));
+        txtPedidoFecha.setText("Fecha: " + sdf.format(new Date(tFecha.getTime())));
         txtPedidoPedRecCodigo.setText(String.format("PedRecCodigo: %d", pedidos.get(pos).getPedreccodigo()));
         Timestamp tPedRecFecha = new Timestamp(Long.parseLong(pedidos.get(pos).getPedrecfecha()));
-        txtPedidoPedRecFecha.setText(sdf.format(new Date(tPedRecFecha.getTime())));
+        txtPedidoPedRecFecha.setText("PedRecFecha: " + sdf.format(new Date(tPedRecFecha.getTime())));
         txtPedidoComentario.setText(String.format("Comentario: %s", pedidos.get(pos).getPedreccomentario()));
         txtPedidoUsuarioId.setText(String.format("Usuario Id: %d", pedidos.get(pos).getUsuario().getId()));
 
