@@ -116,7 +116,6 @@
                         android:id="@+id/edtProductoLote"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:inputType ="number"
                         android:hint="Máximo 10 caracteres."
                         android:maxLength="10"
                         android:textSize="10sp"/>
