@@ -41,8 +41,8 @@
             android:id="@+id/edtUsuarioNomAcceso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ingrese userId. Máximo 50 caracteres."
-            android:maxLength="50" />
+            android:hint="Ingrese userId. Máximo 20 caracteres."
+            android:maxLength="20" />
 
         <TextView
             android:id="@+id/txtUsuarioContrasena"
