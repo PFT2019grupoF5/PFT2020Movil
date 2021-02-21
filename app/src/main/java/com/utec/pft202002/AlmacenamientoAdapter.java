@@ -66,5 +66,5 @@ public class AlmacenamientoAdapter extends ArrayAdapter<Almacenamiento> {
 
         return rowView;
     }
-    
+
 }

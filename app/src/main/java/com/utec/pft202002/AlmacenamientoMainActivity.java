@@ -2,15 +2,21 @@ package com.utec.pft202002;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.utec.pft202002.model.Almacenamiento;
+import com.utec.pft202002.model.RenglonReporte;
 import com.utec.pft202002.remote.APIUtils;
 import com.utec.pft202002.remote.AlmacenamientoService;
 
@@ -28,7 +34,6 @@ public class AlmacenamientoMainActivity extends AppCompatActivity {
     Button btnVolverAlmacMain;
     ListView listViewAlmacenamientos;
 
-
     AlmacenamientoService almacenamientoService;
     List<Almacenamiento> list = new ArrayList<Almacenamiento>();
 
@@ -44,6 +49,7 @@ public class AlmacenamientoMainActivity extends AppCompatActivity {
         btnVolverAlmacMain = (Button) findViewById(R.id.btVolverAlmacMain);
         listViewAlmacenamientos = (ListView) findViewById(R.id.listViewAlmacenamientos);
         almacenamientoService = APIUtils.getAlmacenamientoService();
+
 
         btnGetAlmacenamientosList.setOnClickListener(new View.OnClickListener() {
             @Override
