@@ -80,7 +80,7 @@ public class EntidadLocMainActivity extends AppCompatActivity {
             public void onResponse(Call<List<EntidadLoc>> call, Response<List<EntidadLoc>> response) {
                 if(response.isSuccessful()){
                     list = response.body();
-                    listViewEntidadesLoc.setAdapter(new EntidadLocAdapter(EntidadLocMainActivity.this, R.layout.list_entidadloc, list));
+                    listViewEntidadesLoc.setAdapter(new EntidadLocAdapter(EntidadLocMainActivity.this, R.layout.list_entidadloc2, list));
                 } else  {
                     Toast.makeText(EntidadLocMainActivity.this, "getEntidadesLoc: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }

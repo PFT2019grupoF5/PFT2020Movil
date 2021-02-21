@@ -30,21 +30,23 @@ public class EntidadLocAdapter extends ArrayAdapter<EntidadLoc> {
     @Override
     public View getView(final int pos, View convertView, ViewGroup parent){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.list_entidadloc, parent, false);
+        View rowView = inflater.inflate(R.layout.list_entidadloc2, parent, false);
 
-        TextView txtEntidadLocId = (TextView) rowView.findViewById(R.id.txtEntidadLocId);
-        TextView txtEntidadLocCodigo = (TextView) rowView.findViewById(R.id.txtEntidadLocCodigo);
-        TextView txtEntidadLocNombre = (TextView) rowView.findViewById(R.id.txtEntidadLocNombre);
-        TextView txtEntidadLocDireccion = (TextView) rowView.findViewById(R.id.txtEntidadLocDireccion);
-        TextView txtEntidadLocTipoLoc = (TextView) rowView.findViewById(R.id.txtEntidadLocTipoLoc);
-        TextView txtEntidadLocCiudadId = (TextView) rowView.findViewById(R.id.txtEntidadLocCiudadId);
+        //TextView txtEntidadLocId = (TextView) rowView.findViewById(R.id.txtEntidadLocId);
+        TextView txtEntidadLocCodigo = (TextView) rowView.findViewById(R.id.txtEntidadLocCodigo2);
+        TextView txtEntidadLocNombre = (TextView) rowView.findViewById(R.id.txtEntidadLocNombre2);
+        //TextView txtEntidadLocDireccion = (TextView) rowView.findViewById(R.id.txtEntidadLocDireccion);
+        TextView txtEntidadLocTipoLoc = (TextView) rowView.findViewById(R.id.txtEntidadLocTipoLoc2);
+        //TextView txtEntidadLocCiudadId = (TextView) rowView.findViewById(R.id.txtEntidadLocCiudadId);
+        TextView txtEntidadLocCiudadNombre = (TextView) rowView.findViewById(R.id.txtEntidadLocCiudadNombre2);
 
-        txtEntidadLocId.setText(String.format("#ID: %d", entidadesLoc.get(pos).getId()));
+        //txtEntidadLocId.setText(String.format("#ID: %d", entidadesLoc.get(pos).getId()));
         txtEntidadLocCodigo.setText(String.format("Codigo: %d", entidadesLoc.get(pos).getCodigo()));
         txtEntidadLocNombre.setText(String.format("Nombre: %s", entidadesLoc.get(pos).getNombre()));
-        txtEntidadLocDireccion.setText(String.format("Direccion: %s", entidadesLoc.get(pos).getDireccion()));
+        //txtEntidadLocDireccion.setText(String.format("Direccion: %s", entidadesLoc.get(pos).getDireccion()));
         txtEntidadLocTipoLoc.setText(String.format("TipoLoc: %s", entidadesLoc.get(pos).getTipoLoc()));
-        txtEntidadLocCiudadId.setText(String.format("CiudadId: %d", entidadesLoc.get(pos).getCiudad().getId()));
+        //txtEntidadLocCiudadId.setText(String.format("CiudadId: %d", entidadesLoc.get(pos).getCiudad().getId()));
+        txtEntidadLocCiudadNombre.setText(String.format("CiudadId: %d", entidadesLoc.get(pos).getCiudad().getNombre()));
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
