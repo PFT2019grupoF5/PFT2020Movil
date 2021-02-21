@@ -41,12 +41,12 @@ public class EntidadLocAdapter extends ArrayAdapter<EntidadLoc> {
         TextView txtEntidadLocCiudadNombre = (TextView) rowView.findViewById(R.id.txtEntidadLocCiudadNombre2);
 
         //txtEntidadLocId.setText(String.format("#ID: %d", entidadesLoc.get(pos).getId()));
-        txtEntidadLocCodigo.setText(String.format("Codigo: %d", entidadesLoc.get(pos).getCodigo()));
-        txtEntidadLocNombre.setText(String.format("Nombre: %s", entidadesLoc.get(pos).getNombre()));
+        txtEntidadLocCodigo.setText(String.format("Cod: %d", entidadesLoc.get(pos).getCodigo()));
+        txtEntidadLocNombre.setText(String.format("%s", entidadesLoc.get(pos).getNombre()));
         //txtEntidadLocDireccion.setText(String.format("Direccion: %s", entidadesLoc.get(pos).getDireccion()));
-        txtEntidadLocTipoLoc.setText(String.format("TipoLoc: %s", entidadesLoc.get(pos).getTipoLoc()));
+        txtEntidadLocTipoLoc.setText(String.format("%s", entidadesLoc.get(pos).getTipoLoc()));
         //txtEntidadLocCiudadId.setText(String.format("CiudadId: %d", entidadesLoc.get(pos).getCiudad().getId()));
-        txtEntidadLocCiudadNombre.setText(String.format("CiudadId: %d", entidadesLoc.get(pos).getCiudad().getNombre()));
+        txtEntidadLocCiudadNombre.setText(String.format("C: %s", entidadesLoc.get(pos).getCiudad().getNombre()));
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
