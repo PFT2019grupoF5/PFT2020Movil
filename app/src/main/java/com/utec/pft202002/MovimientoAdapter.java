@@ -34,16 +34,18 @@ public class MovimientoAdapter extends ArrayAdapter<Movimiento> {
     @Override
     public View getView(final int pos, View convertView, ViewGroup parent){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.list_movimiento, parent, false);
+        View rowView = inflater.inflate(R.layout.list_movimiento2, parent, false);
 
-        TextView txtMovimientoId = (TextView) rowView.findViewById(R.id.txtMovimientoId);
-        TextView txtMovimientoFecha = (TextView) rowView.findViewById(R.id.txtMovimientoFecha);
-        TextView txtMovimientoCantidad = (TextView) rowView.findViewById(R.id.txtMovimientoCantidad);
-        TextView txtMovimientoDescripcion = (TextView) rowView.findViewById(R.id.txtMovimientoDescripcion);
-        TextView txtMovimientoCosto = (TextView) rowView.findViewById(R.id.txtMovimientoCosto);
-        TextView txtMovimientoTipoMov = (TextView) rowView.findViewById(R.id.txtMovimientoTipoMov);
-        TextView txtMovimientoProductoId = (TextView) rowView.findViewById(R.id.txtMovimientoProductoId);
-        TextView txtMovimientoAlmacenamientoId = (TextView) rowView.findViewById(R.id.txtMovimientoAlmacenamientoId);
+//        TextView txtMovimientoId = (TextView) rowView.findViewById(R.id.txtMovimientoId2);
+        TextView txtMovimientoFecha = (TextView) rowView.findViewById(R.id.txtMovimientoFecha2);
+//        TextView txtMovimientoCantidad = (TextView) rowView.findViewById(R.id.txtMovimientoCantidad);
+        TextView txtMovimientoDescripcion = (TextView) rowView.findViewById(R.id.txtMovimientoDescripcion2);
+//        TextView txtMovimientoCosto = (TextView) rowView.findViewById(R.id.txtMovimientoCosto);
+        TextView txtMovimientoTipoMov = (TextView) rowView.findViewById(R.id.txtMovimientoTipoMov2);
+//        TextView txtMovimientoProductoId = (TextView) rowView.findViewById(R.id.txtMovimientoProductoId);
+//        TextView txtMovimientoAlmacenamientoId = (TextView) rowView.findViewById(R.id.txtMovimientoAlmacenamientoId);
+        TextView txtMovimientoProductoNombre = (TextView) rowView.findViewById(R.id.txtMovimientoProductoNombre2);
+        TextView txtMovimientoAlmacenamientoNombre = (TextView) rowView.findViewById(R.id.txtMovimientoAlmacenamientoNombre2);
 
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -52,13 +54,15 @@ public class MovimientoAdapter extends ArrayAdapter<Movimiento> {
         Timestamp tFelab = new Timestamp(Long.parseLong(movimientos.get(pos).getFecha()));
         txtMovimientoFecha.setText(sdf.format(new Date(tFelab.getTime())));
 
-        txtMovimientoId.setText(String.format("#ID: %d", movimientos.get(pos).getId()));
-        txtMovimientoCantidad.setText(String.format("Cantidad: %d", movimientos.get(pos).getCantidad()));
-        txtMovimientoDescripcion.setText(String.format("Descripcion: %s", movimientos.get(pos).getDescripcion()));
-        txtMovimientoCosto.setText(String.format("Costo: %f", movimientos.get(pos).getCosto()));
-        txtMovimientoTipoMov.setText(String.format("TipoMov: %s", movimientos.get(pos).getTipoMov()));
-        txtMovimientoProductoId.setText(String.format("Producto Id: %d", movimientos.get(pos).getProducto().getId()));
-        txtMovimientoAlmacenamientoId.setText(String.format("Almacen Id: %d", movimientos.get(pos).getAlmacenamiento().getId()));
+//        txtMovimientoId.setText(String.format("#ID: %d", movimientos.get(pos).getId()));
+//        txtMovimientoCantidad.setText(String.format("Cantidad: %d", movimientos.get(pos).getCantidad()));
+        txtMovimientoDescripcion.setText(String.format("%s", movimientos.get(pos).getDescripcion()));
+//        txtMovimientoCosto.setText(String.format("Costo: %f", movimientos.get(pos).getCosto()));
+        txtMovimientoTipoMov.setText(String.format("%s", movimientos.get(pos).getTipoMov()));
+//        txtMovimientoProductoId.setText(String.format("P: ", movimientos.get(pos).getProducto().getId()));
+//        txtMovimientoAlmacenamientoId.setText(String.format("A: ", movimientos.get(pos).getAlmacenamiento().getId()));
+        txtMovimientoProductoNombre.setText(String.format("P: %s", movimientos.get(pos).getProducto().getNombre()));
+        txtMovimientoAlmacenamientoNombre.setText(String.format("A: %s", movimientos.get(pos).getAlmacenamiento().getNombre()));
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override

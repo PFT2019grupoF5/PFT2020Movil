@@ -81,7 +81,7 @@ public class MovimientoMainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Movimiento>> call, Response<List<Movimiento>> response) {
                 if(response.isSuccessful()){
                     list = response.body();
-                    listViewMovimientos.setAdapter(new MovimientoAdapter(MovimientoMainActivity.this, R.layout.list_movimiento, list));
+                    listViewMovimientos.setAdapter(new MovimientoAdapter(MovimientoMainActivity.this, R.layout.list_movimiento2, list));
                 } else  {
                     Toast.makeText(MovimientoMainActivity.this, "getMovimientos: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
