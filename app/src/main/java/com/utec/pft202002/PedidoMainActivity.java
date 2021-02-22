@@ -82,7 +82,7 @@ public class PedidoMainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Pedido>> call, Response<List<Pedido>> response) {
                 if(response.isSuccessful()){
                     list = response.body();
-                    listViewPedidos.setAdapter(new PedidoAdapter(PedidoMainActivity.this, R.layout.list_pedido, list));
+                    listViewPedidos.setAdapter(new PedidoAdapter(PedidoMainActivity.this, R.layout.list_pedido2, list));
                 } else  {
                     Toast.makeText(PedidoMainActivity.this, "getPedidos: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
