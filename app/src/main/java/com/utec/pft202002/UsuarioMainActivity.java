@@ -79,7 +79,7 @@ public class UsuarioMainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
                 if(response.isSuccessful()){
                     list = response.body();
-                    listViewUsuarios.setAdapter(new UsuarioAdapter(UsuarioMainActivity.this, R.layout.list_usuario, list));
+                    listViewUsuarios.setAdapter(new UsuarioAdapter(UsuarioMainActivity.this, R.layout.list_usuario2, list));
                 }
             }
 

@@ -30,23 +30,23 @@ public class UsuarioAdapter extends ArrayAdapter<Usuario> {
     @Override
     public View getView(final int pos, View convertView, ViewGroup parent){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.list_usuario, parent, false);
+        View rowView = inflater.inflate(R.layout.list_usuario2, parent, false);
 
-        TextView txtUsuarioId = (TextView) rowView.findViewById(R.id.txtUsuarioId);
-        TextView txtUsuarioNombre = (TextView) rowView.findViewById(R.id.txtUsuarioNombre);
-        TextView txtUsuarioApellido = (TextView) rowView.findViewById(R.id.txtUsuarioApellido);
-        TextView txtUsuarioNomAcceso = (TextView) rowView.findViewById(R.id.txtUsuarioNomAcceso);
-        TextView txtUsuarioContrasena = (TextView) rowView.findViewById(R.id.txtUsuarioContrasena);
-        TextView txtUsuarioCorreo = (TextView) rowView.findViewById(R.id.txtUsuarioCorreo);
-        TextView txtUsuarioTipoPerfil = (TextView) rowView.findViewById(R.id.txtUsuarioTipoPerfil);
+        TextView txtUsuarioId = (TextView) rowView.findViewById(R.id.txtUsuarioId2);
+//        TextView txtUsuarioNombre = (TextView) rowView.findViewById(R.id.txtUsuarioNombre);
+//        TextView txtUsuarioApellido = (TextView) rowView.findViewById(R.id.txtUsuarioApellido);
+        TextView txtUsuarioNomAcceso = (TextView) rowView.findViewById(R.id.txtUsuarioNomAcceso2);
+//        TextView txtUsuarioContrasena = (TextView) rowView.findViewById(R.id.txtUsuarioContrasena);
+//        TextView txtUsuarioCorreo = (TextView) rowView.findViewById(R.id.txtUsuarioCorreo);
+        TextView txtUsuarioTipoPerfil = (TextView) rowView.findViewById(R.id.txtUsuarioTipoPerfil2);
 
         txtUsuarioId.setText(String.format("#ID: %d", usuarios.get(pos).getId()));
-        txtUsuarioNombre.setText(String.format("Nombre: %s", usuarios.get(pos).getNombre()));
-        txtUsuarioApellido.setText(String.format("Apellido: %s", usuarios.get(pos).getApellido()));
-        txtUsuarioNomAcceso.setText(String.format("NomAcceso: %s", usuarios.get(pos).getNomAcceso()));
-        txtUsuarioContrasena.setText(String.format("Contrasena: %s", usuarios.get(pos).getContrasena()));
-        txtUsuarioCorreo.setText(String.format("Correo: %s", usuarios.get(pos).getCorreo()));
-        txtUsuarioTipoPerfil.setText(String.format("TipoPerfilId: %s", usuarios.get(pos).getTipoPerfil()));
+//        txtUsuarioNombre.setText(String.format("Nombre: %s", usuarios.get(pos).getNombre()));
+//        txtUsuarioApellido.setText(String.format("Apellido: %s", usuarios.get(pos).getApellido()));
+        txtUsuarioNomAcceso.setText(String.format("%s", usuarios.get(pos).getNomAcceso()));
+//        txtUsuarioContrasena.setText(String.format("Contrasena: %s", usuarios.get(pos).getContrasena()));
+//        txtUsuarioCorreo.setText(String.format("Correo: %s", usuarios.get(pos).getCorreo()));
+        txtUsuarioTipoPerfil.setText(String.format("%s", usuarios.get(pos).getTipoPerfil()));
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override

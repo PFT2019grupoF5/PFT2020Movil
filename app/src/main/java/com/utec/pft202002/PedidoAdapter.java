@@ -35,31 +35,31 @@ public class PedidoAdapter extends ArrayAdapter<Pedido> {
     @Override
     public View getView(final int pos, View convertView, ViewGroup parent){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.list_pedido, parent, false);
+        View rowView = inflater.inflate(R.layout.list_pedido2, parent, false);
 
-        TextView txtPedidoId = (TextView) rowView.findViewById(R.id.txtPedidoId);
-        TextView txtPedidoPedEstado = (TextView) rowView.findViewById(R.id.txtPedidoPedEstado);
-        TextView txtPedidoPedFecEstim = (TextView) rowView.findViewById(R.id.txtPedidoPedFecEstim);
-        TextView txtPedidoFecha = (TextView) rowView.findViewById(R.id.txtPedidoFecha);
-        TextView txtPedidoPedRecCodigo = (TextView) rowView.findViewById(R.id.txtPedidoPedRecCodigo);
-        TextView txtPedidoPedRecFecha = (TextView) rowView.findViewById(R.id.txtPedidoPedRecFecha);
-        TextView txtPedidoComentario = (TextView) rowView.findViewById(R.id.txtPedidoRecComentario);
-        TextView txtPedidoUsuarioId = (TextView) rowView.findViewById(R.id.txtPedidoUsuarioId);
+        TextView txtPedidoId = (TextView) rowView.findViewById(R.id.txtPedidoId2);
+        TextView txtPedidoPedEstado = (TextView) rowView.findViewById(R.id.txtPedidoPedEstado2);
+//        TextView txtPedidoPedFecEstim = (TextView) rowView.findViewById(R.id.txtPedidoPedFecEstim);
+//        TextView txtPedidoFecha = (TextView) rowView.findViewById(R.id.txtPedidoFecha);
+        TextView txtPedidoPedRecCodigo = (TextView) rowView.findViewById(R.id.txtPedidoPedRecCodigo2);
+//        TextView txtPedidoPedRecFecha = (TextView) rowView.findViewById(R.id.txtPedidoPedRecFecha);
+        TextView txtPedidoComentario = (TextView) rowView.findViewById(R.id.txtPedidoRecComentario2);
+//        TextView txtPedidoUsuarioId = (TextView) rowView.findViewById(R.id.txtPedidoUsuarioId);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
         txtPedidoId.setText(String.format("#ID: %d", pedidos.get(pos).getId()));
-        txtPedidoPedEstado.setText(String.format("PedEstado: %s", pedidos.get(pos).getPedestado()));
+        txtPedidoPedEstado.setText(String.format("%s", pedidos.get(pos).getPedestado()));
         Timestamp tPedFecEstim = new Timestamp(Long.parseLong(pedidos.get(pos).getPedfecestim()));
-        txtPedidoPedFecEstim.setText(sdf.format(new Date(tPedFecEstim.getTime())));
+//        txtPedidoPedFecEstim.setText(sdf.format(new Date(tPedFecEstim.getTime())));
         Timestamp tfecha = new Timestamp(Long.parseLong(pedidos.get(pos).getFecha()));
-        txtPedidoFecha.setText(sdf.format(new Date(tfecha.getTime())));
+//        txtPedidoFecha.setText(sdf.format(new Date(tfecha.getTime())));
         Timestamp tPedidoPedRecFecha = new Timestamp(Long.parseLong(pedidos.get(pos).getPedrecfecha()));
-        txtPedidoPedRecFecha.setText(sdf.format(new Date(tPedidoPedRecFecha.getTime())));
-        txtPedidoPedRecCodigo.setText(String.format("PedRecCodigo: %d", pedidos.get(pos).getPedreccodigo()));
-        txtPedidoComentario.setText(String.format("Comentario: %s", pedidos.get(pos).getPedreccomentario()));
-        txtPedidoUsuarioId.setText(String.format("Usuario Id: %d", pedidos.get(pos).getUsuario().getId()));
+//        txtPedidoPedRecFecha.setText(sdf.format(new Date(tPedidoPedRecFecha.getTime())));
+        txtPedidoPedRecCodigo.setText(String.format("%d", pedidos.get(pos).getPedreccodigo()));
+        txtPedidoComentario.setText(String.format("%s", pedidos.get(pos).getPedreccomentario()));
+//        txtPedidoUsuarioId.setText(String.format("Usuario Id: %d", pedidos.get(pos).getUsuario().getId()));
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
