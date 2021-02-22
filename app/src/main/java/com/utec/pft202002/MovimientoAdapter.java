@@ -83,5 +83,5 @@ public class MovimientoAdapter extends ArrayAdapter<Movimiento> {
 
         return rowView;
     }
-    
+
 }

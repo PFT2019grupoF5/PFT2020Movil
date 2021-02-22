@@ -17,17 +17,17 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnAddMovimiento"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="#32CD32"
-            android:text="Agregar"
-            android:textColor="#ffffff" />
+            <Button
+                android:id="@+id/btnAddMovimiento"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="#32CD32"
+                android:text="Agregar"
+                android:textColor="#ffffff" />
 
             <Button
-            android:id="@+id/btnGetMovimientosList"
+                android:id="@+id/btnGetMovimientosList"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -36,7 +36,7 @@
                 android:textColor="#ffffff" />
 
             <Button
-            android:id="@+id/btnVolverMovMain"
+                android:id="@+id/btnVolverMovMain"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
