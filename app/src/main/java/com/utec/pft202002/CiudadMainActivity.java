@@ -74,7 +74,7 @@ public class CiudadMainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Ciudad>> call, Response<List<Ciudad>> response) {
                 if(response.isSuccessful()){
                     list = response.body();
-                    listViewCiudades.setAdapter(new CiudadAdapter(CiudadMainActivity.this, R.layout.list_ciudad, list));
+                    listViewCiudades.setAdapter(new CiudadAdapter(CiudadMainActivity.this, R.layout.list_ciudad2, list));
                 } else  {
                     Toast.makeText(CiudadMainActivity.this, "getCiudades: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }

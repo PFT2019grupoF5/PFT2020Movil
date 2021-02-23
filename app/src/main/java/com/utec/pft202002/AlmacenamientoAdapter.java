@@ -30,23 +30,23 @@ public class AlmacenamientoAdapter extends ArrayAdapter<Almacenamiento> {
     @Override
     public View getView(final int pos, View convertView, ViewGroup parent){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.list_almacenamiento, parent, false);
+        View rowView = inflater.inflate(R.layout.list_almacenamiento2, parent, false);
 
         TextView txtAlmacenamientoId = (TextView) rowView.findViewById(R.id.txtAlmacenamientoId);
         TextView txtAlmacenamientoNombre = (TextView) rowView.findViewById(R.id.txtAlmacenamientoNombre);
-        TextView txtAlmacenamientoCostoOp = (TextView) rowView.findViewById(R.id.txtAlmacenamientoCostoOp);
-        TextView txtAlmacenamientoCapEstiba = (TextView) rowView.findViewById(R.id.txtAlmacenamientoCapEstiba);
-        TextView txtAlmacenamientoCapPeso = (TextView) rowView.findViewById(R.id.txtAlmacenamientoCapPeso);
-        TextView txtAlmacenamientoVolumen = (TextView) rowView.findViewById(R.id.txtAlmacenamientoVolumen);
-        TextView txtAlmacenamientoEntidadLocId = (TextView) rowView.findViewById(R.id.txtAlmacenamientoEntidadLocId);
+//        TextView txtAlmacenamientoCostoOp = (TextView) rowView.findViewById(R.id.txtAlmacenamientoCostoOp);
+//        TextView txtAlmacenamientoCapEstiba = (TextView) rowView.findViewById(R.id.txtAlmacenamientoCapEstiba);
+//        TextView txtAlmacenamientoCapPeso = (TextView) rowView.findViewById(R.id.txtAlmacenamientoCapPeso);
+//        TextView txtAlmacenamientoVolumen = (TextView) rowView.findViewById(R.id.txtAlmacenamientoVolumen);
+//        TextView txtAlmacenamientoEntidadLocId = (TextView) rowView.findViewById(R.id.txtAlmacenamientoEntidadLocId);
 
         txtAlmacenamientoId.setText(String.format("#ID: %d", almacenamientos.get(pos).getId()));
-        txtAlmacenamientoNombre.setText(String.format("Nombre: %s", almacenamientos.get(pos).getNombre()));
-        txtAlmacenamientoCostoOp.setText(String.format("Costo Op: %f", almacenamientos.get(pos).getCostoop()));
-        txtAlmacenamientoCapEstiba.setText(String.format("Cap Estiba: %f", almacenamientos.get(pos).getCapestiba()));
-        txtAlmacenamientoCapPeso.setText(String.format("Cap Peso: %f", almacenamientos.get(pos).getCappeso()));
-        txtAlmacenamientoVolumen.setText(String.format("Volumen: %d", almacenamientos.get(pos).getVolumen()));
-        txtAlmacenamientoEntidadLocId.setText(String.format("Ent Loc: %d", almacenamientos.get(pos).getEntidadLoc().getId()));
+        txtAlmacenamientoNombre.setText(String.format("%s", almacenamientos.get(pos).getNombre()));
+//        txtAlmacenamientoCostoOp.setText(String.format("Costo Op: %f", almacenamientos.get(pos).getCostoop()));
+//        txtAlmacenamientoCapEstiba.setText(String.format("Cap Estiba: %f", almacenamientos.get(pos).getCapestiba()));
+//        txtAlmacenamientoCapPeso.setText(String.format("Cap Peso: %f", almacenamientos.get(pos).getCappeso()));
+//        txtAlmacenamientoVolumen.setText(String.format("Volumen: %d", almacenamientos.get(pos).getVolumen()));
+//        txtAlmacenamientoEntidadLocId.setText(String.format("Ent Loc: %d", almacenamientos.get(pos).getEntidadLoc().getId()));
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override

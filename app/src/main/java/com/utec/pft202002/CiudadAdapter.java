@@ -30,13 +30,13 @@ public class CiudadAdapter extends ArrayAdapter<Ciudad> {
     @Override
     public View getView(final int pos, View convertView, ViewGroup parent){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.list_ciudad, parent, false);
+        View rowView = inflater.inflate(R.layout.list_ciudad2, parent, false);
 
-        TextView txtCiudadId = (TextView) rowView.findViewById(R.id.txtCiudadId);
-        TextView txtCiudadNombre = (TextView) rowView.findViewById(R.id.txtCiudadNombre);
+        TextView txtCiudadId = (TextView) rowView.findViewById(R.id.txtCiudadId2);
+        TextView txtCiudadNombre = (TextView) rowView.findViewById(R.id.txtCiudadNombre2);
 
         txtCiudadId.setText(String.format("#ID: %d", ciudades.get(pos).getId()));
-        txtCiudadNombre.setText(String.format("CIUDAD NOMBRE: %s", ciudades.get(pos).getNombre()));
+        txtCiudadNombre.setText(String.format("%s", ciudades.get(pos).getNombre()));
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override

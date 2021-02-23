@@ -88,7 +88,7 @@ public class AlmacenamientoMainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Almacenamiento>> call, Response<List<Almacenamiento>> response) {
                 if(response.isSuccessful()){
                     list = response.body();
-                    listViewAlmacenamientos.setAdapter(new AlmacenamientoAdapter(AlmacenamientoMainActivity.this, R.layout.list_almacenamiento, list));
+                    listViewAlmacenamientos.setAdapter(new AlmacenamientoAdapter(AlmacenamientoMainActivity.this, R.layout.list_almacenamiento2, list));
                 } else  {
                     Toast.makeText(AlmacenamientoMainActivity.this, "getAlmacenamientos: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
