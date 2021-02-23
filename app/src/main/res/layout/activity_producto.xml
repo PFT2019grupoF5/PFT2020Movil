@@ -519,7 +519,7 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:background="#32CD32"
-                        android:text="Save"
+                        android:text="Guardar"
                         android:textColor="#ffffff" />
 
                     <Button
@@ -528,7 +528,7 @@
                         android:layout_height="40dp"
                         android:layout_weight="1"
                         android:background="#FF0000"
-                        android:text="Delete"
+                        android:text="Borrar"
                         android:textColor="#ffffff" />
 
                     <Button

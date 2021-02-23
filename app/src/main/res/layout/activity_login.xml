@@ -26,7 +26,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:layout_gravity="center_horizontal"
+            android:text="Por favor ingrese sus credenciales"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -66,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
             android:background="#E91E63"
-            android:text="Login"
+            android:text="Ingresar"
             android:textColor="#ffffff" />
 
     </LinearLayout>
