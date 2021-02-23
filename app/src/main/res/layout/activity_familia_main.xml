@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".FamiliaMainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnAddFamilia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add Familia"
-            android:background="#BA55D3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="#32CD32"
+            android:text="Agregar"
             android:textColor="#ffffff"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             />
 
         <Button
             android:id="@+id/btnGetFamiliasList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Get Familias"
-            android:background="#32CD32"
-            android:textColor="#ffffff"
-            android:layout_marginBottom="5dp"
-            />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="#FF0000"
+            android:text="Listar"
+            android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/btnVolverFamiMain"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Volver"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
             android:background="#2196F3"
-            android:textColor="#ffffff"
-            android:layout_marginBottom="5dp"
-            />
+            android:text="Volver"
+            android:textColor="#ffffff" />
+    </LinearLayout>
 
         <ListView
             android:id="@+id/listViewFamilias"
@@ -53,4 +55,4 @@
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

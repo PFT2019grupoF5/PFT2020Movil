@@ -30,17 +30,20 @@ public class FamiliaAdapter extends ArrayAdapter<Familia> {
     @Override
     public View getView(final int pos, View convertView, ViewGroup parent){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.list_familia, parent, false);
+        View rowView = inflater.inflate(R.layout.list_familia2, parent, false);
 
-        TextView txtFamiliaId = (TextView) rowView.findViewById(R.id.txtFamiliaId);
-        TextView txtFamiliaNombre = (TextView) rowView.findViewById(R.id.txtFamiliaNombre);
-        TextView txtFamiliaDescrip = (TextView) rowView.findViewById(R.id.txtFamiliaDescrip);
-        TextView txtFamiliaIncompat = (TextView) rowView.findViewById(R.id.txtFamiliaIncompat);
+        //TextView txtFamiliaId = (TextView) rowView.findViewById(R.id.txtFamiliaId);
+        TextView txtFamiliaId = (TextView) rowView.findViewById(R.id.txtFamiliaId2);
+        //TextView txtFamiliaNombre = (TextView) rowView.findViewById(R.id.txtFamiliaNombre);
+        TextView txtFamiliaNombre = (TextView) rowView.findViewById(R.id.txtFamiliaNombre2);
+        //TextView txtFamiliaDescrip = (TextView) rowView.findViewById(R.id.txtFamiliaDescrip);
+        //TextView txtFamiliaIncompat = (TextView) rowView.findViewById(R.id.txtFamiliaIncompat);
+
 
         txtFamiliaId.setText(String.format("#ID: %d", familias.get(pos).getId()));
-        txtFamiliaNombre.setText(String.format("Nombre: %s", familias.get(pos).getNombre()));
-        txtFamiliaDescrip.setText(String.format("Descrip: %s", familias.get(pos).getDescrip()));
-        txtFamiliaIncompat.setText(String.format("Incompat: %s", familias.get(pos).getIncompat()));
+        txtFamiliaNombre.setText(String.format("%s", familias.get(pos).getNombre()));
+       // txtFamiliaDescrip.setText(String.format(" %s", familias.get(pos).getDescrip()));
+       // txtFamiliaIncompat.setText(String.format(" %s", familias.get(pos).getIncompat()));
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
