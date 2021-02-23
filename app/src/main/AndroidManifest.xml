@@ -16,6 +16,7 @@
         <activity android:name=".AlmacenamientoMainActivity" />
         <activity android:name=".CiudadActivity" />
         <activity android:name=".CiudadMainActivity" />
+        <activity android:name=".CiudadMainActivity3" />
         <activity android:name=".EntidadLocActivity" />
         <activity android:name=".EntidadLocMainActivity" />
         <activity android:name=".FamiliaActivity" />
