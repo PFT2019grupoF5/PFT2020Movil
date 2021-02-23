@@ -76,7 +76,7 @@ public class FamiliaMainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Familia>> call, Response<List<Familia>> response) {
                 if(response.isSuccessful()){
                     list = response.body();
-                    listViewFamilias.setAdapter(new FamiliaAdapter(FamiliaMainActivity.this, R.layout.list_familia, list));
+                    listViewFamilias.setAdapter(new FamiliaAdapter(FamiliaMainActivity.this, R.layout.list_familia2, list));
                 } else  {
                     Toast.makeText(FamiliaMainActivity.this, "getFamilias: Servicio no disponible. Por favor comuniquese con su Administrador.", Toast.LENGTH_SHORT).show();
                 }
