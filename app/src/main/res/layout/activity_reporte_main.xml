@@ -61,7 +61,7 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:background="#32CD32"
-                android:text="Get Reporte"
+                android:text="Obtener Reporte"
                 android:textColor="#ffffff" />
 
             <Button
