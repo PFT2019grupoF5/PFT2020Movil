@@ -89,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         public void menuCiudades (View view){
-//            Intent intent = new Intent(this, CiudadMainActivity.class);
-            Intent intent = new Intent(this, CiudadMainActivityRecyclerView.class);
+            Intent intent = new Intent(this, CiudadMainActivity.class);
+//            Intent intent = new Intent(this, CiudadMainActivityRecyclerView.class);
             startActivity(intent);
         }
         public void menuLocalesEnt (View view){
