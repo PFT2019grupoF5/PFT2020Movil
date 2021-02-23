@@ -141,8 +141,7 @@
                     android:onClick="menuReportev1"
                     android:text="Reporte Pedidos v1"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="#ffffff"
-                    android:textStyle="bold" />
+                    android:textColor="#ffffff"/>
 
                 <Button
                     android:id="@+id/btnReportev2"
@@ -153,8 +152,7 @@
                     android:onClick="menuReportev2"
                     android:text="Reporte Pedidos v2"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="#ffffff"
-                    android:textStyle="bold" />
+                    android:textColor="#ffffff"/>
 
         <Button
             android:id="@+id/btnLogout"
