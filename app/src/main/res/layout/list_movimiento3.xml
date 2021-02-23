@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtMovimientoId"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="ID"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtMovimientoDescripcion"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Descripcion"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtMovimientoTipoMov"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="TipoMov"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtMovimientoFecha"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
+                android:text="Fecha"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtMovimientoCantidad"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Cantidad"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtMovimientoCosto"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Costo"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtMovimientoProductoId"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="ProdID"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtMovimientoAlmacenamientoId"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
+                android:text="Alm.ID"
+                android:textSize="10sp" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

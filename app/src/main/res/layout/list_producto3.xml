@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -46,7 +45,7 @@
                 android:id="@+id/txtProductoPrecio"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:gravity="right|center_vertical"
                 android:text="Precio"
                 android:textSize="10sp" />
         </LinearLayout>
@@ -84,7 +83,7 @@
                 android:id="@+id/txtProductoVolumen"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:gravity="right|center_vertical"
                 android:text="Volumen"
                 android:textSize="10sp" />
         </LinearLayout>
@@ -128,9 +127,9 @@
 
             <TextView
                 android:id="@+id/txtProductoUsuarioId"
-                android:layout_width="60dp"
+                android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:gravity="right|center_vertical"
                 android:text="UserID"
                 android:textSize="10sp" />
 
@@ -138,7 +137,7 @@
                 android:id="@+id/txtProductoFamiliaId"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:gravity="right|center_vertical"
                 android:text="Fam.ID"
                 android:textSize="10sp" />
         </LinearLayout>

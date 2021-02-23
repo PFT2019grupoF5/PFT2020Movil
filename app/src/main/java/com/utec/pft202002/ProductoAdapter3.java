@@ -133,9 +133,9 @@ public class ProductoAdapter3 extends RecyclerView.Adapter<ProductoAdapter3.Prod
 
     public class ProductoAdapterVh extends RecyclerView.ViewHolder {
 
-        TextView txtProductoId, txtProductoNombre, txtProductoLote, txtProductoPrecio, txtProductoFelab;
-        TextView txtProductoFven, txtProductoPeso, txtProductoVolumen, txtProductoEstiba, txtProductoStkMin;
-        TextView txtProductoStkTotal, txtProductoSegmentac, txtProductoUsuarioId, txtProductoFamiliaId;
+        TextView txtProductoId, txtProductoNombre, txtProductoLote, txtProductoPrecio, txtProductoFelab,
+            txtProductoFven, txtProductoPeso, txtProductoVolumen, txtProductoEstiba, txtProductoStkMin,
+            txtProductoStkTotal, txtProductoSegmentac, txtProductoUsuarioId, txtProductoFamiliaId;
 
         public ProductoAdapterVh(@NonNull View itemView) {
             super(itemView);

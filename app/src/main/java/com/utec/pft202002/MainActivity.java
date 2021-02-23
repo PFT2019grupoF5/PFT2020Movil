@@ -102,7 +102,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         public void menuMovimientos (View view){
-            Intent intent = new Intent(this, MovimientoMainActivity.class);
+//            Intent intent = new Intent(this, MovimientoMainActivity.class);
+            Intent intent = new Intent(this, MovimientoMainActivity3.class);
             startActivity(intent);
         }
         public void menuPedidos (View view){

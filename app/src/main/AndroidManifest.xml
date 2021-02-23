@@ -23,6 +23,7 @@
         <activity android:name=".FamiliaMainActivity" />
         <activity android:name=".MovimientoActivity" />
         <activity android:name=".MovimientoMainActivity" />
+        <activity android:name=".MovimientoMainActivity3" />
         <activity android:name=".PedidoActivity" />
         <activity android:name=".PedidoMainActivity" />
         <activity android:name=".ProductoActivity" />

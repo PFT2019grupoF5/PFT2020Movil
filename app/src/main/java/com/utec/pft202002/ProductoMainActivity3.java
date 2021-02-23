@@ -73,6 +73,18 @@ public class ProductoMainActivity3 extends AppCompatActivity implements Producto
             public void onClick(View v) {
                 Intent intent = new Intent(ProductoMainActivity3.this, ProductoActivity.class);
                 intent.putExtra("producto_nombre", "");
+                intent.putExtra("producto_lote", "");
+                intent.putExtra("producto_precio", "");
+                intent.putExtra("producto_felab", "");
+                intent.putExtra("producto_fven", "");
+                intent.putExtra("producto_peso", "");
+                intent.putExtra("producto_volumen", "");
+                intent.putExtra("producto_estiba", "");
+                intent.putExtra("producto_stkmin", "");
+                intent.putExtra("producto_stktotal", "");
+                intent.putExtra("producto_segmentac", "");
+                intent.putExtra("producto_usuarioid", "");
+                intent.putExtra("producto_familiaid", "");
                 startActivity(intent);
             }
         });
