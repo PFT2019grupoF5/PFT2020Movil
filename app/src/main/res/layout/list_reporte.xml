@@ -2,63 +2,95 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txtPedidoId"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="3dp"
-        />
+        android:layout_height="65dp"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <TextView
-        android:id="@+id/txtPedidoPedEstado"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="3dp"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/txtPedidoPedFecEstim"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="3dp"
-        />
+            <TextView
+                android:id="@+id/txtPedidoId"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="ID"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/txtPedidoFecha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="3dp"
-        />
+            <TextView
+                android:id="@+id/txtPedidoRecComentario"
+                android:layout_width="168dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="RecComentario"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/txtPedidoPedRecCodigo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="3dp"
-        />
+            <TextView
+                android:id="@+id/txtPedidoPedRecCodigo"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="PedRecCodigo"
+                android:textSize="10sp" />
 
-    <TextView
-        android:id="@+id/txtPedidoPedRecFecha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="3dp"
-        />
+            <TextView
+                android:id="@+id/txtPedidoPedEstado"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
+                android:text="PedEstado"
+                android:textSize="10sp" />
 
-    <TextView
-        android:id="@+id/txtPedidoRecComentario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="3dp"
-        />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtPedidoUsuarioId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="3dp"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtPedidoPedFecEstim"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="PedFecEstim"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtPedidoFecha"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="PedidoFecha"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtPedidoPedRecFecha"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
+                android:text="PedRecFecha"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtPedidoUsuarioId"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
+                android:text="User ID"
+                android:textSize="10sp" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

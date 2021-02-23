@@ -45,14 +45,14 @@ public class Reporte2Adapter extends ArrayAdapter<RenglonReporte> {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
-        txtReporte2PedidoPedRecCodigo.setText(String.format("PedRecCodigo: %d", renglonesReporte.get(pos).getPedreccodigo()));
+        txtReporte2PedidoPedRecCodigo.setText(String.format("Cod %d", renglonesReporte.get(pos).getPedreccodigo()));
         Timestamp tPedFecEstim = new Timestamp(Long.parseLong(renglonesReporte.get(pos).getPedfecestim()));
-        txtReporte2PedidoPedFecEstim.setText("PedFecEstim: " + sdf.format(new Date(tPedFecEstim.getTime())));
+        txtReporte2PedidoPedFecEstim.setText("F.Est. " + sdf.format(new Date(tPedFecEstim.getTime())));
         Timestamp tFecha = new Timestamp(Long.parseLong(renglonesReporte.get(pos).getFecha()));
-        txtReporte2PedidoFecha.setText("Fecha: " + sdf.format(new Date(tFecha.getTime())));
-        txtReporte2PedidoPedEstado.setText(String.format("PedEstado: %s", renglonesReporte.get(pos).getPedestado()));
-        txtReporte2ProductoID.setText(String.format("Producto ID: %d", renglonesReporte.get(pos).getProducto().getId()));
-        txtReporte2RenCant.setText(String.format("Cantidad: %d", renglonesReporte.get(pos).getRencant()));
+        txtReporte2PedidoFecha.setText("Fecha " + sdf.format(new Date(tFecha.getTime())));
+        txtReporte2PedidoPedEstado.setText(String.format("Estado %s", renglonesReporte.get(pos).getPedestado()));
+        txtReporte2ProductoID.setText(String.format("ProID %d", renglonesReporte.get(pos).getProducto().getId()));
+        txtReporte2RenCant.setText(String.format("Cant %d", renglonesReporte.get(pos).getRencant()));
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override

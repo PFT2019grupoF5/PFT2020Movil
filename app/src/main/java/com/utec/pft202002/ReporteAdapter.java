@@ -35,7 +35,6 @@ public class ReporteAdapter extends ArrayAdapter<Pedido> {
     public View getView(final int pos, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.list_reporte, parent, false);
-        //View rowView = inflater.inflate(R.layout.list_reporte_tabla, parent, false);
 
         TextView txtPedidoId = (TextView) rowView.findViewById(R.id.txtPedidoId);
         TextView txtPedidoPedEstado = (TextView) rowView.findViewById(R.id.txtPedidoPedEstado);
@@ -50,16 +49,16 @@ public class ReporteAdapter extends ArrayAdapter<Pedido> {
         sdf.setTimeZone(TimeZone.getTimeZone("GMT-3"));
 
         txtPedidoId.setText(String.format("#ID: %d", pedidos.get(pos).getId()));
-        txtPedidoPedEstado.setText(String.format("PedEstado: %s", pedidos.get(pos).getPedestado()));
+        txtPedidoPedEstado.setText(String.format("%s", pedidos.get(pos).getPedestado()));
         Timestamp tPedFecEstim = new Timestamp(Long.parseLong(pedidos.get(pos).getPedfecestim()));
-        txtPedidoPedFecEstim.setText("PedFecEstim: " + sdf.format(new Date(tPedFecEstim.getTime())));
+        txtPedidoPedFecEstim.setText("FEst: " + sdf.format(new Date(tPedFecEstim.getTime())));
         Timestamp tFecha = new Timestamp(Long.parseLong(pedidos.get(pos).getFecha()));
-        txtPedidoFecha.setText("Fecha: " + sdf.format(new Date(tFecha.getTime())));
-        txtPedidoPedRecCodigo.setText(String.format("PedRecCodigo: %d", pedidos.get(pos).getPedreccodigo()));
+        txtPedidoFecha.setText("Fec: " + sdf.format(new Date(tFecha.getTime())));
+        txtPedidoPedRecCodigo.setText(String.format("%d", pedidos.get(pos).getPedreccodigo()));
         Timestamp tPedRecFecha = new Timestamp(Long.parseLong(pedidos.get(pos).getPedrecfecha()));
-        txtPedidoPedRecFecha.setText("PedRecFecha: " + sdf.format(new Date(tPedRecFecha.getTime())));
-        txtPedidoComentario.setText(String.format("Comentario: %s", pedidos.get(pos).getPedreccomentario()));
-        txtPedidoUsuarioId.setText(String.format("Usuario Id: %d", pedidos.get(pos).getUsuario().getId()));
+        txtPedidoPedRecFecha.setText("RFec: " + sdf.format(new Date(tPedRecFecha.getTime())));
+        txtPedidoComentario.setText(String.format("%s", pedidos.get(pos).getPedreccomentario()));
+        txtPedidoUsuarioId.setText(String.format("UId: %d", pedidos.get(pos).getUsuario().getId()));
 
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
