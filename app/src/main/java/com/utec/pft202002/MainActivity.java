@@ -110,7 +110,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         public void menuProductos (View view){
-            Intent intent = new Intent(this, ProductoMainActivity.class);
+//            Intent intent = new Intent(this, ProductoMainActivity.class);
+            Intent intent = new Intent(this, ProductoMainActivity3.class);
             startActivity(intent);
         }
         public void menuUsuarios (View view){

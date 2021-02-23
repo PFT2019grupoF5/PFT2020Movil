@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtProductoId"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="ID"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtProductoNombre"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Nombre"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtProductoLote"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Lote"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtProductoPrecio"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Precio"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtProductoFelab"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="F.Elab."
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtProductoFven"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="F.Venc."
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtProductoPeso"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Peso"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtProductoVolumen"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Volumen"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtProductoEstiba"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Estiba"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtProductoStkMin"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Stk.Min."
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtProductoStkTotal"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="StkTotal"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtProductoSegmentac"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Segm."
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtProductoUsuarioId"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="UserID"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtProductoFamiliaId"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Fam.ID"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
