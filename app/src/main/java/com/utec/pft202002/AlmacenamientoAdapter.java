@@ -32,8 +32,8 @@ public class AlmacenamientoAdapter extends ArrayAdapter<Almacenamiento> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.list_almacenamiento2, parent, false);
 
-        TextView txtAlmacenamientoId = (TextView) rowView.findViewById(R.id.txtAlmacenamientoId);
-        TextView txtAlmacenamientoNombre = (TextView) rowView.findViewById(R.id.txtAlmacenamientoNombre);
+        TextView txtAlmacenamientoId = (TextView) rowView.findViewById(R.id.txtAlmacenamientoId2);
+        TextView txtAlmacenamientoNombre = (TextView) rowView.findViewById(R.id.txtAlmacenamientoNombre2);
 //        TextView txtAlmacenamientoCostoOp = (TextView) rowView.findViewById(R.id.txtAlmacenamientoCostoOp);
 //        TextView txtAlmacenamientoCapEstiba = (TextView) rowView.findViewById(R.id.txtAlmacenamientoCapEstiba);
 //        TextView txtAlmacenamientoCapPeso = (TextView) rowView.findViewById(R.id.txtAlmacenamientoCapPeso);
